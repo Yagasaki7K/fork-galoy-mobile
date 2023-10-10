@@ -2,7 +2,7 @@ import {
   AccountDefaultWalletLazyQueryHookResult,
   WalletCurrency,
 } from "@app/graphql/generated"
-import { IntraledgerPaymentDestination } from "@galoymoney/client/dist/parsing-v2"
+import { IntraledgerPaymentDestination } from "@galoymoney/client"
 import { createIntraledgerPaymentDetails } from "../payment-details"
 import {
   CreatePaymentDetailParams,
@@ -11,6 +11,7 @@ import {
   ParseDestinationResult,
   PaymentDestination,
 } from "./index.types"
+import { ZeroBtcMoneyAmount } from "@app/types/amounts"
 
 export type ResolveIntraledgerDestinationParams = {
   parsedIntraledgerDestination: IntraledgerPaymentDestination
@@ -23,7 +24,15 @@ export const resolveIntraledgerDestination = async ({
   accountDefaultWalletQuery,
   myWalletIds,
 }: ResolveIntraledgerDestinationParams): Promise<ParseDestinationResult> => {
-  const { handle } = parsedIntraledgerDestination
+  const { valid, handle } = parsedIntraledgerDestination
+
+  if (!valid) {
+    return {
+      valid: false,
+      invalidReason: InvalidDestinationReason.WrongDomain,
+      invalidPaymentDestination: parsedIntraledgerDestination,
+    }
+  }
 
   const handleWalletId = await getUserWalletId(handle, accountDefaultWalletQuery)
 
@@ -71,10 +80,7 @@ export const createIntraLedgerDestination = (
       recipientWalletId: walletId,
       sendingWalletDescriptor,
       convertMoneyAmount,
-      unitOfAccountAmount: {
-        amount: 0,
-        currency: WalletCurrency.Btc,
-      },
+      unitOfAccountAmount: ZeroBtcMoneyAmount,
     })
   }
 

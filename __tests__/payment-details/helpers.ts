@@ -3,35 +3,29 @@ import {
   ConvertMoneyAmount,
   GetFeeParams,
   PaymentDetail,
-  SendPaymentParams,
+  SendPaymentMutationParams,
 } from "@app/screens/send-bitcoin-screen/payment-details"
+import {
+  ZeroBtcMoneyAmount,
+  toBtcMoneyAmount,
+  toUsdMoneyAmount,
+} from "@app/types/amounts"
 
 export const convertMoneyAmountMock: ConvertMoneyAmount = (amount, currency) => {
   return {
     amount: amount.amount,
     currency,
+    currencyCode: currency,
   }
 }
 
-export const zeroAmount = {
-  amount: 0,
-  currency: WalletCurrency.Btc,
-}
+export const zeroAmount = ZeroBtcMoneyAmount
 
-export const btcTestAmount = {
-  amount: 1232,
-  currency: WalletCurrency.Btc,
-}
+export const btcTestAmount = toBtcMoneyAmount(1232)
 
-export const usdTestAmount = {
-  amount: 3212,
-  currency: WalletCurrency.Usd,
-}
+export const usdTestAmount = toUsdMoneyAmount(3212)
 
-export const testAmount = {
-  amount: 100,
-  currency: WalletCurrency.Btc,
-}
+export const testAmount = toBtcMoneyAmount(100)
 
 export const btcSendingWalletDescriptor = {
   currency: WalletCurrency.Btc,
@@ -78,7 +72,7 @@ export const expectCannotSendPayment = (
   paymentDetails: PaymentDetail<WalletCurrency>,
 ) => {
   expect(paymentDetails.canSendPayment).toBeFalsy()
-  expect(paymentDetails.sendPayment).toBeUndefined()
+  expect(paymentDetails.sendPaymentMutation).toBeUndefined()
 }
 
 export const getTestSetMemo: CreateFunctionWithSpy = () => (params) => {
@@ -131,13 +125,14 @@ export const createGetFeeMocks = (): GetFeeParams => {
   }
 }
 
-export const createSendPaymentMocks = (): SendPaymentParams => {
+export const createSendPaymentMocks = (): SendPaymentMutationParams => {
   return {
     lnInvoicePaymentSend: jest.fn(),
     lnNoAmountInvoicePaymentSend: jest.fn(),
     lnNoAmountUsdInvoicePaymentSend: jest.fn(),
     onChainPaymentSend: jest.fn(),
     onChainUsdPaymentSend: jest.fn(),
+    onChainPaymentSendAll: jest.fn(),
     onChainUsdPaymentSendAsBtcDenominated: jest.fn(),
     intraLedgerPaymentSend: jest.fn(),
     intraLedgerUsdPaymentSend: jest.fn(),

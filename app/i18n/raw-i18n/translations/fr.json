@@ -1,25 +1,33 @@
 {
     "GaloyAddressScreen": {
-        "buttonTitle": "Saisissez votre adresse {bankName: string} ",
+        "title": "Recevoir le paiement en utilisant :",
+        "buttonTitle": "Définir votre adresse",
         "yourAddress": "Votre adresse {bankName: string} ",
         "notAbleToChange": "Vous ne pourrez plus modifier votre adresse {bankName: string}.",
         "addressNotAvailable": "Cette adresse {bankName: string} est déjà prise.",
         "somethingWentWrong": "Une erreur est survenue. Merci d’essayer ultérieurement.",
         "merchantTitle": "Pour les commerçants",
-        "yourCashRegister": "Votre terminal de paiement",
+        "yourCashRegister": "Votre terminal de paiement Lightning",
         "yourPaycode": "Votre Code de paiement",
-        "copiedAddressToClipboard": "Adresse copiée {bankName: string} dans le presse-papiers",
+        "copiedAddressToClipboard": "Adresse {bankName: string} copiée dans le presse-papiers",
         "copiedPaycodeToClipboard": "Code de paiement copié dans le presse-papiers",
-        "copiedCashRegisterToClipboard": "Lien du terminal de paiement copié dans le presse-papiers",
-        "howToUseYourAddress": "Comment utiliser votre adresse {bankName: string} ",
+        "copiedCashRegisterLinkToClipboard": "Lien du terminal de paiement copié au presse-papier",
+        "howToUseIt": "Comment l’utiliser ?",
+        "howToUseYourAddress": "Comment utiliser une adresse Lightning",
         "howToUseYourPaycode": "Comment utiliser votre Code de paiement",
         "howToUseYourCashRegister": "Comment utiliser votre terminal de paiement",
-        "howToUseYourAddressExplainer": "Votre adresse {bankName: string} est votre propre adresse Lightning. C’est similaire à une adresse e-mail mais pour votre Bitcoin.\n\nPour recevoir des paiements, partagez votre adresse complète à une personne utilisant un portefeuille prenant en charge l’adresse Lightning.\n\nLes portefeuilles la prenant en charge :",
-        "howToUseYourPaycodeExplainer": "Vous pouvez imprimer votre Code de paiement (qui est une facture sans montant) et l’afficher dans votre entreprise pour recevoir des paiements. Les particuliers peuvent vous payer en le scannant avec un portefeuille électronique Lightning.\n\nCependant, sachez que certains portefeuilles ne peuvent pas scanner une facture sans montant, par exemple :",
-        "howToUseYourCashRegisterExplainer": "Votre terminal de paiement permet à vos employés d’encaisser des paiements sans avoir besoin de leur donner accès à votre portefeuille.\n\nPartagez votre lien. Ils peuvent l’épingler sur leur écran d’accueil et générer des factures Lightning en votre nom. Les paiements collectés à l’aide du terminal seront envoyés directement sur votre {bankName: string}.",
-        "defaultWallet": "Portefeuille par défaut",
-        "whatIsDefaultWalletTitle": "Qu’est-ce que le Portefeuille par défaut ?",
-        "whatIsDefaultWalletDescription": "Votre portefeuille par défaut est le portefeuille qui sera utilisé lorsque vous recevrez des paiements à travers le terminal de paiement. Vous pouvez le modifier à tout moment ici dans les Réglages."
+        "howToUseYourAddressExplainer": "Partager avec quelqu’un qui possède un portefeuille compatible, par exemple : ",
+        "howToUseYourPaycodeExplainer": "Vous pouvez imprimer votre Code de paiement (techniquement c’est une adresse lnurl-pay) et l’afficher dans votre entreprise pour recevoir des paiements. Les particuliers peuvent vous payer en le scannant avec un portefeuille utilisant Lightning.\n\nCependant, il faut savoir que certains portefeuilles ne peuvent pas scanner un Code de paiement comme par exemple : ",
+        "howToUseYourCashRegisterExplainer": "Accepter que des personnes collectent des paiements via le lien du terminal de paiement, sans avoir accès à votre portefeuille.\n\nIls peuvent créer des factures et les paiements seront envoyés directement à votre portefeuille\n{bankName: string}."
+    },
+    "SetAccountModal": {
+        "title": "Définir le compte par défaut",
+        "description": "Ce compte sera d’abord sélectionné pour envoyer et recevoir des paiements. Il peut être modifié à tout moment.",
+        "stablesatsTag": "Choisir cette option pour garder un montant stable du dollar US.",
+        "bitcoinTag": "Choisir cette option pour être dans le standard Bitcoin."
+    },
+    "NoteInput": {
+        "addNote": "Ajouter une note"
     },
     "AuthenticationScreen": {
         "authenticationDescription": "Authentifiez-vous pour continuer",
@@ -29,15 +37,15 @@
         "unlock": "Déverrouillez",
         "usePin": "Utilisez un NIP"
     },
-    "BalanceHeader": {
-        "currentBalance": "Solde actuel",
-        "hiddenBalanceToolTip": "Appuyez pour afficher votre solde"
-    },
-    "ContactsScreen": {
+    "PeopleScreen": {
+        "title": "Cercles",
+        "copy": "Copier",
         "noContactsTitle": "Aucun contact trouvé",
         "noContactsYet": "Envoyez ou recevez un paiement en utilisant un nom d’utilisateur et il sera automatiquement ajouté à vos contacts ici",
         "noMatchingContacts": "Aucun contact ne correspond à votre recherche.",
-        "title": "Contacts"
+        "allContacts": "Tous les contacts",
+        "viewAllContacts": "Afficher tous les contacts",
+        "frequentContacts": "Contacts fréquents"
     },
     "ContactDetailsScreen": {
         "title": "Transactions avec {username: string}"
@@ -63,13 +71,13 @@
                 "questions": {
                     "whatIsBitcoin": {
                         "answers": [
-                            "Monnaie numérique",
+                            "Une monnaie numérique",
                             "Un jeu vidéo",
                             "Un nouveau personnage de dessins animés"
                         ],
                         "feedback": [
                             "Exact. Vous venez de gagner 1 “sat” !",
-                            "Faux, svp essayez de nouveau.",
+                            "Faux, essayez encore.",
                             "Vraiment pas. Au moins, aucun que l’on ne connait !"
                         ],
                         "question": "Qu’est-ce que le Bitcoin exactement ?",
@@ -87,7 +95,7 @@
                             "Peut-être… mais ce n’est pas la bonne réponse dans ce contexte 🙂",
                             "Vraiment pas.... mais ce serait génial !"
                         ],
-                        "question": "Je viens de gagner un “Sat”, qu'est-ce que c'est ?",
+                        "question": "Je viens de gagner un “Sat”, qu’est-ce que c'est ?",
                         "text": "Un “Sat” est la plus petite unité d'un bitcoin. \n\n On sait tous qu’un dollar peut être divisé en 100 centimes. De façon similaire, un bitcoin peut se diviser en 100,000,000 sats. \n\n En fait, on n’a pas besoin d’avoir tout un bitcoin pour s’en servir. On peut se servir de Bitcoin que l’on possède 20 sats, 3000 sats ou 100,000,000 sats (ce qui équivaut à un bitcoin).",
                         "title": "Je viens de gagner un “Sat”, qu'est-ce que c'est ?"
                     },
@@ -100,7 +108,7 @@
                         "feedback": [
                             "Exact. Vous gagnez 5 sats supplémentaires.",
                             "Faux. Au moins pas pour l’instant ;)",
-                            "Faux, svp essayez de nouveau."
+                            "Faux, essayez encore."
                         ],
                         "question": "Où sont définis les bitcoins ?",
                         "text": "Le Bitcoin est une nouvelle forme de monnaie. Tout le monde peut s’en servir, à n’importe quel moment et n’importe où dans le monde. \n\n Il n’est pas rattaché à un gouvernment ou une région spécifique (comme le dollard US par exemple). De plus, il n’y a pas de version sur papier, sur pièces métalliques ou de cartes en plastique. \n\n Tout est 100% numérique. Le Bitcoin est un réseau d’ordinateurs reliés par internet. \n\n Vos bitcoins sont facilement gérés à partir de votre ordinateur ou de votre téléphone !",
@@ -289,7 +297,7 @@
                         ],
                         "feedback": [
                             "Exact. Ceci est vrai même pour le dollar US, qui a perdu 97% de sa valeur en 100 ans.",
-                            "Faux. Essayez à nouveau.",
+                            "Faux. Essayez encore.",
                             "Pas tout à fait. Bien que l’apparence et la forme des billets peuvent changer, cela n’a aucun impact sur leur valeur."
                         ],
                         "question": "Qu’arrive-t-il à la valeur des monnaies fiduciaires au fil du temps ?",
@@ -339,7 +347,7 @@
                         ],
                         "feedback": [
                             "Exact. Il n’y a pas de compagnie, de gouvernement ni d’institution qui contrôle le Bitcoin. N’importe qui peut utiliser le Bitcoin et tout ce qu’il faut c’est un smartphone et une connexion internet.",
-                            "Faux. Essayez à nouveau.",
+                            "Faux. Essayez encore.",
                             "Faux, mais vous le saviez déjà !"
                         ],
                         "question": "Est-ce que le Bitcoin est centralisé ?",
@@ -411,20 +419,36 @@
         },
         "finishText": "C’est tout pour le moment, nous vous ferons savoir lorsqu’il y en aura plus à découvrir.",
         "getRewardNow": "Répondez au quiz",
-        "keepDigging": "Continuez à chercher!",
+        "keepDigging": "Continuez à chercher !",
         "phoneNumberNeeded": "Numéro de téléphone requis",
         "quizComplete": "Quiz complété et {amount: number} sats gagnés",
         "reviewQuiz": "Revoir le quiz",
         "satAccumulated": "Sats accumulés",
         "satsEarned": "{formattedNumber|sats} gagnés",
         "sectionsCompleted": "Vous avez terminé",
-        "title": "Gain",
+        "title": "Quiz",
         "unlockQuestion": "Pour dévérouiller, répondez à la question :",
-        "youEarned": "Vous avez gagné"
+        "youEarned": "Vous avez gagné",
+        "registerTitle": "Besoin de mettre à jour votre compte",
+        "registerContent": "Enregistrer votre numéro de téléphone pour recevoir des sats"
     },
     "GetStartedScreen": {
-        "getStarted": "Commencez",
-        "headline": "Portefeuille développé par Galoy"
+        "logInCreateAccount": "Se connecter / créer un compte",
+        "createAccount": "Créer un nouveau compte",
+        "exploreWallet": "Explorer le portefeuille",
+        "logBackInWith": "Se reconnecter avec ",
+        "headline": "Portefeuille développé par Galoy",
+        "startTrialAccount": "Débuter avec un compte test",
+        "startWithTrialAccount": "Débuter avec un compte test",
+        "registerPhoneAccount": "Enregistrer le téléphone du compte",
+        "trialAccountCreationFailed": "Échec de la création du compte test ",
+        "trialAccountCreationFailedMessage": "Malheureusement nous n’avons pas réussi à créer votre compte test. Merci de réessayer ultérieurement ou de créer un compte avec un numéro de téléphone.",
+        "trialAccountHasLimits": "Le compte test a des limites",
+        "trialAccountLimits": {
+            "noBackup": "Pas d’option de sauvegarde",
+            "sendingLimit": "Diminuer la limite d’envoi quotidienne",
+            "noOnchain": "Non réception de bitcoin on-chain"
+        }
     },
     "MapScreen": {
         "locationPermissionMessage": "Entrez votre localisation, vous pourrez ainsi être inscrit sur la carte",
@@ -439,8 +463,10 @@
         "receive": "Recevoir",
         "send": "Envoyer",
         "title": "Accueil",
+        "scan": "Scanner",
         "updateAvailable": "Une mise à jour est disponible. Appuyez pour mettre à jour maintenant",
-        "useLightning": "Nous utilisons le réseau Lightning."
+        "useLightning": "Nous utilisons le réseau Lightning.",
+        "myAccounts": "Mes comptes"
     },
     "PinScreen": {
         "attemptsRemaining": "NIP incorrect. {attemptsRemaining: number} tentatives restantes.",
@@ -462,23 +488,25 @@
         "lastWeek": "La semaine dernière",
         "lastMonth": "Le mois dernier",
         "lastYear": "L’année dernière",
-        "lastFiveYears": "Les cinq dernières années"
+        "lastFiveYears": "Les cinq dernières années",
+        "buyAndSell": "Acheter et vendre bitcoin"
     },
     "PrimaryScreen": {
         "title": "Accueil"
     },
-    "ReceiveWrapperScreen": {
+    "ReceiveScreen": {
         "activateNotifications": "Souhaitez-vous activer les notifications pour être prévenu lorsque le paiement est bien parvenu ?",
         "copyClipboard": "La facture a été copiée dans le presse-papier",
         "copyClipboardBitcoin": "L’adresse Bitcoin a été copiée dans le presse-papier",
+        "copyClipboardPaycode": "Le code de paiement/LNURL a été copié dans le presse-papier",
         "invoicePaid": "La facture a été payée",
         "setNote": "Ajouter un message",
         "tapQrCodeCopy": "Touchez le code QR pour le copier",
         "title": "Recevoir des Bitcoin",
-        "usdTitle": "Recevoir des Dollar US",
+        "usdTitle": "Recevoir des dollars US",
         "error": "Impossible de générer la facture. Merci de contacter le support si le problème persiste.",
-        "copyInvoice": "Copier la facture",
-        "shareInvoice": "Partager la facture",
+        "copyInvoice": "Copier",
+        "shareInvoice": "Partager",
         "addAmount": "Demander un montant spécifique",
         "expired": "La facture a expiré",
         "expiresIn": "Expire dans",
@@ -491,11 +519,31 @@
         "useABitcoinOnchainAddress": "Utiliser une adresse Bitcoin on-chain",
         "useALightningInvoice": "Utiliser une facture Lightning",
         "setANote": "Ajouter un message",
-        "invoiceAmount": "Montant de la facture"
+        "invoiceAmount": "Montant de la facture",
+        "fees": "{minBankFee: string} sats de frais pour des paiements on-chain en-dessous de {minBankFeeThreshold: string} sats",
+        "regenerateInvoiceButtonTitle": "Générer à nouveau la facture",
+        "setUsernameButtonTitle": "Définir l’identifiant",
+        "invoiceHasExpired": "la facture a expiré",
+        "setUsernameToAcceptViaPaycode": "Définir votre identifiant pour accepter les paiements via les codes de paiements QR (LNURL) et les adresses Lightning.",
+        "singleUse": "Utilisation unique",
+        "invoiceExpired": "Facture expirée",
+        "invoiceValidity": {
+            "validFor1Day": "Valide pour 1 jour",
+            "validForNext": "Valide pour les prochaines {duration: string}",
+            "validBefore": "Valide avant {time: string}",
+            "expiresIn": "Expire dans {duration: string}",
+            "expiresNow": "Expire maintenant"
+        },
+        "invoiceHasBeenPaid": "La facture a été payée",
+        "btcOnChainAddress": "Adresse Bitcoin on-chain",
+        "receiveViaInvoice": "Recevoir via Lightning",
+        "receiveViaPaycode": "Recevoir via un code de paiement",
+        "receiveViaOnchain": "Recevoir via On-chain",
+        "payCodeOrLNURL": "Code de paiement/ LNURL"
     },
     "RedeemBitcoinScreen": {
         "title": "Échanger des Bitcoin",
-        "usdTitle": "Recevoir des Dollars US",
+        "usdTitle": "Recevoir des dollars US",
         "error": "Impossible de générer la facture. Merci de contacter le support si le problème persiste.",
         "redeemingError": "Impossible d’échanger des Bitcoin. Merci de contacter le support si le problème persiste.",
         "submissionError": "Impossible de soumettre la demande de retrait. Merci de contacter le support si le problème persiste.",
@@ -509,20 +557,18 @@
         "expiredContent": "Nous avons trouvé : \n\n{found: string}\n\nCette facture a expiré",
         "invalidTitle": "Code QR invalide",
         "noQrCode": "Nous n’avons pas trouvé de code QR dans l’image",
-        "title": "Scanner le code QR",
-        "invalidContentLnurl": "Nous avons trouvé :\n\n{found: string}\n\n n’est pas supporté"
+        "title": "Scanner QR",
+        "invalidContentLnurl": "Nous avons trouvé :\n\n{found: string}\n\n n’est pas supporté",
+        "imageLibraryPermissionsNotGranted": "Nous n'avons pas l'autorisation d'accéder à la bibliothèque d'images. Veuillez vérifier les paramètres de l'application pour votre plateforme."
     },
     "SecurityScreen": {
         "biometricDescription": "Dévérouiller la reconnaissance faciale ou digitale.",
-        "biometricSubtitle": "Autoriser l’authentification biométrique",
         "biometricTitle": "Biométrie",
         "biometryNotAvailable": "Le capteur biométrique n'est pas disponible.",
         "biometryNotEnrolled": "SVP enregistrez au moins un capteur biométrique pour utiliser l’authentification biométrique.",
-        "hideBalanceDescription": "Masquez votre solde sur l’écran d'accueil par défaut pour dissimuler vos informations à quiconque regarderait votre écran.",
-        "hideBalanceSubtitle": "Masquer le solde",
-        "hideBalanceTitle": "Solde",
+        "hideBalanceDescription": "Masquer votre solde sur l’écran d’accueil par défaut pour dissimuler vos informations à quiconque regarderait votre écran.",
+        "hideBalanceTitle": "Masquer le solde",
         "pinDescription": "Le NIP est utilisé comme méthode de sauvegarde pour l’authentification biométrique.",
-        "pinSubtitle": "Activer le code NIP",
         "pinTitle": "Code NIP",
         "setPin": "Définir le NIP"
     },
@@ -559,7 +605,7 @@
         "unknownOnchain": "Nous ne pouvons pas analyser cette adresse Bitcoin. Merci de réessayer.",
         "newBankAddressUsername": "{lnAddress: string} existe en tant qu’adresse {bankName: string}, mais vous n’y avez jamais envoyé d’argent.",
         "confirmModal": {
-            "title": "Vous n’avez pas envoyé d’argent à \"{lnAddress: string}\" avant.",
+            "title": "Vous n’avez jamais envoyé d’argent à cette adresse",
             "body1": "Merci de vous assurer que le bénéficiaire vous a donné une adresse {bankName: string}, ",
             "bold2bold": "et non pas un identifiant d’un autre portefeuille.",
             "body3": "Sinon l’argent sera transféré au compte {bankName: string} qui a l’adresse “{lnAddress: string}”.\n\nVérifiez également l’orthographe de la première partie de l’adresse, par exemple jackie et jack1e sont 2 adresses différentes.",
@@ -567,23 +613,28 @@
             "checkBox": "{lnAddress: string} est la correcte adresse.",
             "confirmButton": "J’en suis sûr-e à 100%"
         },
-        "clipboardError": "Erreur pour obtenir de la valeur depuis le presse-papier"
+        "clipboardError": "Erreur pour obtenir le prix depuis le presse-papier"
     },
     "SendBitcoinScreen": {
         "amount": "Montant",
         "amountExceed": "Le montant excède votre solde de {balance: string}",
+        "amountExceedsLimit": "Le montant excède le restant de votre limite journalière qui est de {limit: string}",
+        "upgradeAccountToIncreaseLimit": "Mettre à jour votre compte pour augmenter votre limite",
         "amountIsRequired": "Un montant est requis",
         "cost": "Coût",
         "destination": "Adresse de destination",
         "destinationIsRequired": "Adresse de destination requise",
         "fee": "frais de réseau",
         "feeCalculationUnsuccessful": "Calcul infructueux ⚠️",
-        "input": "Identifiant, facture ou adresse",
+        "placeholder": "Identifiant, facture ou adresse",
         "invalidUsername": "Identifiant non valide",
         "noAmount": "Cette facture ne contient pas de montant, vous devez indiquer manuellement quel montant vous désirez envoyer",
         "notConfirmed": "Le paiement a été envoyé\nmais n'est pas encore confirmé\n\nVous pouvez vérifier l'état du paiement dans Transactions",
         "note": "Note optionnelle",
         "success": "Le paiement a été envoyé avec succès",
+        "suggestionInput": "Saisissez votre suggestion",
+        "max": "Max",
+        "maxAmount": "Montant max",
         "title": "Envoyer des bitcoins",
         "failedToFetchLnurlInvoice": "Échec de la récupération de la facture lnurl",
         "lnurlInvoiceIncorrectAmount": "Le serveur lnurl a répondu avec une facture contenant un montant incorrect",
@@ -591,9 +642,9 @@
     },
     "SettingsScreen": {
         "activated": "Activé",
-        "tapLogIn": "Appuyer pour vous connecter",
-        "addressScreen": "Recevez des paiements en utilisant votre adresse {bankName: string} ou les fonctionnalités dédiées aux marchands.",
+        "addressScreen": "Moyens de se faire payer",
         "tapUserName": "Appuyez pour définir l’identifiant",
+        "notifications": "Notifications",
         "title": "Réglages",
         "darkMode": "Mode sombre",
         "setToDark": "Mode : sombre.",
@@ -603,33 +654,114 @@
         "csvTransactionsError": "Impossible d’exporter les transactions vers un fichier CSV. Une erreur s’est produite. Si le problème persiste, veuillez contacter le support technique.",
         "lnurlNoUsername": "Pour générer une adresse lnurl, vous devez d’abord définir un identifiant. Voulez-vous en définir un maintenant ?",
         "copyClipboardLnurl": "L'adresse lnurl a été copiée dans le presse-papiers",
-        "deleteAccount": "Supprimer le compte"
+        "defaultWallet": "Compte par défaut",
+        "rateUs": "Donnez-nous une note sur {storeName: string}",
+        "theme": "Thème",
+        "nfc": "Recevoir depuis le paiement sans contact",
+        "nfcError": "Erreur dans la lecture du marqueur NFC. Merci de réessayer.",
+        "nfcNotCompatible": "L’information extraite de la carte n’est pas compatible avec le lien lnurl-withdraw.",
+        "nfcOnlyReceive": "Seule la réception depuis NFC est disponible pour le moment",
+        "nfcScanNow": "Scanner NFC maintenant",
+        "nfcNotSupported": "NFC n’est pas compatible sur cet appareil",
+        "logInOrCreateAccount": "Se connecter ou créer un compte"
+    },
+    "NotificationSettingsScreen": {
+        "title": "Réglages des notifications",
+        "pushNotifications": "Notifications push",
+        "notificationCategories": {
+            "Circles": {
+                "title": "Cercles",
+                "description": "Notifications concernant vos cercles."
+            },
+            "Payments": {
+                "title": "Paiements",
+                "description": "Notifications associées aux paiements envoyés et reçus."
+            }
+        }
+    },
+    "AccountScreen": {
+        "accountLevel": "Niveau du compte",
+        "upgrade": "Mettre à jour votre compte",
+        "logOutAndDeleteLocalData": "Se déconnecter et effacer toutes les données locales",
+        "IUnderstand": "Je comprends. Merci de me déconnecter",
+        "logoutAlertTitle": "Êtes-vous sûr de vouloir être déconnecté et supprimer toutes les données locales?",
+        "logoutAlertContentPhone": "Vous aurez besoin de saisir à nouveau votre numéro de téléphone pour vous reconnecter.\nVotre numéro de téléphone est le {phoneNumber: string}. Veillez à en avoir l’accès pour vous reconnecter.",
+        "logoutAlertContentEmail": "Vous aurez besoin de saisir à nouveau votre adresse e-mail pour vous reconnecter.\nVotre e-mail est {email: string}. Veillez à en avoir l’accès pour vous reconnecter.",
+        "logoutAlertContentPhoneEmail": "Vous aurez besoin de saisir à nouveau votre numéro de téléphone ou votre adresse e-mail pour vous reconnecter.\nVotre numéro de téléphone est le {phoneNumber: string} et votre e-mail est {email: string}. Veillez à en avoir l’accès pour vous reconnecter.",
+        "usdBalanceWarning": "Vous avec un solde Stablesats de {balance: string}.",
+        "btcBalanceWarning": "Vous avez un solde Bitcoin de {balance: string}.",
+        "secureYourAccount": "S’inscrire pour sécuriser votre compte",
+        "tapToAdd": "Touchez pour ajouter",
+        "deleteEmailPromptTitle": "Supprimer l’e-mail",
+        "deleteEmailPromptContent": "Êtes-vous sûr de vouloir supprimer votre adresse e-mail ? Vous pourrez vous reconnecter seulement avec votre numéro de téléphone.",
+        "deletePhonePromptTitle": "Supprimer le numéro de téléphone",
+        "deletePhonePromptContent": "Êtes-vous sûr de vouloir supprimer votre numéro de téléphone ? Vous pourrez vous reconnecter seulement avec votre adresse e-mail.",
+        "addEmailFirst": "Ajouter d’abord une adresse e-mail",
+        "addPhoneFirst": "Ajouter d’abord un numéro de téléphone",
+        "phoneNumberAuthentication": "Numéro de téléphone (pour se connecter)",
+        "emailAuthentication": "E-mail (pour se connecter)",
+        "removePhone": "Effacer le numéro de téléphone",
+        "removeEmail": "Effacer l’e-mail",
+        "unverified": "E-mail non validé",
+        "unverifiedContent": "Sécuriser votre compte en validant votre adresse e-mail.",
+        "confirmEmail": "Confirmer l’adresse e-mail",
+        "emailUnverified": "Votre e-mail est non validé",
+        "emailUnverifiedContent": "Assurez-vous que vous pouvez vous reconnecter à votre compte en validant votre e-mail. Souhaitez-vous faire la validation maintenant ?",
+        "totp": "Authentification à deux facteurs",
+        "totpDeactivated": "L’authentification à deux facteurs a été désactivée.",
+        "totpDeleteAlertTitle": "Supprimer l’authentification à deux facteurs",
+        "totpDeleteAlertContent": "Êtes-vous sûr de vouloir supprimer votre authentification à deux facteurs ?",
+        "copiedAccountId": "Copier votre identifiant de compte dans le presse-papiers",
+        "yourAccountId": "Votre identifiant de compte",
+        "copy": "Copier"
+    },
+    "TotpRegistrationInitiateScreen": {
+        "title": "Authentification à deux niveaux",
+        "content": "Scanner ce code QR avec votre application d’authentification. Sinon vous pouvez copier/coller manuellement le code secret dans votre application d’authentification"
+    },
+    "TotpRegistrationValidateScreen": {
+        "title": "Authentification à deux niveaux",
+        "enter6digitCode": "Saisir le code à 6 chiffres depuis votre application d’authentification pour valider votre authentification à deux facteurs.",
+        "success": "L’authentification à deux facteurs a été activée. À présent vous pourrez seulement vous reconnecter qu’avec votre téléphone ou votre e-mail ET votre authentification à deux facteurs.\n\nSeuls les comptes complets KYC peuvent être récupérés si jamais un utilisateur a perdu l’accès de son authentification à deux facteurs."
+    },
+    "TotpLoginValidateScreen": {
+        "title": "Authentification à deux niveaux",
+        "content": "Saisir le code à 6 chiffres depuis votre application d’authentification pour vous connecter. Ce code change toutes les 30 secondes."
+    },
+    "CopySecretComponent": {
+        "button": "Copier le code secret",
+        "toastMessage": "Le code secret à été copié dans le presse-papiers !"
+    },
+    "DefaultWalletScreen": {
+        "title": "Compte par défaut",
+        "info": "Sélectionner le compte à définir par défaut pour recevoir et envoyer des paiements. Vous pouvez configurer le compte de transfert et de réception pour des paiements individuels dans l’application mobile. Les paiements reçus via le terminal de paiement ou votre adresse Lightning seront toujours envoyés sur le compte par défaut.\n\nPour éviter la fluctuation de Bitcoin, choisissez Stablesats. Cela vous permet de garder un montant stable de votre argent, tout en continuant à envoyer et recevoir des paiements.\n\nVous pouvez modifier ce réglage à tout moment, et cela n’affectera pas votre solde actuel."
+    },
+    "ThemeScreen": {
+        "title": "Thème",
+        "info": "Sélectionnez votre thème favori pour utiliser Blink, ou choisissez de le garder synchronisé avec vos Réglages système.",
+        "system": "Utiliser les Réglages système",
+        "light": "Utiliser le mode clair",
+        "dark": "Utiliser le mode sombre"
     },
     "Languages": {
         "DEFAULT": "Par défaut (OS)"
     },
     "StablesatsModal": {
-        "header": "Avec Stablesats, vous avez à présent un compte en Dollar US ajouté à votre portefeuille !",
-        "body": "Vous pouvez l’utiliser pour envoyer et recevoir des bitcoins, et instantanément transférer la valeur entre votre compte BTC et Dollar US. La valeur du Dollar US ne fluctuera pas avec le prix du bitcoin. Cette fonction n’est pas compatible avec le système bancaire traditionnel.",
+        "header": "Avec Stablesats, vous avez à présent un compte en dollar US ajouté à votre portefeuille !",
+        "body": "Vous pouvez l’utiliser pour envoyer et recevoir des bitcoins, et instantanément transférer la valeur entre votre compte BTC et Dollar US. La valeur du dollar US ne fluctuera pas avec le prix du bitcoin. Cette fonction n’est pas compatible avec le système bancaire traditionnel.",
         "termsAndConditions": "Lire les Termes & Conditions.",
         "learnMore": "En savoir plus sur Stablesats"
-    },
-    "NewNameBlinkModal": {
-        "header": "Prochainement : BBW devient Blink !",
-        "body": "BBW a été lancé en 2021 à El Zonte, au Salvador, pour soutenir la création d’une économie Bitcoin circulaire. À présent cela s’étend au portefeuille Lightning utilisé quotidiennement par les gens du monde entier. Cette année, nous nous renommons Blink pour offrir un meilleur service à notre clientèle grandissante.",
-        "ok": "Ça me semble bien !",
-        "learnMore": "En apprendre davantage sur blink.sv"
     },
     "SplashScreen": {
         "update": "Votre application n’est plus à jour. Une mise à jour est nécessaire avant que l’application puisse être utilisée.\n\nCela peut être fait depuis le PlayStore pour Android et Testflight pour iOS"
     },
     "TransactionDetailScreen": {
-        "detail": "Détails de la transaction",
         "paid": "Payé à/de",
         "received": "Vous avez reçu",
         "spent": "Vous avez dépensé",
         "receivingAccount": "Compte destinataire",
-        "sendingAccount": "Compte expéditeur"
+        "sendingAccount": "Compte expéditeur",
+        "txNotBroadcast": "Votre transaction est actuellement en attente et sera transmise au réseau Bitcoin dans un moment."
     },
     "TransactionLimitsScreen": {
         "receive": "Recevoir",
@@ -638,31 +770,44 @@
         "perWeek": "par semaine",
         "unlimited": "Illimité",
         "remaining": "Restant",
-        "stablesatTransfers": "Transfert de Stablesat",
+        "stablesatTransfers": "Transfert de Stablesats",
         "internalSend": "Envoyer à l’utilisateur {bankName: string}",
-        "error": "Impossible de récupérer les limites de transfert pour le moment"
+        "error": "Impossible de récupérer les limites de transfert pour le moment",
+        "contactUsMessageBody": "Bonjour, je souhaiterais augmenter les limites de transaction de mon compte {bankName: string}. ",
+        "contactUsMessageSubject": "Demande d’augmentation des limites de transaction",
+        "contactSupportToPerformKyc": "Contacter le support pour effectuer manuellement le processus KYC (Know Your Customer) pour augmenter votre limite.",
+        "increaseLimits": "Augmenter vos limites"
     },
     "TransactionScreen": {
         "noTransaction": "Aucune transaction à afficher",
         "title": "Transactions",
+        "recentTransactions": "Transactions récentes",
         "transactionHistoryTitle": "Historique des transactions"
     },
     "TransferScreen": {
         "title": "Transfert",
         "percentageToConvert": "% à convertir"
     },
-    "UsernameScreen": {
-        "3CharactersMinimum": "Au moins 3 caractères sont nécessaires",
-        "50CharactersMaximum": "L’identifiant ne peut excéder 50 caractères",
-        "available": "✅ {username: string} est disponible",
-        "confirmSubtext": "L’identifiant est permanent et ne peut être changé plus tard",
-        "confirmTitle": "Définir {username: string} comme votre identifiant ?",
-        "forbiddenStart": "Ne peut débuter par lnbc1, bc1, 1, ou 3 et ne peut être une adresse Bitcoin ou une facture Lightning",
-        "letterAndNumber": "Seuls les lettres minuscules, les chiffres et le tiret underscore (_) sont acceptés",
-        "emailAddress": "L’identifiant ne peut être un e-mail",
-        "notAvailable": "❌  {username: string} n’est pas disponible",
-        "success": "{username: string} est maintenant votre identifiant !",
-        "usernameToUse": "Quel identifiant souhaitez-vous utiliser ?"
+    "UpgradeAccountModal": {
+        "title": "Mettre à jour votre compte",
+        "backUpFunds": "Sauvegarder vos fonds",
+        "higherLimits": "Augmenter vos limites de transaction",
+        "receiveOnchain": "Recevoir bitcoin on-chain",
+        "onlyAPhoneNumber": "Vérification rapide et facile du numéro de téléphone",
+        "letsGo": "C’est parti !",
+        "stayInTrialMode": "Rester en mode test"
+    },
+    "SetAddressModal": {
+        "title": "Définir l’adresse {bankName: string}",
+        "Errors": {
+            "tooShort": "L’adresse doit contenir au moins 3 caractères",
+            "tooLong": "L’adresse ne peut excéder plus de 50 caractères",
+            "invalidCharacter": "L’adresse ne peut contenir que des lettres, chiffres et des tirets.",
+            "addressUnavailable": "Désolé, cette adresse est déjà utilisée",
+            "unknownError": "Une erreur inconnue est survenue, merci d’essayer ultérieurement"
+        },
+        "receiveMoney": "Recevoir de l’argent depuis d’autres portefeuilles Lightning et d’utilisateurs {bankName: string} avec cette adresse.",
+        "itCannotBeChanged": "Ce ne sera plus possible de changer après"
     },
     "WelcomeFirstScreen": {
         "bank": "Bitcoin a été conçu pour vous permettre de conserver, d’envoyer ou de recevoir de l’argent, sans dépendre d’une banque ou d’une carte de crédit.",
@@ -671,21 +816,65 @@
         "learn": "Je ne veux pas insister mais il y a beaucoup plus à apprendre...",
         "learnToEarn": "Apprendre à gagner"
     },
-    "PhoneInputScreen": {
+    "PhoneLoginInitiateScreen": {
+        "title": "Compte créé",
         "header": "Saisissez votre numéro de téléphone pour recevoir le code d’accès par SMS.",
         "headerVerify": "Vérifiez que vous êtes un humain",
         "errorRequestingCaptcha": "Une erreur est survenue au moment de vérifier que vous êtes bien un humain. Merci d’essayer ultérieurement.",
+        "errorRequestingCode": "Une erreur est survenue au moment de la demande du code reçu sur le téléphone. Merci d’essayer ultérieurement",
+        "errorInvalidPhoneNumber": "Numéro de téléphone non valide. Êtes-vous sûr d’avoir saisi le bon numéro ?",
+        "errorUnsupportedCountry": "Nous sommes dans l’incapacité d’assister les clients dans votre langue.",
         "placeholder": "Numéro de téléphone",
         "verify": "Cliquez pour valider",
         "sms": "Envoyer par SMS",
-        "whatsapp": "Envoyer plutôt via WhatsApp"
+        "whatsapp": "Envoyer via WhatsApp"
     },
-    "PhoneValidationScreen": {
+    "PhoneLoginValidationScreen": {
         "errorLoggingIn": "Erreur de connexion. Avez-vous saisi correctement le code ?",
-        "header": "Pour valider votre numéro de téléphone, saisissez le code que nous venons de vous envoyer sur le {phoneNumber: string}",
-        "need6Digits": "Le code doit contenir 6 chiffres",
+        "errorTooManyAttempts": "Trop de tentatives. Merci d’essayer ultérieurement.",
+        "errorCannotUpgradeToExistingAccount": "Ce compte associé au téléphone existe déjà. Merci de vous déconnecter de votre compte test puis de vous connecter avec votre numéro de téléphone.",
+        "header": "Pour valider votre numéro de téléphone, saisissez le code que nous venons de vous envoyer via {channel: string} sur le {phoneNumber: string}",
         "placeholder": "Code à 6 chiffres",
-        "sendAgain": "Envoyer à nouveau"
+        "sendAgain": "Envoyer à nouveau",
+        "tryAgain": "Essayer à nouveau",
+        "sendViaOtherChannel": "Vous avez choisi de recevoir le code via {channel: string}. Vous pouvez essayer de le recevoir plutôt via {other: string}."
+    },
+    "PhoneRegistrationInitiateScreen": {
+        "title": "Téléphone configuré",
+        "header": "Saisissez votre numéro de téléphone pour recevoir le code d’accès par SMS.",
+        "headerVerify": "Vérifiez que vous êtes un humain",
+        "errorRequestingCode": "Une erreur est survenue au moment de la demande du code reçu sur le téléphone. Merci d’essayer ultérieurement",
+        "errorInvalidPhoneNumber": "Numéro de téléphone non valide. Êtes-vous sûr d’avoir saisi le bon numéro ?",
+        "errorUnsupportedCountry": "Nous sommes dans l’incapacité d’assister les clients dans votre langue.",
+        "placeholder": "Numéro de téléphone",
+        "verify": "Cliquez pour valider",
+        "sms": "Envoyer par SMS",
+        "whatsapp": "Envoyer via WhatsApp"
+    },
+    "PhoneRegistrationValidateScreen": {
+        "successTitle": "Numéro de téléphone confirmé"
+    },
+    "EmailRegistrationInitiateScreen": {
+        "title": "Ajouter votre e-mail",
+        "header": "Saisir votre adresse e-mail, et nous vous enverrons un code d’accès",
+        "invalidEmail": "Adresse e-mail non valide. Êtes-vous sûr d’avoir saisi le bon e-mail ?",
+        "send": "Envoyer le code",
+        "missingEmailRegistrationId": "L’identifiant pour l’e-mail d’enregistrement est manquant",
+        "placeholder": "hal@finney.org"
+    },
+    "EmailRegistrationValidateScreen": {
+        "header": "Pour valider votre adresse e-mail, saisissez le code que nous venons de vous envoyer à {email: string}",
+        "success": "E-mail {email: string} a été validé avec succès"
+    },
+    "EmailLoginInitiateScreen": {
+        "title": "Se connecter par e-mail",
+        "header": "Saisir votre adresse e-mail, et nous vous enverrons un code d’accès",
+        "invalidEmail": "Adresse e-mail non valide. Êtes-vous sûr d’avoir saisi le bon e-mail ?",
+        "send": "Envoyer le code"
+    },
+    "EmailLoginValidateScreen": {
+        "header": "Si un compte est rattaché à l’adresse e-mail {email: string}, vous devriez avoir reçu le code à 6 chiffres à saisir en-dessous.\n\nSi vous ne l’avez pas reçu, soit l’adresse e-mail saisi n’est pas correcte, soit l’e-mail envoyé est dans votre dossier de spam.",
+        "success": "E-mail {email: string} a été validé avec succès"
     },
     "common": {
         "account": "Compte",
@@ -706,7 +895,9 @@
         "close": "Fermer",
         "confirm": "Confirmer",
         "convert": "Convertir",
+        "codeConfirmation": "Code de confirmation",
         "currency": "Monnaie",
+        "currencySyncIssue": "Problème de devise. Une actualisation est nécessaire",
         "csvExport": "Exporter les transactions sous format CSV",
         "date": "Date",
         "description": "Description",
@@ -729,13 +920,16 @@
         "loggedOut": "Vous avez été déconnecté-e.",
         "logout": "Déconnexion",
         "minutes": "minutes",
-        "needWallet": "Vérifier votre téléphone pour ouvrir votre portefeuille",
+        "errorAuthToken": "Token d’identification manquant",
+        "needWallet": "Se connecter ou créer un compte pour accéder à votre portefeuille.",
         "next": "Suivant",
         "No": "Non",
         "note": "Note",
         "notification": "Notification",
         "ok": "OK",
+        "or": "ou",
         "openWallet": "Ouvrir Portefeuille",
+        "phone": "Téléphone",
         "phoneNumber": "Numéro de téléphone",
         "rate": "Taux",
         "reauth": "Session expirée. SVP connectez-vous à nouveau.",
@@ -749,23 +943,28 @@
         "shareBitcoin": "Partager l’adresse Bitcoin",
         "shareLightning": "Partager la facture Lightning",
         "soon": "Bientôt disponible !",
+        "submit": "Soumettre ",
         "success": "Succès !",
+        "stablesatsUsd": "Stablesats en dollar US",
         "to": "À",
         "total": "Total",
         "transactions": "Transactions",
         "transactionsError": "Erreur de chargement des transactions",
         "tryAgain": "Essayer à nouveau",
         "type": "Type",
-        "usdAccount": "Compte USD",
+        "usdAccount": "Compte en dollar US",
         "username": "Identifiant",
         "usernameRequired": "Un identifiant est requis",
+        "backupAccount": "Sauvegarde / Mise à jour du compte",
         "viewTransaction": "Voir la transaction",
         "yes": "Oui",
         "pending": "en attente",
         "today": "Aujourd’hui",
         "yesterday": "Hier",
         "thisMonth": "Ce mois-ci",
-        "prevMonths": "Mois derniers"
+        "prevMonths": "Mois derniers",
+        "problemMaybeReauth": "Il y a eu un problème avec votre demande. Merci de réessayer dans une minute. Si le problème persiste, nous vous conseillons de vous déconnecter et de vous connecter à nouveau. Vous pouvez vous déconnecter en allant dans Réglages > Compte > Déconnexion",
+        "warning": "Alerte"
     },
     "errors": {
         "generic": "Une erreur est survenue.\nMerci d’essayer ultérieurement.",
@@ -781,7 +980,8 @@
         "restartApp": "Veuillez redémarrer l’application.",
         "problemPersists": "Si le problème persiste, contactez le support technique.",
         "fatalError": "Désolé, nous semblons avoir des problèmes pour charger les données de l’application. Si le problème persiste, merci de contacter le support technique.",
-        "showError": "Afficher l’erreur"
+        "showError": "Afficher l’erreur",
+        "clearAppData": "Effacer les données de l’application et se déconnecter"
     },
     "notifications": {
         "payment": {
@@ -791,14 +991,28 @@
     },
     "support": {
         "contactUs": "Besoin d’aide ? Contactez-nous.",
+        "joinTheCommunity": "Rejoindre la communauté",
         "whatsapp": "WhatsApp",
         "email": "E-mail",
-        "phone": "Téléphone",
+        "faq": "FAQ",
+        "enjoyingApp": "Vous aimez l’application ?",
+        "statusPage": "Page de configuration",
+        "telegram": "Telegram",
+        "mattermost": "Mattermost",
+        "thankYouText": "Merci pour votre retour, souhaiteriez-vous suggérer une amélioration ?",
         "defaultEmailSubject": "Aide {bankName: string} ",
         "defaultSupportMessage": "Bonjour ! J’ai besoin d’aide avec {bankName: string}, j’utilise la version {version: string} sur {os: string}.",
-        "deleteAccount": "Bonjour. Merci de supprimer mon compte",
-        "deleteAccountEmailSubject": "Demande de suppression de compte : {phoneNumber: string}",
-        "emailCopied": "e-mail {email: string} copié dans le presse-papier"
+        "emailCopied": "e-mail {email: string} copié dans le presse-papier",
+        "deleteAccount": "Supprimer le compte",
+        "delete": "Supprimer",
+        "typeDelete": "Merci de taper \"{delete: string}\" pour confirmer la suppression du compte.",
+        "finalConfirmationAccountDeletionTitle": "Confirmation finale requise",
+        "finalConfirmationAccountDeletionMessage": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+        "deleteAccountBalanceWarning": "Supprimer votre compte entrainera la perte de l’accès à votre solde actuel. Êtes-vous sûr de vouloir continuer ?",
+        "deleteAccountConfirmation": "Votre compte a été inscrit en vue de sa suppression.\n\nLorsque le temps de probation lié aux exigences réglementaires sera terminé, les données restantes associées à votre compte seront supprimées définitivement.",
+        "deleteAccountFromPhone": "Bonjour ! Merci de supprimer mon compte. Mon numéro de téléphone est le {phoneNumber: string}.",
+        "deleteAccountError": "Une erreur est survenue. Contacter {email: string} pour recevoir une aide supplémentaire.",
+        "bye": "Salut !"
     },
     "lnurl": {
         "overLimit": "Vous ne pouvez pas envoyer plus que le montant maximum",
@@ -816,7 +1030,7 @@
         "minAmountNotMet": "Le montant doit être au minimum de {minAmount: string}."
     },
     "AmountInputButton": {
-        "tapToSetAmount": "Toucher pour fixer le montant"
+        "tapToSetAmount": "Fixer le montant"
     },
     "AppUpdate": {
         "needToUpdateSupportMessage": "J’ai besoin de mettre à jour la dernière version sur mon app. J’utilise l’app {os: string} avec la version {version: string}.",
@@ -824,5 +1038,61 @@
         "updateMandatory": "La mise à jour est obligatoire",
         "tapHereUpdate": "Appuyez ici pour mettre à jour maintenant",
         "contactSupport": "Contacter l’Aide"
+    },
+    "Circles": {
+        "title": "Mes Cercles",
+        "titleBlinkCircles": "Cercles Blink",
+        "fetchingLatestCircles": "Récupérer les derniers cercles",
+        "circles": "cercles",
+        "circlesExplainer": "Parrainez des personnes sur Blink en leur envoyant leurs premiers sats ! Vos cercles grandiront à chaque parrainage.",
+        "viewMyCircles": "Voir mes Cercles",
+        "introducingCircles": "Introduction à Cercles",
+        "copiedInviteLink": "Lien d’invitation copié",
+        "inviteFriendToBlink": "Inviter un ami sur Blink",
+        "shareCircles": "Partager vos cercles",
+        "share": "Partager",
+        "circlesGrowingSatsExplainer": {
+            "your": "Vos",
+            "grow": "augmentent lorsque vous envoyez à un nouvel utilisateur Blink ses premiers sats !"
+        },
+        "circlesGrowingKeepGoing": "Vos cercles augmentent lorsque vous parrainez de nouvelles personnes à Blink - continuez comme ça !",
+        "points": "points",
+        "innerCircleGrow": "Votre cercle interne augmente lorsque vous envoyez à un utilisateur Blink ses premiers sats !",
+        "calculatingYourCircles": "Calcul de vos cercles...",
+        "innerCircleExplainer": "Vous participez à l’adoption de Bitcoin avec Blink, continuez comme ça !",
+        "innerCircleExplainerCard": "Je participe à l’adoption de Bitcoin avec Blink !",
+        "innerCircle": "Cercle interne",
+        "peopleYouWelcomed": "personnes que vous avez parrainées",
+        "peopleIWelcomed": "personnes\n| parrainées",
+        "thisMonth": "ce mois-ci",
+        "outerCircle": "Cercle externe",
+        "peopleWelcomedByYourCircle": "personnes parrainées par votre cercle",
+        "peopleWelcomedByMyCircle": "personnes parrainées par mon cercle",
+        "yourSphere": "Votre Sphère",
+        "mySphere": "Ma Sphère",
+        "yourRankMessage": "Vous êtes #{thisMonthRank: number} ce mois-ci et #{allTimeRank: number} depuis le début !",
+        "rankMessage": "#{thisMonthRank: number} ce mois-ci et #{allTimeRank: number} depuis le début !",
+        "inviteFriends": "Inviter un ami",
+        "buildYourCircle": "Construire vos cercles",
+        "myBlinkCircles": "Mes Cercles Blink",
+        "someones": "de {username: string}",
+        "groupEffort": "L’adoption de Bitcoin est un effort collectif.\nInvitez un ami et envoyez lui des sats pour commencer à construire vos cercles.",
+        "drivingAdoption": "J’adopte Bitcoin en utilisant Blink.",
+        "septChallenge": {
+            "title": "Défi de septembre !",
+            "description": "Cercle interne {innerCircle: number}/21 - Gagnez $21\nTop 3 - Gagnez votre billet pour Adopting Bitcoin !",
+            "details": "Augmentez votre cercle interne de 21 personnes en septembre et partagez sur les réseaux sociaux avec l’hashtag #blinkcircles pour recevoir $21 sur votre compte Stablesats. Les 3 finalistes gagneront leur billet pour la conférence Adopting Bitcoin !",
+            "peopleWelcomedSoFar": "personnes parrainées pour le moment",
+            "yourRank": "votre classement",
+            "reminder": "Rappel : votre cercle interne augmente lorsque vous envoyez à un nouvel utilisateur Blink ses premiers sats.",
+            "fullDetails": "Tous les détails à"
+        },
+        "octoberChallenge": {
+            "title": "Challenge d'octobre !",
+            "description": "Partagez vos #blinkcircles pour avoir une chance de gagner 1 000 000 sats !",
+            "details": "Nous offrons 1 000 000 sats ! Partagez vos Circles sur les réseaux sociaux avec le hashtag #blinkcircles pour participer ! Le gagnant sera choisi au hasard le 31 octobre. Vous devez avoir au moins une personne dans votre Inner Circle pour participer !Nous offrons 1 000 000 sats ! Partagez vos Circles sur les réseaux sociaux avec le hashtag #blinkcircles pour participer ! Le gagnant sera choisi au hasard le 31 octobre. Vous devez avoir au moins une personne dans votre Inner Circle pour participer !",
+            "connectOnSocial": "Connectez-vous sur les réseaux sociaux :",
+            "fullDetails": "Plus d'informations sur"
+        }
     }
 }

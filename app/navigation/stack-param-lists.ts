@@ -8,10 +8,15 @@ import {
   ReceiveDestination,
 } from "@app/screens/send-bitcoin-screen/payment-destination/index.types"
 import { WalletDescriptor } from "@app/types/wallets"
+import { PhoneLoginInitiateType } from "@app/screens/phone-auth-screen"
+import { NavigatorScreenParams } from "@react-navigation/native"
 
 export type RootStackParamList = {
   getStarted: undefined
-  debug: undefined
+  liteDeviceAccount: {
+    appCheckToken: string
+  }
+  developerScreen: undefined
   authenticationCheck: undefined
   authentication: {
     screenPurpose: AuthenticationScreenPurpose
@@ -25,9 +30,11 @@ export type RootStackParamList = {
   settings: undefined
   addressScreen: undefined
   defaultWallet: undefined
+  theme: undefined
   sendBitcoinDestination: {
     payment?: string
     username?: string
+    autoValidate?: boolean
   }
   sendBitcoinDetails: {
     paymentDestination: PaymentDestination
@@ -51,7 +58,6 @@ export type RootStackParamList = {
   lnurl: { username: string }
   sectionCompleted: { amount: number; sectionTitle: string }
   priceHistory: undefined
-  Debug: undefined
   receiveBitcoin: undefined
   redeemBitcoinDetail: {
     receiveDestination: ReceiveDestination
@@ -68,35 +74,49 @@ export type RootStackParamList = {
     settlementAmount: MoneyAmount<typeof WalletCurrency.Btc>
     displayAmount: MoneyAmount<DisplayCurrency>
   }
-  phoneFlow: undefined
+  phoneFlow?: NavigatorScreenParams<PhoneValidationStackParamList>
+  phoneRegistrationInitiate: undefined
+  phoneRegistrationValidate: { phone: string; channel: PhoneCodeChannelType }
   transactionDetail: { txid: string }
   transactionHistory?: undefined
   Earn: undefined
   accountScreen: undefined
+  notificationSettingsScreen: undefined
   transactionLimitsScreen: undefined
+  emailRegistrationInitiate: undefined
+  emailRegistrationValidate: { email: string; emailRegistrationId: string }
+  emailLoginInitiate: undefined
+  emailLoginValidate: { email: string; emailLoginId: string }
+  totpRegistrationInitiate: undefined
+  totpRegistrationValidate: { totpRegistrationId: string }
+  totpLoginValidate: { authToken: string }
+  webView: { url: string; initialTitle?: string }
 }
 
-export type ContactStackParamList = {
-  contactList: undefined
+export type PeopleStackParamList = {
+  peopleHome: undefined
   contactDetail: { contact: Contact }
-  phoneFlow: undefined
-  sendBitcoinDestination: { username: string }
-  transactionDetail: { txid: string }
+  circlesDashboard: undefined
+  allContacts: undefined
 }
 
 export type PhoneValidationStackParamList = {
   Primary: undefined
-  phoneInput: undefined
-  phoneValidation: { phone: string; channel: PhoneCodeChannelType }
+  phoneLoginInitiate: {
+    type?: PhoneLoginInitiateType
+  }
+  phoneLoginValidate: { phone: string; channel: PhoneCodeChannelType }
   authentication: {
     screenPurpose: AuthenticationScreenPurpose
   }
   Home: undefined
+  totpLoginValidate: { authToken: string }
 }
 
 export type PrimaryStackParamList = {
   Home: undefined
-  Contacts: undefined
+  People: undefined
   Map: undefined
   Earn: undefined
+  Web: undefined
 }

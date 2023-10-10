@@ -10,14 +10,14 @@ import { CommonActions, useNavigation } from "@react-navigation/native"
 export const NetworkErrorComponent: React.FC = () => {
   const navigation = useNavigation()
 
-  const networkError = useNetworkError()
+  const { networkError, clearNetworkError } = useNetworkError()
   const { LL } = useI18nContext()
   const { logout } = useLogout()
 
   const [showedAlert, setShowedAlert] = useState(false)
 
   React.useEffect(() => {
-    if (!networkError) {
+    if (!networkError || !("statusCode" in networkError)) {
       return
     }
 
@@ -25,14 +25,15 @@ export const NetworkErrorComponent: React.FC = () => {
       // TODO translation
       toastShow({
         message: (translations) => translations.errors.network.server(),
-        currentTranslation: LL,
+        LL,
       })
 
       return
     }
 
     if (networkError.statusCode >= 400 && networkError.statusCode < 500) {
-      let errorCode = networkError.result?.errors?.[0]?.code
+      let errorCode =
+        "result" in networkError ? networkError.result?.errors?.[0]?.code : undefined
 
       if (!errorCode) {
         switch (networkError.statusCode) {
@@ -74,11 +75,12 @@ export const NetworkErrorComponent: React.FC = () => {
               `StatusCode: ${
                 networkError.statusCode
               }\nError code: ${errorCode}\n${translations.errors.network.request()}`,
-            currentTranslation: LL,
+            LL,
           })
           break
       }
 
+      clearNetworkError()
       return
     }
 
@@ -86,10 +88,19 @@ export const NetworkErrorComponent: React.FC = () => {
       // TODO translation
       toastShow({
         message: (translations) => translations.errors.network.connection(),
-        currentTranslation: LL,
+        LL,
       })
     }
-  }, [networkError, LL, logout, showedAlert, setShowedAlert, navigation])
+    clearNetworkError()
+  }, [
+    networkError,
+    clearNetworkError,
+    LL,
+    logout,
+    showedAlert,
+    setShowedAlert,
+    navigation,
+  ])
 
   return <></>
 }

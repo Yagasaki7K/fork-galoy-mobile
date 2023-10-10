@@ -1,15 +1,12 @@
 import * as React from "react"
 import { WalletCurrency } from "@app/graphql/generated"
 import { ConvertMoneyAmount } from "@app/screens/send-bitcoin-screen/payment-details"
-import {
-  MoneyAmount,
-  WalletOrDisplayCurrency,
-  ZeroDisplayAmount,
-} from "@app/types/amounts"
+import { MoneyAmount, WalletOrDisplayCurrency } from "@app/types/amounts"
 import { makeStyles } from "@rneui/themed"
 import { SafeAreaView } from "react-native"
 import ReactNativeModal from "react-native-modal"
 import { AmountInputScreen } from "../amount-input-screen"
+import { timing } from "@app/rne-theme/timing"
 
 export type AmountInputModalProps = {
   moneyAmount?: MoneyAmount<WalletOrDisplayCurrency>
@@ -39,11 +36,11 @@ export const AmountInputModal: React.FC<AmountInputModalProps> = ({
       isVisible={isOpen}
       coverScreen={true}
       style={styles.modal}
-      animationInTiming={300}
+      animationInTiming={timing.quick}
     >
       <SafeAreaView style={styles.amountInputScreenContainer}>
         <AmountInputScreen
-          initialAmount={moneyAmount || ZeroDisplayAmount}
+          initialAmount={moneyAmount}
           convertMoneyAmount={convertMoneyAmount}
           walletCurrency={walletCurrency}
           setAmount={onSetAmount}
@@ -56,12 +53,12 @@ export const AmountInputModal: React.FC<AmountInputModalProps> = ({
   )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(({ colors }) => ({
   amountInputScreenContainer: {
     flex: 1,
   },
   modal: {
-    backgroundColor: theme.colors.white,
+    backgroundColor: colors.white,
     margin: 0,
   },
 }))

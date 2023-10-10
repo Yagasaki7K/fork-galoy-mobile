@@ -6,15 +6,14 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { LocalizedString } from "typesafe-i18n"
 
 import { gql } from "@apollo/client"
-import PriceIcon from "@app/assets/icons/price.svg"
-import SettingsIcon from "@app/assets/icons/settings.svg"
 import { AppUpdate } from "@app/components/app-update/app-update"
 import { icons } from "@app/components/atomic/galoy-icon"
 import { GaloyIconButton } from "@app/components/atomic/galoy-icon-button"
-import { NewNameBlinkModal } from "@app/components/new-name-blink-modal/new-name-blink-modal"
 import { StableSatsModal } from "@app/components/stablesats-modal"
 import WalletOverview from "@app/components/wallet-overview/wallet-overview"
 import {
+  useHasPromptedSetDefaultAccountQuery,
+  useHideBalanceQuery,
   useHomeAuthedQuery,
   useHomeUnauthedQuery,
   useRealtimePriceQuery,
@@ -24,15 +23,20 @@ import { getErrorMessages } from "@app/graphql/utils"
 import { useI18nContext } from "@app/i18n/i18n-react"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { Button } from "@rneui/base"
-import { makeStyles, Text, useTheme } from "@rneui/themed"
+import { Text, makeStyles, useTheme } from "@rneui/themed"
 
 import { BalanceHeader } from "../../components/balance-header"
 import { Screen } from "../../components/screen"
 import { TransactionItem } from "../../components/transaction-item"
 import { RootStackParamList } from "../../navigation/stack-param-lists"
-import { palette } from "../../theme/palette"
 import { testProps } from "../../utils/testProps"
+import { GaloyErrorBox } from "@app/components/atomic/galoy-error-box"
+import { GaloyPrimaryButton } from "@app/components/atomic/galoy-primary-button"
+import { isIos } from "@app/utils/helper"
+import { SetDefaultAccountModal } from "@app/components/set-default-account-modal"
+import { useAppConfig } from "@app/hooks"
+
+const TransactionCountToTriggerSetDefaultAccountModal = 1
 
 gql`
   query homeAuthed {
@@ -41,9 +45,14 @@ gql`
       language
       username
       phone
+      email {
+        address
+        verified
+      }
 
       defaultAccount {
         id
+        level
         defaultWalletId
 
         transactions(first: 20) {
@@ -74,12 +83,28 @@ gql`
 `
 
 export const HomeScreen: React.FC = () => {
-  const { theme } = useTheme()
-  const styles = useStyles(theme)
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
-  const isAuthed = useIsAuthed()
+  const styles = useStyles()
+  const {
+    theme: { colors },
+  } = useTheme()
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
+  const { data: { hideBalance } = {} } = useHideBalanceQuery()
+  const { data: { hasPromptedSetDefaultAccount } = {} } =
+    useHasPromptedSetDefaultAccountQuery()
+  const isBalanceVisible = hideBalance ?? false
+  const [setDefaultAccountModalVisible, setSetDefaultAccountModalVisible] =
+    React.useState(false)
+  const toggleSetDefaultAccountModal = () =>
+    setSetDefaultAccountModalVisible(!setDefaultAccountModalVisible)
+
+  const isAuthed = useIsAuthed()
   const { LL } = useI18nContext()
+  const {
+    appConfig: {
+      galoyInstance: { id: galoyInstanceId },
+    },
+  } = useAppConfig()
 
   const {
     data: dataAuthed,
@@ -103,7 +128,11 @@ export const HomeScreen: React.FC = () => {
     nextFetchPolicy: "cache-and-network",
   })
 
-  const { refetch: refetchUnauthed, loading: loadingUnauthed } = useHomeUnauthedQuery()
+  const {
+    refetch: refetchUnauthed,
+    loading: loadingUnauthed,
+    data: dataUnauthed,
+  } = useHomeUnauthedQuery()
 
   const loading = loadingAuthed || loadingPrice || loadingUnauthed
 
@@ -120,9 +149,26 @@ export const HomeScreen: React.FC = () => {
 
   const [modalVisible, setModalVisible] = React.useState(false)
   const [isStablesatModalVisible, setIsStablesatModalVisible] = React.useState(false)
+  const [isContentVisible, setIsContentVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsContentVisible(isBalanceVisible)
+  }, [isBalanceVisible])
+
+  const numberOfTxs = dataAuthed?.me?.defaultAccount?.transactions?.edges?.length ?? 0
 
   const onMenuClick = (target: Target) => {
     if (isAuthed) {
+      if (
+        target === "receiveBitcoin" &&
+        !hasPromptedSetDefaultAccount &&
+        numberOfTxs >= TransactionCountToTriggerSetDefaultAccountModal &&
+        galoyInstanceId === "Main"
+      ) {
+        toggleSetDefaultAccountModal()
+        return
+      }
+
       // we are using any because Typescript complain on the fact we are not passing any params
       // but there is no need for a params and the types should not necessitate it
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -134,8 +180,20 @@ export const HomeScreen: React.FC = () => {
 
   const activateWallet = () => {
     setModalVisible(false)
-    navigation.navigate("phoneFlow")
+    // fixes a screen flash from closing the modal to opening the next screen
+    setTimeout(() => navigation.navigate("phoneFlow"), 100)
   }
+
+  // debug code. verify that we have 2 wallets. mobile doesn't work well with only one wallet
+  // TODO: add this code in a better place
+  React.useEffect(() => {
+    if (
+      dataAuthed?.me?.defaultAccount?.wallets?.length !== undefined &&
+      dataAuthed?.me?.defaultAccount?.wallets?.length !== 2
+    ) {
+      console.error("Wallets count is not 2")
+    }
+  }, [dataAuthed])
 
   let recentTransactionsData:
     | {
@@ -160,6 +218,7 @@ export const HomeScreen: React.FC = () => {
                     key={`transaction-${node.id}`}
                     txid={node.id}
                     subtitle
+                    isOnHomeScreen={true}
                     isLast={index === array.length - 1}
                   />
                 ),
@@ -178,11 +237,6 @@ export const HomeScreen: React.FC = () => {
 
   const buttons = [
     {
-      title: LL.ConversionDetailsScreen.title(),
-      target: "conversionDetails" as Target,
-      icon: "transfer" as IconNamesType,
-    },
-    {
       title: LL.HomeScreen.receive(),
       target: "receiveBitcoin" as Target,
       icon: "receive" as IconNamesType,
@@ -193,11 +247,19 @@ export const HomeScreen: React.FC = () => {
       icon: "send" as IconNamesType,
     },
     {
-      title: LL.ScanningQRCodeScreen.title(),
+      title: LL.HomeScreen.scan(),
       target: "scanningQRCode" as Target,
       icon: "qr-code" as IconNamesType,
     },
   ]
+
+  if (!isIos || dataUnauthed?.globals?.network !== "mainnet") {
+    buttons.unshift({
+      title: LL.ConversionDetailsScreen.title(),
+      target: "conversionDetails" as Target,
+      icon: "transfer" as IconNamesType,
+    })
+  }
 
   const AccountCreationNeededModal = (
     <Modal
@@ -205,6 +267,7 @@ export const HomeScreen: React.FC = () => {
       isVisible={modalVisible}
       swipeDirection={modalVisible ? ["down"] : ["up"]}
       onSwipeComplete={() => setModalVisible(false)}
+      animationOutTiming={1}
       swipeThreshold={50}
     >
       <View style={styles.flex}>
@@ -213,86 +276,82 @@ export const HomeScreen: React.FC = () => {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.viewModal}>
-        <Icon name="ios-remove" size={64} color={palette.lightGrey} style={styles.icon} />
-        <Text style={styles.text}>{LL.common.needWallet()}</Text>
-        <Button
-          title={LL.common.openWallet()}
-          onPress={activateWallet}
-          type="outline"
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.titleStyle}
-          containerStyle={styles.buttonContainerStyle}
-        />
+        <Icon name="ios-remove" size={64} color={colors.grey3} style={styles.icon} />
+        <Text type="h1">{LL.common.needWallet()}</Text>
+        <View style={styles.openWalletContainer}>
+          <GaloyPrimaryButton
+            title={LL.GetStartedScreen.logInCreateAccount()}
+            onPress={activateWallet}
+          />
+        </View>
         <View style={styles.flex} />
       </View>
     </Modal>
   )
 
   return (
-    <Screen backgroundColor={styles.background.color} style={styles.flex}>
+    <Screen>
       {AccountCreationNeededModal}
-      <NewNameBlinkModal />
       <StableSatsModal
         isVisible={isStablesatModalVisible}
         setIsVisible={setIsStablesatModalVisible}
       />
-      <View style={styles.header}>
-        <Button
-          {...testProps("price button")}
-          buttonStyle={styles.topButton}
+      <View style={[styles.header, styles.container]}>
+        <GaloyIconButton
           onPress={() => navigation.navigate("priceHistory")}
-          icon={<PriceIcon />}
+          size={"medium"}
+          name="graph"
+          iconOnly={true}
         />
-
-        <View style={styles.balanceHeaderContainer}>
-          <BalanceHeader loading={loading} />
-        </View>
-
-        <Button
-          {...testProps("Settings Button")}
-          buttonStyle={styles.topButton}
+        <BalanceHeader
+          isContentVisible={isContentVisible}
+          setIsContentVisible={setIsContentVisible}
+          loading={loading}
+        />
+        <GaloyIconButton
           onPress={() => navigation.navigate("settings")}
-          icon={<SettingsIcon />}
+          size={"medium"}
+          name="menu"
+          iconOnly={true}
         />
       </View>
       <ScrollView
-        contentContainerStyle={styles.scrollView}
+        contentContainerStyle={[styles.scrollView, styles.container]}
         refreshControl={
           <RefreshControl
             refreshing={loading}
             onRefresh={refetch}
-            colors={[theme.colors.primary]} // Android refresh indicator colors
-            tintColor={theme.colors.primary} // iOS refresh indicator color
+            colors={[colors.primary]} // Android refresh indicator colors
+            tintColor={colors.primary} // iOS refresh indicator color
           />
         }
       >
         <WalletOverview
+          isContentVisible={isContentVisible}
+          setIsContentVisible={setIsContentVisible}
           loading={loading}
           setIsStablesatModalVisible={setIsStablesatModalVisible}
         />
         {error && (
-          <Text style={styles.error} selectable>
-            {getErrorMessages(error)}
-          </Text>
+          <View style={styles.marginButtonContainer}>
+            <GaloyErrorBox errorMessage={getErrorMessages(error)} />
+          </View>
         )}
         <View style={styles.listItemsContainer}>
-          <View style={styles.listItems}>
-            {buttons.map((item) => (
-              <View key={item.title} style={styles.largeButton}>
-                <GaloyIconButton
-                  {...testProps(item.title)}
-                  name={item.icon}
-                  size="large"
-                  text={item.title}
-                  onPress={() => onMenuClick(item.target)}
-                />
-              </View>
-            ))}
-          </View>
+          {buttons.map((item) => (
+            <View key={item.icon} style={styles.button}>
+              <GaloyIconButton
+                name={item.icon}
+                size="large"
+                text={item.title}
+                onPress={() => onMenuClick(item.target)}
+              />
+            </View>
+          ))}
         </View>
 
         {recentTransactionsData ? (
-          <View style={styles.transactionContainer}>
+          <>
             <TouchableWithoutFeedback
               style={styles.recentTransaction}
               onPress={() => onMenuClick("transactionHistory")}
@@ -302,15 +361,13 @@ export const HomeScreen: React.FC = () => {
               </Text>
             </TouchableWithoutFeedback>
             {recentTransactionsData?.details}
-          </View>
-        ) : (
-          <View style={styles.noTransaction}>
-            <Text type="p1" bold>
-              {LL.TransactionScreen.noTransaction()}
-            </Text>
-          </View>
-        )}
+          </>
+        ) : null}
         <AppUpdate />
+        <SetDefaultAccountModal
+          isVisible={setDefaultAccountModalVisible}
+          toggleModal={toggleSetDefaultAccountModal}
+        />
       </ScrollView>
     </Screen>
   )
@@ -318,50 +375,28 @@ export const HomeScreen: React.FC = () => {
 
 const useStyles = makeStyles(({ colors }) => ({
   scrollView: {
-    flexGrow: 1,
-    paddingBottom: 30,
+    paddingBottom: 12,
   },
   listItemsContainer: {
     paddingHorizontal: 15,
     paddingVertical: 15,
     marginBottom: 20,
-    marginHorizontal: 30,
     borderRadius: 12,
-    backgroundColor: colors.whiteOrDarkGrey,
-  },
-  listItems: {
+    backgroundColor: colors.grey5,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-  },
-  background: {
-    color: colors.lighterGreyOrBlack,
-  },
-  buttonContainerStyle: {
-    marginTop: 16,
-    width: "80%",
+    alignItems: "flex-start",
   },
   noTransaction: {
     alignItems: "center",
-  },
-  text: {
-    color: colors.grey5,
-    fontSize: 20,
-  },
-  titleStyle: {
-    color: colors.primary,
-    fontSize: 18,
-    fontWeight: "bold",
   },
   icon: {
     height: 34,
     top: -22,
   },
-  buttonStyle: {
-    borderColor: colors.primary,
-    borderRadius: 32,
-    borderWidth: 2,
+  marginButtonContainer: {
+    marginBottom: 20,
   },
   modal: {
     marginBottom: 0,
@@ -377,9 +412,13 @@ const useStyles = makeStyles(({ colors }) => ({
   viewModal: {
     alignItems: "center",
     backgroundColor: colors.white,
-    height: "25%",
+    height: "30%",
     justifyContent: "flex-end",
     paddingHorizontal: 20,
+  },
+  openWalletContainer: {
+    alignSelf: "stretch",
+    marginTop: 20,
   },
   recentTransaction: {
     display: "flex",
@@ -387,41 +426,29 @@ const useStyles = makeStyles(({ colors }) => ({
     justifyContent: "center",
     alignItems: "center",
     columnGap: 10,
-    backgroundColor: colors.whiteOrDarkGrey,
+    backgroundColor: colors.grey5,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    borderColor: colors.lighterGreyOrBlack,
+    borderColor: colors.grey5,
     borderBottomWidth: 2,
     paddingVertical: 14,
   },
-  transactionContainer: {
-    marginHorizontal: 30,
-  },
-  largeButton: {
+  button: {
     display: "flex",
     justifyContent: "space-between",
+    width: "100%",
+    maxWidth: 74,
   },
   header: {
-    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 30,
     height: 120,
-  },
-  topButton: {
-    backgroundColor: colors.whiteOrDarkGrey,
-    borderRadius: 38,
-    width: 45,
-    height: 45,
-  },
-  balanceHeaderContainer: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
   },
   error: {
     alignSelf: "center",
     color: colors.error,
+  },
+  container: {
+    marginHorizontal: 20,
   },
 }))

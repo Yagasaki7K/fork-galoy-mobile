@@ -1,6 +1,11 @@
 import { WalletCurrency } from "@app/graphql/generated"
-import { BtcMoneyAmount, MoneyAmount, WalletOrDisplayCurrency } from "@app/types/amounts"
-import { PaymentType } from "@galoymoney/client/dist/parsing-v2"
+import {
+  BtcMoneyAmount,
+  MoneyAmount,
+  WalletOrDisplayCurrency,
+  toWalletAmount,
+} from "@app/types/amounts"
+import { PaymentType } from "@galoymoney/client"
 import {
   ConvertMoneyAmount,
   PaymentDetail,
@@ -9,12 +14,13 @@ import {
   BaseCreatePaymentDetailsParams,
   PaymentDetailSendPaymentGetFee,
   PaymentDetailSetMemo,
-  SendPayment,
+  SendPaymentMutation,
   GetFee,
 } from "./index.types"
 
 export type CreateNoAmountOnchainPaymentDetailsParams<T extends WalletCurrency> = {
   address: string
+  isSendingMax?: boolean
   unitOfAccountAmount: MoneyAmount<WalletOrDisplayCurrency>
 } & BaseCreatePaymentDetailsParams<T>
 
@@ -27,6 +33,7 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     destinationSpecifiedMemo,
     unitOfAccountAmount,
     senderSpecifiedMemo,
+    isSendingMax,
     address,
   } = params
 
@@ -41,17 +48,90 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     canGetFee: false,
   }
 
-  if (
+  if (isSendingMax) {
+    const sendPaymentMutation: SendPaymentMutation = async (paymentMutations) => {
+      const { data } = await paymentMutations.onChainPaymentSendAll({
+        variables: {
+          input: {
+            walletId: sendingWalletDescriptor.id,
+            address,
+            memo,
+          },
+        },
+      })
+
+      return {
+        status: data?.onChainPaymentSendAll.status,
+        errors: data?.onChainPaymentSendAll.errors,
+      }
+    }
+
+    const getFee: GetFee<T> = async (getFeeFns) => {
+      if (sendingWalletDescriptor.currency === WalletCurrency.Btc) {
+        const { data } = await getFeeFns.onChainTxFee({
+          variables: {
+            walletId: sendingWalletDescriptor.id,
+            address,
+            amount: settlementAmount.amount,
+          },
+        })
+
+        const rawAmount = data?.onChainTxFee.amount
+        const amount =
+          typeof rawAmount === "number" // FIXME: this branch is never taken? rawAmount is type number | undefined
+            ? toWalletAmount({
+                amount: rawAmount,
+                currency: sendingWalletDescriptor.currency,
+              })
+            : rawAmount
+
+        return {
+          amount,
+        }
+      } else if (sendingWalletDescriptor.currency === WalletCurrency.Usd) {
+        const { data } = await getFeeFns.onChainUsdTxFee({
+          variables: {
+            walletId: sendingWalletDescriptor.id,
+            address,
+            amount: settlementAmount.amount,
+          },
+        })
+
+        const rawAmount = data?.onChainUsdTxFee.amount
+        const amount =
+          typeof rawAmount === "number" // FIXME: this branch is never taken? rawAmount is type number | undefined
+            ? toWalletAmount({
+                amount: rawAmount,
+                currency: sendingWalletDescriptor.currency,
+              })
+            : rawAmount
+
+        return {
+          amount,
+        }
+      }
+
+      return { amount: null }
+    }
+
+    sendPaymentAndGetFee = {
+      canSendPayment: true,
+      canGetFee: true,
+      sendPaymentMutation,
+      getFee,
+    }
+  } else if (
     settlementAmount.amount &&
     sendingWalletDescriptor.currency === WalletCurrency.Btc
   ) {
-    const sendPayment: SendPayment = async (sendPaymentFns) => {
-      const { data } = await sendPaymentFns.onChainPaymentSend({
+    const sendPaymentMutation: SendPaymentMutation = async (paymentMutations) => {
+      const { data } = await paymentMutations.onChainPaymentSend({
         variables: {
           input: {
             walletId: sendingWalletDescriptor.id,
             address,
             amount: settlementAmount.amount,
+            memo,
           },
         },
       })
@@ -74,10 +154,10 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
       const rawAmount = data?.onChainTxFee.amount
       const amount =
         typeof rawAmount === "number" // FIXME: this branch is never taken? rawAmount is type number | undefined
-          ? {
+          ? toWalletAmount({
               amount: rawAmount,
               currency: sendingWalletDescriptor.currency,
-            }
+            })
           : rawAmount
 
       return {
@@ -88,19 +168,19 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     sendPaymentAndGetFee = {
       canSendPayment: true,
       canGetFee: true,
-      sendPayment,
+      sendPaymentMutation,
       getFee,
     }
   } else if (
     settlementAmount.amount &&
     sendingWalletDescriptor.currency === WalletCurrency.Usd
   ) {
-    let sendPayment: SendPayment
+    let sendPaymentMutation: SendPaymentMutation
     let getFee: GetFee<T>
 
     if (settlementAmount.currency === WalletCurrency.Usd) {
-      sendPayment = async (sendPaymentFns) => {
-        const { data } = await sendPaymentFns.onChainUsdPaymentSend({
+      sendPaymentMutation = async (paymentMutations) => {
+        const { data } = await paymentMutations.onChainUsdPaymentSend({
           variables: {
             input: {
               walletId: sendingWalletDescriptor.id,
@@ -128,10 +208,10 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
         const rawAmount = data?.onChainUsdTxFee.amount
         const amount =
           typeof rawAmount === "number" // FIXME: this branch is never taken? rawAmount is type number | undefined
-            ? {
+            ? toWalletAmount({
                 amount: rawAmount,
                 currency: sendingWalletDescriptor.currency,
-              }
+              })
             : rawAmount
 
         return {
@@ -139,8 +219,8 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
         }
       }
     } else {
-      sendPayment = async (sendPaymentFns) => {
-        const { data } = await sendPaymentFns.onChainUsdPaymentSendAsBtcDenominated({
+      sendPaymentMutation = async (paymentMutations) => {
+        const { data } = await paymentMutations.onChainUsdPaymentSendAsBtcDenominated({
           variables: {
             input: {
               walletId: sendingWalletDescriptor.id,
@@ -168,10 +248,10 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
         const rawAmount = data?.onChainUsdTxFeeAsBtcDenominated.amount
         const amount =
           typeof rawAmount === "number" // FIXME: this branch is never taken? rawAmount is type number | undefined
-            ? {
+            ? toWalletAmount({
                 amount: rawAmount,
                 currency: sendingWalletDescriptor.currency,
-              }
+              })
             : rawAmount
 
         return {
@@ -183,14 +263,18 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     sendPaymentAndGetFee = {
       canSendPayment: true,
       canGetFee: true,
-      sendPayment,
+      sendPaymentMutation,
       getFee,
     }
   }
 
-  const setAmount: SetAmount<T> | undefined = (newUnitOfAccountAmount) => {
+  const setAmount: SetAmount<T> | undefined = (
+    newUnitOfAccountAmount,
+    sendMax = false,
+  ) => {
     return createNoAmountOnchainPaymentDetails({
       ...params,
+      isSendingMax: sendMax,
       unitOfAccountAmount: newUnitOfAccountAmount,
     })
   }
@@ -237,6 +321,8 @@ export const createNoAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     setAmount,
     canSetAmount: true,
     ...sendPaymentAndGetFee,
+    canSendMax: true,
+    isSendingMax,
   } as const
 }
 
@@ -270,17 +356,18 @@ export const createAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     canGetFee: false,
   }
 
-  let sendPayment: SendPayment
+  let sendPaymentMutation: SendPaymentMutation
   let getFee: GetFee<T>
 
   if (sendingWalletDescriptor.currency === WalletCurrency.Btc) {
-    sendPayment = async (sendPaymentFns) => {
-      const { data } = await sendPaymentFns.onChainPaymentSend({
+    sendPaymentMutation = async (paymentMutations) => {
+      const { data } = await paymentMutations.onChainPaymentSend({
         variables: {
           input: {
             walletId: sendingWalletDescriptor.id,
             address,
             amount: settlementAmount.amount,
+            memo,
           },
         },
       })
@@ -303,10 +390,10 @@ export const createAmountOnchainPaymentDetails = <T extends WalletCurrency>(
       const rawAmount = data?.onChainTxFee.amount
       const amount =
         typeof rawAmount === "number"
-          ? {
+          ? toWalletAmount({
               amount: rawAmount,
               currency: sendingWalletDescriptor.currency,
-            }
+            })
           : rawAmount
 
       return {
@@ -317,13 +404,13 @@ export const createAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     sendPaymentAndGetFee = {
       canSendPayment: true,
       canGetFee: true,
-      sendPayment,
+      sendPaymentMutation,
       getFee,
     }
   } else {
     // sendingWalletDescriptor.currency === WalletCurrency.Usd
-    sendPayment = async (sendPaymentFns) => {
-      const { data } = await sendPaymentFns.onChainUsdPaymentSendAsBtcDenominated({
+    sendPaymentMutation = async (paymentMutations) => {
+      const { data } = await paymentMutations.onChainUsdPaymentSendAsBtcDenominated({
         variables: {
           input: {
             walletId: sendingWalletDescriptor.id,
@@ -351,10 +438,10 @@ export const createAmountOnchainPaymentDetails = <T extends WalletCurrency>(
       const rawAmount = data?.onChainUsdTxFeeAsBtcDenominated.amount
       const amount =
         typeof rawAmount === "number"
-          ? {
+          ? toWalletAmount({
               amount: rawAmount,
               currency: sendingWalletDescriptor.currency,
-            }
+            })
           : rawAmount
 
       return {
@@ -365,7 +452,7 @@ export const createAmountOnchainPaymentDetails = <T extends WalletCurrency>(
     sendPaymentAndGetFee = {
       canSendPayment: true,
       canGetFee: true,
-      sendPayment,
+      sendPaymentMutation,
       getFee,
     }
   }

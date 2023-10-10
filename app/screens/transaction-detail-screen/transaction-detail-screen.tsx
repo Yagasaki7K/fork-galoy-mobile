@@ -1,11 +1,11 @@
 import * as React from "react"
-import { Linking, Text, TouchableWithoutFeedback, View } from "react-native"
+import { Linking, TouchableWithoutFeedback, View } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
 // eslint-disable-next-line camelcase
 import { useFragment_experimental } from "@apollo/client"
 import { TransactionDate } from "@app/components/transaction-date"
-import { descriptionDisplay } from "@app/components/transaction-item"
+import { useDescriptionDisplay } from "@app/components/transaction-item"
 import { WalletSummary } from "@app/components/wallet-summary"
 import {
   SettlementVia,
@@ -15,90 +15,19 @@ import {
 } from "@app/graphql/generated"
 import { useDisplayCurrency } from "@app/hooks/use-display-currency"
 import { useI18nContext } from "@app/i18n/i18n-react"
-import { testProps } from "@app/utils/testProps"
 import { RouteProp, useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { Divider } from "@rneui/base"
 
 import { IconTransaction } from "../../components/icon-transactions"
 import { Screen } from "../../components/screen"
-import { palette } from "../../theme"
 
 import type { RootStackParamList } from "../../navigation/stack-param-lists"
 import { useAppConfig } from "@app/hooks"
-import { makeStyles } from "@rneui/themed"
-
-const useStyles = makeStyles((theme) => ({
-  closeIconContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingRight: 10,
-  },
-
-  amount: {
-    color: palette.white,
-    fontSize: 32,
-  },
-
-  amountText: {
-    color: palette.white,
-    fontSize: 18,
-    marginVertical: 6,
-  },
-
-  amountDetailsContainer: {
-    flexDirection: "column",
-    paddingBottom: 24,
-    paddingTop: 48,
-  },
-
-  amountView: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  description: {
-    marginVertical: 12,
-  },
-  divider: {
-    backgroundColor: palette.midGrey,
-    marginVertical: 12,
-  },
-  entry: {
-    color: theme.colors.darkGreyOrWhite,
-    marginBottom: 6,
-  },
-  transactionDetailText: {
-    color: theme.colors.darkGreyOrWhite,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  transactionDetailView: {
-    marginHorizontal: 24,
-    marginVertical: 24,
-  },
-  valueContainer: {
-    flexDirection: "row",
-    height: 50,
-    backgroundColor: palette.white,
-    alignItems: "center",
-    borderRadius: 8,
-  },
-  value: {
-    marginLeft: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  background: {
-    color: theme.colors.lighterGreyOrBlack,
-  },
-  iconOnchain: {
-    color: theme.colors.darkGreyOrWhite,
-  },
-}))
+import { makeStyles, Text, useTheme } from "@rneui/themed"
+import { toWalletAmount } from "@app/types/amounts"
+import { isIos } from "@app/utils/helper"
+import { GaloyInfo } from "@app/components/atomic/galoy-info"
+import { GaloyIconButton } from "@app/components/atomic/galoy-icon-button"
 
 const Row = ({
   entry,
@@ -111,6 +40,9 @@ const Row = ({
   __typename?: "SettlementViaIntraLedger" | "SettlementViaLn" | "SettlementViaOnChain"
   content?: unknown
 }) => {
+  const {
+    theme: { colors },
+  } = useTheme()
   const styles = useStyles()
   return (
     <View style={styles.description}>
@@ -118,7 +50,7 @@ const Row = ({
         <Text style={styles.entry}>
           {entry}
           {__typename === "SettlementViaOnChain" && (
-            <Icon name="open-outline" size={18} color={styles.iconOnchain.color} />
+            <Icon name="open-outline" size={18} color={colors.grey0} />
           )}
         </Text>
         {content || (
@@ -149,6 +81,9 @@ type Props = {
 }
 
 export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
+  const {
+    theme: { colors },
+  } = useTheme()
   const styles = useStyles()
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
@@ -173,6 +108,12 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
   const { LL } = useI18nContext()
   const { formatCurrency } = useDisplayCurrency()
 
+  const description = useDescriptionDisplay({
+    tx,
+    bankName: galoyInstance.name,
+  })
+
+  // FIXME doesn't work with storybook
   // TODO: translation
   if (!tx || Object.keys(tx).length === 0)
     return <Text>{"No transaction found with this ID (should not happen)"}</Text>
@@ -191,10 +132,6 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
   } = tx
 
   const isReceive = tx.direction === "RECEIVE"
-  const description = descriptionDisplay({
-    tx,
-    bankName: galoyInstance.name,
-  })
 
   const walletCurrency = settlementCurrency as WalletCurrency
   const spendOrReceiveText = isReceive
@@ -212,11 +149,18 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
   })
 
   const formattedSettlementFee = formatMoneyAmount({
-    moneyAmount: {
+    moneyAmount: toWalletAmount({
       amount: settlementFee,
       currency: settlementCurrency,
-    },
+    }),
   })
+
+  const onChainTxBroadcasted =
+    settlementVia.__typename === "SettlementViaOnChain" &&
+    settlementVia.transactionHash !== null
+  const onChainTxNotBroadcasted =
+    settlementVia.__typename === "SettlementViaOnChain" &&
+    settlementVia.transactionHash === null
 
   // only show a secondary amount if it is in a different currency than the primary amount
   const formattedSecondaryFeeAmount =
@@ -227,38 +171,34 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
   const formattedFeeText =
     formattedPrimaryFeeAmount +
     (formattedSecondaryFeeAmount ? ` (${formattedSecondaryFeeAmount})` : ``)
-  const walletSummary = (
+  const Wallet = (
     <WalletSummary
       amountType={isReceive ? "RECEIVE" : "SEND"}
-      settlementAmount={{
+      settlementAmount={toWalletAmount({
         amount: Math.abs(settlementAmount),
         currency: settlementCurrency,
-      }}
+      })}
       txDisplayAmount={settlementDisplayAmount}
       txDisplayCurrency={settlementDisplayCurrency}
     />
   )
 
   return (
-    <Screen backgroundColor={styles.background.color} unsafe preset="scroll">
+    <Screen unsafe preset="scroll">
       <View
         style={[
           styles.amountDetailsContainer,
           {
-            backgroundColor:
-              walletCurrency === WalletCurrency.Usd
-                ? palette.usdPrimary
-                : palette.btcPrimary,
+            backgroundColor: colors.grey5,
           },
         ]}
       >
         <View accessible={false} style={styles.closeIconContainer}>
-          <Icon
-            {...testProps("close-button")}
-            name="ios-close"
+          <GaloyIconButton
+            name="close"
             onPress={navigation.goBack}
-            color={palette.white}
-            size={60}
+            iconOnly={true}
+            size={"large"}
           />
         </View>
         <View style={styles.amountView}>
@@ -268,26 +208,24 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
             pending={false}
             onChain={false}
           />
-          <Text style={styles.amountText}>{spendOrReceiveText}</Text>
-          <Text style={styles.amount}>{displayAmount}</Text>
+          <Text type="h2">{spendOrReceiveText}</Text>
+          <Text type="h1">{displayAmount}</Text>
         </View>
       </View>
 
       <View style={styles.transactionDetailView}>
-        <Text
-          {...testProps(LL.TransactionDetailScreen.detail())}
-          style={styles.transactionDetailText}
-        >
-          {LL.TransactionDetailScreen.detail()}
-        </Text>
-        <Divider style={styles.divider} />
+        {onChainTxNotBroadcasted && (
+          <View style={styles.txNotBroadcast}>
+            <GaloyInfo>{LL.TransactionDetailScreen.txNotBroadcast()}</GaloyInfo>
+          </View>
+        )}
         <Row
           entry={
             isReceive
               ? LL.TransactionDetailScreen.receivingAccount()
               : LL.TransactionDetailScreen.sendingAccount()
           }
-          content={walletSummary}
+          content={Wallet}
         />
         <Row entry={LL.common.date()} value={<TransactionDate {...tx} />} />
         {!isReceive && <Row entry={LL.common.fees()} value={formattedFeeText} />}
@@ -303,14 +241,14 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
           initiationVia.__typename === "InitiationViaLn" && (
             <Row entry="Hash" value={initiationVia.paymentHash} />
           )}
-        {settlementVia.__typename === "SettlementViaOnChain" && (
+        {onChainTxBroadcasted && (
           <TouchableWithoutFeedback
-            onPress={() => viewInExplorer(settlementVia.transactionHash)}
+            onPress={() => viewInExplorer(settlementVia.transactionHash || "")}
           >
             <View>
               <Row
                 entry="Hash"
-                value={settlementVia.transactionHash}
+                value={settlementVia.transactionHash || ""}
                 __typename={settlementVia.__typename}
               />
             </View>
@@ -321,3 +259,56 @@ export const TransactionDetailScreen: React.FC<Props> = ({ route }) => {
     </Screen>
   )
 }
+
+const useStyles = makeStyles(({ colors }) => ({
+  closeIconContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    paddingRight: 10,
+  },
+
+  amountText: {
+    fontSize: 18,
+    marginVertical: 6,
+  },
+
+  amountDetailsContainer: {
+    paddingTop: isIos ? 36 : 0,
+  },
+
+  amountView: {
+    alignItems: "center",
+    justifyContent: "center",
+    transform: [{ translateY: -12 }],
+  },
+
+  description: {
+    marginBottom: 6,
+  },
+
+  entry: {
+    marginBottom: 6,
+  },
+
+  transactionDetailView: {
+    marginHorizontal: 24,
+    marginVertical: 12,
+  },
+  valueContainer: {
+    flexDirection: "row",
+    minHeight: 60,
+    padding: 14,
+    backgroundColor: colors.grey5,
+    alignItems: "center",
+    borderRadius: 8,
+  },
+  value: {
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  txNotBroadcast: {
+    marginBottom: 16,
+  },
+}))

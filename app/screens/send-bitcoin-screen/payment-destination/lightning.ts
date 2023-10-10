@@ -2,7 +2,7 @@ import { WalletCurrency } from "@app/graphql/generated"
 import {
   InvalidLightningDestinationReason,
   LightningPaymentDestination,
-} from "@galoymoney/client/dist/parsing-v2"
+} from "@galoymoney/client"
 import {
   createAmountLightningPaymentDetails,
   createNoAmountLightningPaymentDetails,
@@ -14,6 +14,7 @@ import {
   ParseDestinationResult,
   PaymentDestination,
 } from "./index.types"
+import { ZeroBtcMoneyAmount, toBtcMoneyAmount } from "@app/types/amounts"
 
 export const resolveLightningDestination = (
   parsedLightningDestination: LightningPaymentDestination,
@@ -44,10 +45,7 @@ export const createLightningDestination = (
       return createAmountLightningPaymentDetails({
         paymentRequest,
         sendingWalletDescriptor,
-        paymentRequestAmount: {
-          amount,
-          currency: WalletCurrency.Btc,
-        },
+        paymentRequestAmount: toBtcMoneyAmount(amount),
         convertMoneyAmount,
         destinationSpecifiedMemo: memo,
       })
@@ -62,10 +60,7 @@ export const createLightningDestination = (
         sendingWalletDescriptor,
         convertMoneyAmount,
         destinationSpecifiedMemo: memo,
-        unitOfAccountAmount: {
-          amount: 0,
-          currency: WalletCurrency.Btc,
-        },
+        unitOfAccountAmount: ZeroBtcMoneyAmount,
       })
     }
   }

@@ -5,12 +5,16 @@ import {
   NavigationContainer,
   NavigationState,
   PartialState,
+  DarkTheme,
 } from "@react-navigation/native"
 import * as React from "react"
 import { useRef } from "react"
 import { Linking } from "react-native"
 import { useIsAuthed } from "../graphql/is-authed-context"
 import { RootStackParamList } from "./stack-param-lists"
+import { useTheme } from "@rneui/themed"
+
+import RNBootSplash from "react-native-bootsplash"
 
 export type AuthenticationContextType = {
   isAppLocked: boolean
@@ -54,6 +58,10 @@ export const NavigationContainerWrapper: React.FC<React.PropsWithChildren> = ({
   const [isAppLocked, setIsAppLocked] = React.useState(true)
 
   const routeName = useRef("Initial")
+
+  const {
+    theme: { mode },
+  } = useTheme()
 
   const getActiveRouteName = (
     state: NavigationState | PartialState<NavigationState> | undefined,
@@ -111,7 +119,12 @@ export const NavigationContainerWrapper: React.FC<React.PropsWithChildren> = ({
   return (
     <AuthenticationContextProvider value={{ isAppLocked, setAppUnlocked, setAppLocked }}>
       <NavigationContainer
+        {...(mode === "dark" ? { theme: DarkTheme } : {})}
         linking={linking}
+        onReady={() => {
+          RNBootSplash.hide({ fade: true, duration: 220 })
+          console.log("NavigationContainer onReady")
+        }}
         onStateChange={(state) => {
           const currentRouteName = getActiveRouteName(state)
 

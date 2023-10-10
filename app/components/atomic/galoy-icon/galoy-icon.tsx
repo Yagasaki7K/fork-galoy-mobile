@@ -13,13 +13,15 @@ import CaretUp from "@app/assets/icons-redesign/caret-up.svg"
 import CheckCircle from "@app/assets/icons-redesign/check-circle.svg"
 import Check from "@app/assets/icons-redesign/check.svg"
 import Close from "@app/assets/icons-redesign/close.svg"
+import CloseCrossWithBackground from "@app/assets/icons-redesign/close-cross-with-background.svg"
 import Coins from "@app/assets/icons-redesign/coins.svg"
-import Contact from "@app/assets/icons-redesign/contact.svg"
+import People from "@app/assets/icons/people.svg"
 import CopyPaste from "@app/assets/icons-redesign/copy-paste.svg"
 import Dollar from "@app/assets/icons-redesign/dollar.svg"
 import EyeSlash from "@app/assets/icons-redesign/eye-slash.svg"
 import Eye from "@app/assets/icons-redesign/eye.svg"
 import Filter from "@app/assets/icons-redesign/filter.svg"
+import Globe from "@app/assets/icons-redesign/globe.svg"
 import Graph from "@app/assets/icons-redesign/graph.svg"
 import Image from "@app/assets/icons-redesign/image.svg"
 import Info from "@app/assets/icons-redesign/info.svg"
@@ -40,9 +42,12 @@ import Transfer from "@app/assets/icons-redesign/transfer.svg"
 import User from "@app/assets/icons-redesign/user.svg"
 import Video from "@app/assets/icons-redesign/video.svg"
 import Warning from "@app/assets/icons-redesign/warning.svg"
+import WarningWithBackground from "@app/assets/icons-redesign/warning-with-background.svg"
 import PaymentSuccess from "@app/assets/icons-redesign/payment-success.svg"
 import PaymentPending from "@app/assets/icons-redesign/payment-pending.svg"
 import PaymentError from "@app/assets/icons-redesign/payment-error.svg"
+import Rank from "@app/assets/icons/rank.svg"
+import Note from "@app/assets/icons/note.svg"
 import { makeStyles, useTheme } from "@rneui/themed"
 import { StyleProp, View, ViewStyle } from "react-native"
 
@@ -60,13 +65,15 @@ export const icons = {
   "check-circle": CheckCircle,
   "check": Check,
   "close": Close,
+  "close-cross-with-background": CloseCrossWithBackground,
   "coins": Coins,
-  "contact": Contact,
+  "people": People,
   "copy-paste": CopyPaste,
   "dollar": Dollar,
   "eye-slash": EyeSlash,
   "eye": Eye,
   "filter": Filter,
+  "globe": Globe,
   "graph": Graph,
   "image": Image,
   "info": Info,
@@ -77,6 +84,8 @@ export const icons = {
   "map": Map,
   "menu": Menu,
   "pencil": Pencil,
+  "note": Note,
+  "rank": Rank,
   "qr-code": QrCode,
   "question": Question,
   "receive": Receive,
@@ -87,6 +96,7 @@ export const icons = {
   "user": User,
   "video": Video,
   "warning": Warning,
+  "warning-with-background": WarningWithBackground,
   "payment-success": PaymentSuccess,
   "payment-pending": PaymentPending,
   "payment-error": PaymentError,
@@ -117,7 +127,9 @@ export const GaloyIcon = ({
   backgroundColor,
   opacity,
 }: GaloyIconProps) => {
-  const { theme } = useTheme()
+  const {
+    theme: { colors },
+  } = useTheme()
   const styles = useStyles({ backgroundColor, opacity, size })
   const Icon = icons[name]
 
@@ -127,7 +139,7 @@ export const GaloyIcon = ({
         width={size}
         opacity={opacity || 1}
         height={size}
-        color={color || theme.colors.black}
+        color={color || colors.black}
         fontWeight={"600"}
       />
     </View>
@@ -136,7 +148,7 @@ export const GaloyIcon = ({
       opacity={opacity || 1}
       width={size}
       height={size}
-      color={color || theme.colors.black}
+      color={color || colors.black}
       style={style}
       fontWeight={"600"}
     />

@@ -4,10 +4,6 @@
 
 // language related import
 import "intl-pluralrules"
-import "moment/locale/es"
-import "moment/locale/fr-ca"
-import "moment/locale/pt-br"
-import "./utils/polyfill"
 
 import "react-native-reanimated"
 
@@ -31,6 +27,8 @@ import { PersistentStateProvider } from "./store/persistent-state"
 import { detectDefaultLocale } from "./utils/locale-detector"
 import { ThemeSyncGraphql } from "./utils/theme-sync"
 import { NetworkErrorComponent } from "./graphql/network-error-component"
+import { FeatureFlagContextProvider } from "./config/feature-flags-context"
+import "./utils/logs"
 
 // FIXME should we only load the currently used local?
 // this would help to make the app load faster
@@ -48,18 +46,20 @@ export const App = () => (
     <TypesafeI18n locale={detectDefaultLocale()}>
       <ThemeProvider theme={theme}>
         <GaloyClient>
-          <ErrorBoundary FallbackComponent={ErrorScreen}>
-            <NavigationContainerWrapper>
-              <RootSiblingParent>
-                <AppStateWrapper />
-                <NotificationComponent />
-                <RootStack />
-                <GaloyToast />
-                <NetworkErrorComponent />
-              </RootSiblingParent>
-            </NavigationContainerWrapper>
-          </ErrorBoundary>
-          <ThemeSyncGraphql />
+          <FeatureFlagContextProvider>
+            <ErrorBoundary FallbackComponent={ErrorScreen}>
+              <NavigationContainerWrapper>
+                <RootSiblingParent>
+                  <AppStateWrapper />
+                  <NotificationComponent />
+                  <RootStack />
+                  <GaloyToast />
+                  <NetworkErrorComponent />
+                </RootSiblingParent>
+              </NavigationContainerWrapper>
+            </ErrorBoundary>
+            <ThemeSyncGraphql />
+          </FeatureFlagContextProvider>
         </GaloyClient>
       </ThemeProvider>
     </TypesafeI18n>

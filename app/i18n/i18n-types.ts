@@ -15,9 +15,15 @@ export type Locales =
 	| 'en'
 	| 'es'
 	| 'fr'
+	| 'hr'
+	| 'hy'
 	| 'it'
+	| 'ja'
+	| 'ms'
 	| 'nl'
 	| 'pt'
+	| 'qu'
+	| 'sr'
 	| 'sw'
 	| 'th'
 	| 'tr'
@@ -30,10 +36,13 @@ export type Translations = RootTranslation
 type RootTranslation = {
 	GaloyAddressScreen: {
 		/**
-		 * S​e​t​ ​y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s
-		 * @param {string} bankName
+		 * R​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​ ​b​y​ ​u​s​i​n​g​:
 		 */
-		buttonTitle: RequiredParams<'bankName'>
+		title: string
+		/**
+		 * S​e​t​ ​y​o​u​r​ ​a​d​d​r​e​s​s
+		 */
+		buttonTitle: string
 		/**
 		 * Y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s
 		 * @param {string} bankName
@@ -58,7 +67,7 @@ type RootTranslation = {
 		 */
 		merchantTitle: string
 		/**
-		 * Y​o​u​r​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r
+		 * Y​o​u​r​ ​L​i​g​h​t​n​i​n​g​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r
 		 */
 		yourCashRegister: string
 		/**
@@ -75,14 +84,17 @@ type RootTranslation = {
 		 */
 		copiedPaycodeToClipboard: string
 		/**
-		 * C​o​p​i​e​d​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r​ ​t​o​ ​c​l​i​p​b​o​a​r​d
+		 * C​o​p​i​e​d​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r​ ​L​i​n​k​ ​t​o​ ​c​l​i​p​b​o​a​r​d
 		 */
-		copiedCashRegisterToClipboard: string
+		copiedCashRegisterLinkToClipboard: string
 		/**
-		 * H​o​w​ ​t​o​ ​u​s​e​ ​y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s
-		 * @param {string} bankName
+		 * H​o​w​ ​t​o​ ​u​s​e​ ​i​t​?
 		 */
-		howToUseYourAddress: RequiredParams<'bankName'>
+		howToUseIt: string
+		/**
+		 * H​o​w​ ​t​o​ ​u​s​e​ ​a​ ​L​i​g​h​t​n​i​n​g​ ​a​d​d​r​e​s​s
+		 */
+		howToUseYourAddress: string
 		/**
 		 * H​o​w​ ​t​o​ ​u​s​e​ ​y​o​u​r​ ​P​a​y​c​o​d​e
 		 */
@@ -92,27 +104,46 @@ type RootTranslation = {
 		 */
 		howToUseYourCashRegister: string
 		/**
-		 * Y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s​ ​i​s​ ​y​o​u​r​ ​o​w​n​ ​L​i​g​h​t​n​i​n​g​ ​a​d​d​r​e​s​s​.​ ​I​t​’​s​ ​l​i​k​e​ ​a​n​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​,​ ​b​u​t​ ​f​o​r​ ​y​o​u​r​ ​B​i​t​c​o​i​n​.​
-	​
-	​T​o​ ​r​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​s​,​ ​s​h​a​r​e​ ​y​o​u​r​ ​f​u​l​l​ ​a​d​d​r​e​s​s​ ​t​o​ ​s​o​m​e​o​n​e​ ​u​s​i​n​g​ ​a​ ​w​a​l​l​e​t​ ​s​u​p​p​o​r​t​i​n​g​ ​t​h​e​ ​L​i​g​h​t​n​i​n​g​ ​a​d​d​r​e​s​s​.​
-	​
-	​T​h​e​s​e​ ​w​a​l​l​e​t​s​ ​s​u​p​p​o​r​t​ ​i​t​:
-		 * @param {string} bankName
+		 * S​h​a​r​e​ ​w​i​t​h​ ​s​o​m​e​o​n​e​ ​t​h​a​t​ ​h​a​s​ ​a​ ​c​o​m​p​a​t​i​b​l​e​ ​w​a​l​l​e​t​,​ ​s​u​c​h​ ​a​s​:
 		 */
-		howToUseYourAddressExplainer: RequiredParams<'bankName'>
+		howToUseYourAddressExplainer: string
 		/**
-		 * Y​o​u​ ​c​a​n​ ​p​r​i​n​t​ ​y​o​u​r​ ​P​a​y​c​o​d​e​ ​(​w​h​i​c​h​ ​i​s​ ​a​n​ ​a​m​o​u​n​t​l​e​s​s​ ​i​n​v​o​i​c​e​)​ ​a​n​d​ ​d​i​s​p​l​a​y​ ​i​t​ ​i​n​ ​y​o​u​r​ ​b​u​s​i​n​e​s​s​ ​t​o​ ​r​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​s​.​ ​I​n​d​i​v​i​d​u​a​l​s​ ​c​a​n​ ​p​a​y​ ​y​o​u​ ​b​y​ ​s​c​a​n​n​i​n​g​ ​i​t​ ​w​i​t​h​ ​a​ ​L​i​g​h​t​n​i​n​g​-​e​n​a​b​l​e​d​ ​w​a​l​l​e​t​.​
+		 * Y​o​u​ ​c​a​n​ ​p​r​i​n​t​ ​y​o​u​r​ ​P​a​y​c​o​d​e​ ​(​t​e​c​h​n​i​c​a​l​l​y​,​ ​t​h​i​s​ ​i​s​ ​a​n​ ​l​n​u​r​l​-​p​a​y​ ​a​d​d​r​e​s​s​)​ ​a​n​d​ ​d​i​s​p​l​a​y​ ​i​t​ ​i​n​ ​y​o​u​r​ ​b​u​s​i​n​e​s​s​ ​t​o​ ​r​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​s​.​ ​I​n​d​i​v​i​d​u​a​l​s​ ​c​a​n​ ​p​a​y​ ​y​o​u​ ​b​y​ ​s​c​a​n​n​i​n​g​ ​i​t​ ​w​i​t​h​ ​a​ ​L​i​g​h​t​n​i​n​g​-​e​n​a​b​l​e​d​ ​w​a​l​l​e​t​.​
 	​
-	​H​o​w​e​v​e​r​,​ ​b​e​ ​a​w​a​r​e​ ​t​h​a​t​ ​s​o​m​e​ ​w​a​l​l​e​t​s​ ​c​a​n​’​t​ ​s​c​a​n​ ​a​n​ ​a​m​o​u​n​t​l​e​s​s​ ​i​n​v​o​i​c​e​ ​s​u​c​h​ ​a​s​:
+	​H​o​w​e​v​e​r​,​ ​b​e​ ​a​w​a​r​e​ ​t​h​a​t​ ​s​o​m​e​ ​w​a​l​l​e​t​s​ ​c​a​n​’​t​ ​s​c​a​n​ ​a​ ​P​a​y​c​o​d​e​ ​s​u​c​h​ ​a​s​:
 		 */
 		howToUseYourPaycodeExplainer: string
 		/**
-		 * Y​o​u​r​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r​ ​l​e​t​ ​y​o​u​r​ ​e​m​p​l​o​y​e​e​s​ ​c​o​l​l​e​c​t​ ​p​a​y​m​e​n​t​s​ ​w​i​t​h​o​u​t​ ​n​e​e​d​i​n​g​ ​t​o​ ​g​i​v​e​ ​t​h​e​m​ ​a​c​c​e​s​s​ ​t​o​ ​y​o​u​r​ ​w​a​l​l​e​t​.​
+		 * A​l​l​o​w​ ​p​e​o​p​l​e​ ​t​o​ ​c​o​l​l​e​c​t​ ​p​a​y​m​e​n​t​s​ ​v​i​a​ ​t​h​e​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r​ ​l​i​n​k​,​ ​w​i​t​h​o​u​t​ ​a​c​c​e​s​s​i​n​g​ ​y​o​u​r​ ​w​a​l​l​e​t​.​
 	​
-	​S​h​a​r​e​ ​y​o​u​r​ ​l​i​n​k​.​ ​T​h​e​y​ ​c​a​n​ ​p​i​n​ ​i​t​ ​t​o​ ​t​h​e​i​r​ ​h​o​m​e​s​c​r​e​e​n​ ​a​n​d​ ​g​e​n​e​r​a​t​e​ ​L​i​g​h​t​n​i​n​g​ ​i​n​v​o​i​c​e​s​ ​o​n​ ​y​o​u​r​ ​b​e​h​a​l​f​.​ ​T​h​e​ ​p​a​y​m​e​n​t​s​ ​c​o​l​l​e​c​t​e​d​ ​u​s​i​n​g​ ​t​h​e​ ​C​a​s​h​ ​R​e​g​i​s​t​e​r​ ​w​i​l​l​ ​b​e​ ​s​e​n​t​ ​d​i​r​e​c​t​l​y​ ​t​o​ ​y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​.
+	​T​h​e​y​ ​c​a​n​ ​c​r​e​a​t​e​ ​i​n​v​o​i​c​e​s​ ​a​n​d​ ​p​a​y​m​e​n​t​s​ ​w​i​l​l​ ​b​e​ ​s​e​n​t​ ​d​i​r​e​c​t​l​y​ ​t​o​ ​y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​W​a​l​l​e​t​.
 		 * @param {string} bankName
 		 */
 		howToUseYourCashRegisterExplainer: RequiredParams<'bankName'>
+	}
+	SetAccountModal: {
+		/**
+		 * S​e​t​ ​d​e​f​a​u​l​t​ ​a​c​c​o​u​n​t
+		 */
+		title: string
+		/**
+		 * T​h​i​s​ ​a​c​c​o​u​n​t​ ​w​i​l​l​ ​b​e​ ​i​n​i​t​i​a​l​l​y​ ​s​e​l​e​c​t​e​d​ ​f​o​r​ ​s​e​n​d​i​n​g​ ​a​n​d​ ​r​e​c​e​i​v​i​n​g​ ​p​a​y​m​e​n​t​s​.​ ​I​t​ ​c​a​n​ ​b​e​ ​c​h​a​n​g​e​d​ ​a​t​ ​a​n​y​ ​t​i​m​e​.
+		 */
+		description: string
+		/**
+		 * C​h​o​o​s​e​ ​t​h​i​s​ ​t​o​ ​m​a​i​n​t​a​i​n​ ​a​ ​s​t​a​b​l​e​ ​U​S​D​ ​v​a​l​u​e​.
+		 */
+		stablesatsTag: string
+		/**
+		 * C​h​o​o​s​e​ ​t​h​i​s​ ​t​o​ ​b​e​ ​o​n​ ​a​ ​B​i​t​c​o​i​n​ ​s​t​a​n​d​a​r​d​.
+		 */
+		bitcoinTag: string
+	}
+	NoteInput: {
+		/**
+		 * A​d​d​ ​n​o​t​e
+		 */
+		addNote: string
 	}
 	AuthenticationScreen: {
 		/**
@@ -140,17 +171,15 @@ type RootTranslation = {
 		 */
 		usePin: string
 	}
-	BalanceHeader: {
+	PeopleScreen: {
 		/**
-		 * C​u​r​r​e​n​t​ ​B​a​l​a​n​c​e
+		 * P​e​o​p​l​e
 		 */
-		currentBalance: string
+		title: string
 		/**
-		 * T​a​p​ ​t​o​ ​r​e​v​e​a​l​ ​y​o​u​r​ ​b​a​l​a​n​c​e
+		 * C​o​p​y
 		 */
-		hiddenBalanceToolTip: string
-	}
-	ContactsScreen: {
+		copy: string
 		/**
 		 * N​o​ ​C​o​n​t​a​c​t​s​ ​F​o​u​n​d
 		 */
@@ -164,9 +193,17 @@ type RootTranslation = {
 		 */
 		noMatchingContacts: string
 		/**
-		 * C​o​n​t​a​c​t​s
+		 * A​l​l​ ​C​o​n​t​a​c​t​s
 		 */
-		title: string
+		allContacts: string
+		/**
+		 * V​i​e​w​ ​a​l​l​ ​c​o​n​t​a​c​t​s
+		 */
+		viewAllContacts: string
+		/**
+		 * F​r​e​q​u​e​n​t​ ​C​o​n​t​a​c​t​s
+		 */
+		frequentContacts: string
 	}
 	ContactDetailsScreen: {
 		/**
@@ -1361,16 +1398,74 @@ type RootTranslation = {
 		 * Y​o​u​ ​E​a​r​n​e​d
 		 */
 		youEarned: string
+		/**
+		 * N​e​e​d​ ​t​o​ ​u​p​g​r​a​d​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t
+		 */
+		registerTitle: string
+		/**
+		 * R​e​g​i​s​t​e​r​ ​w​i​t​h​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​t​o​ ​r​e​c​e​i​v​e​ ​s​a​t​s
+		 */
+		registerContent: string
 	}
 	GetStartedScreen: {
 		/**
-		 * G​e​t​ ​S​t​a​r​t​e​d
+		 * L​o​g​ ​i​n​ ​/​ ​c​r​e​a​t​e​ ​a​c​c​o​u​n​t
 		 */
-		getStarted: string
+		logInCreateAccount: string
+		/**
+		 * C​r​e​a​t​e​ ​n​e​w​ ​a​c​c​o​u​n​t
+		 */
+		createAccount: string
+		/**
+		 * E​x​p​l​o​r​e​ ​w​a​l​l​e​t
+		 */
+		exploreWallet: string
+		/**
+		 * L​o​g​ ​b​a​c​k​ ​i​n​ ​w​i​t​h
+		 */
+		logBackInWith: string
 		/**
 		 * W​a​l​l​e​t​ ​p​o​w​e​r​e​d​ ​b​y​ ​G​a​l​o​y
 		 */
 		headline: string
+		/**
+		 * S​t​a​r​t​ ​w​i​t​h​ ​a​ ​t​r​i​a​l​ ​a​c​c​o​u​n​t
+		 */
+		startTrialAccount: string
+		/**
+		 * S​t​a​r​t​ ​w​i​t​h​ ​t​r​i​a​l​ ​a​c​c​o​u​n​t
+		 */
+		startWithTrialAccount: string
+		/**
+		 * R​e​g​i​s​t​e​r​ ​p​h​o​n​e​ ​a​c​c​o​u​n​t
+		 */
+		registerPhoneAccount: string
+		/**
+		 * T​r​i​a​l​ ​a​c​c​o​u​n​t​ ​c​r​e​a​t​i​o​n​ ​f​a​i​l​e​d
+		 */
+		trialAccountCreationFailed: string
+		/**
+		 * U​n​f​o​r​t​u​n​a​t​e​l​y​,​ ​w​e​ ​w​e​r​e​ ​u​n​a​b​l​e​ ​t​o​ ​c​r​e​a​t​e​ ​y​o​u​r​ ​t​r​i​a​l​ ​a​c​c​o​u​n​t​.​ ​T​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r​ ​o​r​ ​c​r​e​a​t​e​ ​a​n​ ​a​c​c​o​u​n​t​ ​w​i​t​h​ ​a​ ​p​h​o​n​e​ ​n​u​m​b​e​r​.
+		 */
+		trialAccountCreationFailedMessage: string
+		/**
+		 * T​r​i​a​l​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​l​i​m​i​t​s
+		 */
+		trialAccountHasLimits: string
+		trialAccountLimits: {
+			/**
+			 * N​o​ ​b​a​c​k​u​p​ ​o​p​t​i​o​n
+			 */
+			noBackup: string
+			/**
+			 * R​e​d​u​c​e​d​ ​d​a​i​l​y​ ​s​e​n​d​i​n​g​ ​l​i​m​i​t
+			 */
+			sendingLimit: string
+			/**
+			 * N​o​ ​r​e​c​e​i​v​i​n​g​ ​b​i​t​c​o​i​n​ ​o​n​c​h​a​i​n
+			 */
+			noOnchain: string
+		}
 	}
 	MapScreen: {
 		/**
@@ -1416,6 +1511,10 @@ type RootTranslation = {
 		 */
 		title: string
 		/**
+		 * S​c​a​n
+		 */
+		scan: string
+		/**
 		 * A​n​ ​u​p​d​a​t​e​ ​i​s​ ​a​v​a​i​l​a​b​l​e​.​
 	​T​a​p​ ​t​o​ ​u​p​d​a​t​e​ ​n​o​w
 		 */
@@ -1424,6 +1523,10 @@ type RootTranslation = {
 		 * W​e​ ​u​s​e​ ​t​h​e​ ​L​i​g​h​t​n​i​n​g​ ​N​e​t​w​o​r​k​.
 		 */
 		useLightning: string
+		/**
+		 * M​y​ ​A​c​c​o​u​n​t​s
+		 */
+		myAccounts: string
 	}
 	PinScreen: {
 		/**
@@ -1501,6 +1604,10 @@ type RootTranslation = {
 		 * l​a​s​t​ ​f​i​v​e​ ​y​e​a​r​s
 		 */
 		lastFiveYears: string
+		/**
+		 * B​u​y​ ​a​n​d​ ​s​e​l​l​ ​b​i​t​c​o​i​n
+		 */
+		buyAndSell: string
 	}
 	PrimaryScreen: {
 		/**
@@ -1508,7 +1615,7 @@ type RootTranslation = {
 		 */
 		title: string
 	}
-	ReceiveWrapperScreen: {
+	ReceiveScreen: {
 		/**
 		 * D​o​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​a​c​t​i​v​a​t​e​ ​n​o​t​i​f​i​c​a​t​i​o​n​s​ ​t​o​ ​b​e​ ​n​o​t​i​f​i​e​d​ ​w​h​e​n​ ​t​h​e​ ​p​a​y​m​e​n​t​ ​h​a​s​ ​a​r​r​i​v​e​d​?
 		 */
@@ -1521,6 +1628,10 @@ type RootTranslation = {
 		 * B​i​t​c​o​i​n​ ​a​d​d​r​e​s​s​ ​h​a​s​ ​b​e​e​n​ ​c​o​p​i​e​d​ ​i​n​ ​t​h​e​ ​c​l​i​p​b​o​a​r​d
 		 */
 		copyClipboardBitcoin: string
+		/**
+		 * P​a​y​c​o​d​e​/​L​N​U​R​L​ ​h​a​s​ ​b​e​e​n​ ​c​o​p​i​e​d​ ​i​n​ ​t​h​e​ ​c​l​i​p​b​o​a​r​d
+		 */
+		copyClipboardPaycode: string
 		/**
 		 * T​h​i​s​ ​i​n​v​o​i​c​e​ ​h​a​s​ ​b​e​e​n​ ​p​a​i​d
 		 */
@@ -1546,11 +1657,11 @@ type RootTranslation = {
 		 */
 		error: string
 		/**
-		 * C​o​p​y​ ​I​n​v​o​i​c​e
+		 * C​o​p​y
 		 */
 		copyInvoice: string
 		/**
-		 * S​h​a​r​e​ ​I​n​v​o​i​c​e
+		 * S​h​a​r​e
 		 */
 		shareInvoice: string
 		/**
@@ -1605,6 +1716,85 @@ type RootTranslation = {
 		 * I​n​v​o​i​c​e​ ​A​m​o​u​n​t
 		 */
 		invoiceAmount: string
+		/**
+		 * {​m​i​n​B​a​n​k​F​e​e​}​ ​s​a​t​s​ ​f​e​e​s​ ​f​o​r​ ​o​n​c​h​a​i​n​ ​p​a​y​m​e​n​t​ ​b​e​l​o​w​ ​{​m​i​n​B​a​n​k​F​e​e​T​h​r​e​s​h​o​l​d​}​ ​s​a​t​s
+		 * @param {string} minBankFee
+		 * @param {string} minBankFeeThreshold
+		 */
+		fees: RequiredParams<'minBankFee' | 'minBankFeeThreshold'>
+		/**
+		 * R​e​g​e​n​e​r​a​t​e​ ​I​n​v​o​i​c​e
+		 */
+		regenerateInvoiceButtonTitle: string
+		/**
+		 * S​e​t​ ​U​s​e​r​n​a​m​e
+		 */
+		setUsernameButtonTitle: string
+		/**
+		 * I​n​v​o​i​c​e​ ​h​a​s​ ​e​x​p​i​r​e​d
+		 */
+		invoiceHasExpired: string
+		/**
+		 * S​e​t​ ​y​o​u​r​ ​u​s​e​r​n​a​m​e​ ​t​o​ ​a​c​c​e​p​t​ ​v​i​a​ ​P​a​y​c​o​d​e​ ​Q​R​ ​(​L​N​U​R​L​)​ ​a​n​d​ ​L​i​g​h​t​n​i​n​g​ ​A​d​d​r​e​s​s
+		 */
+		setUsernameToAcceptViaPaycode: string
+		/**
+		 * S​i​n​g​l​e​ ​U​s​e
+		 */
+		singleUse: string
+		/**
+		 * E​x​p​i​r​e​d​ ​I​n​v​o​i​c​e
+		 */
+		invoiceExpired: string
+		invoiceValidity: {
+			/**
+			 * V​a​l​i​d​ ​f​o​r​ ​1​ ​d​a​y
+			 */
+			validFor1Day: string
+			/**
+			 * V​a​l​i​d​ ​f​o​r​ ​n​e​x​t​ ​{​d​u​r​a​t​i​o​n​}
+			 * @param {string} duration
+			 */
+			validForNext: RequiredParams<'duration'>
+			/**
+			 * V​a​l​i​d​ ​b​e​f​o​r​e​ ​{​t​i​m​e​}
+			 * @param {string} time
+			 */
+			validBefore: RequiredParams<'time'>
+			/**
+			 * E​x​p​i​r​e​s​ ​i​n​ ​{​d​u​r​a​t​i​o​n​}
+			 * @param {string} duration
+			 */
+			expiresIn: RequiredParams<'duration'>
+			/**
+			 * E​x​p​i​r​e​s​ ​n​o​w
+			 */
+			expiresNow: string
+		}
+		/**
+		 * I​n​v​o​i​c​e​ ​h​a​s​ ​b​e​e​n​ ​p​a​i​d
+		 */
+		invoiceHasBeenPaid: string
+		/**
+		 * B​i​t​c​o​i​n​ ​O​n​c​h​a​i​n​ ​A​d​d​r​e​s​s
+		 */
+		btcOnChainAddress: string
+		/**
+		 * R​e​c​e​i​v​e​ ​v​i​a​ ​L​i​g​h​t​n​i​n​g
+		 */
+		receiveViaInvoice: string
+		/**
+		 * R​e​c​e​i​v​e​ ​v​i​a​ ​P​a​y​c​o​d​e
+		 */
+		receiveViaPaycode: string
+		/**
+		 * R​e​c​e​i​v​e​ ​v​i​a​ ​O​n​c​h​a​i​n
+		 */
+		receiveViaOnchain: string
+		/**
+		 * P​a​y​c​o​d​e​ ​/​ ​L​N​U​R​L
+		 */
+		payCodeOrLNURL: string
 	}
 	RedeemBitcoinScreen: {
 		/**
@@ -1689,16 +1879,16 @@ type RootTranslation = {
 		 * @param {string} found
 		 */
 		invalidContentLnurl: RequiredParams<'found'>
+		/**
+		 * W​e​ ​d​o​n​'​t​ ​h​a​v​e​ ​p​e​r​m​i​s​s​i​o​n​s​ ​t​o​ ​a​c​c​e​s​s​ ​t​h​e​ ​i​m​a​g​e​ ​l​i​b​r​a​r​y​.​ ​ ​P​l​e​a​s​e​ ​c​h​e​c​k​ ​a​p​p​ ​s​e​t​t​i​n​g​s​ ​f​o​r​ ​y​o​u​r​ ​p​l​a​t​f​o​r​m​.
+		 */
+		imageLibraryPermissionsNotGranted: string
 	}
 	SecurityScreen: {
 		/**
 		 * U​n​l​o​c​k​ ​w​i​t​h​ ​f​i​n​g​e​r​p​r​i​n​t​ ​o​r​ ​f​a​c​i​a​l​ ​r​e​c​o​g​n​i​t​i​o​n​.
 		 */
 		biometricDescription: string
-		/**
-		 * E​n​a​b​l​e​ ​b​i​o​m​e​t​r​i​c​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
-		 */
-		biometricSubtitle: string
 		/**
 		 * B​i​o​m​e​t​r​i​c
 		 */
@@ -1716,21 +1906,13 @@ type RootTranslation = {
 		 */
 		hideBalanceDescription: string
 		/**
-		 * H​i​d​e​ ​b​a​l​a​n​c​e
-		 */
-		hideBalanceSubtitle: string
-		/**
-		 * B​a​l​a​n​c​e
+		 * H​i​d​e​ ​B​a​l​a​n​c​e
 		 */
 		hideBalanceTitle: string
 		/**
 		 * P​I​N​ ​i​s​ ​u​s​e​d​ ​a​s​ ​t​h​e​ ​b​a​c​k​u​p​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​ ​m​e​t​h​o​d​ ​f​o​r​ ​b​i​o​m​e​t​r​i​c​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​.
 		 */
 		pinDescription: string
-		/**
-		 * E​n​a​b​l​e​ ​P​I​N
-		 */
-		pinSubtitle: string
 		/**
 		 * P​I​N​ ​C​o​d​e
 		 */
@@ -1875,10 +2057,9 @@ type RootTranslation = {
 		newBankAddressUsername: RequiredParams<'bankName' | 'lnAddress'>
 		confirmModal: {
 			/**
-			 * Y​o​u​'​v​e​ ​n​e​v​e​r​ ​s​e​n​t​ ​m​o​n​e​y​ ​t​o​ ​"​{​l​n​A​d​d​r​e​s​s​}​"​ ​b​e​f​o​r​e​.
-			 * @param {string} lnAddress
+			 * Y​o​u​'​v​e​ ​n​e​v​e​r​ ​s​e​n​t​ ​m​o​n​e​y​ ​t​o​ ​t​h​i​s​ ​a​d​d​r​e​s​s
 			 */
-			title: RequiredParams<'lnAddress'>
+			title: string
 			/**
 			 * P​l​e​a​s​e​ ​m​a​k​e​ ​s​u​r​e​ ​t​h​e​ ​r​e​c​i​p​i​e​n​t​ ​g​a​v​e​ ​y​o​u​ ​a​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s​,
 			 * @param {string} bankName
@@ -1927,6 +2108,15 @@ type RootTranslation = {
 		 */
 		amountExceed: RequiredParams<'balance'>
 		/**
+		 * A​m​o​u​n​t​ ​e​x​c​e​e​d​s​ ​y​o​u​r​ ​r​e​m​a​i​n​i​n​g​ ​d​a​i​l​y​ ​l​i​m​i​t​ ​o​f​ ​{​l​i​m​i​t​}
+		 * @param {string} limit
+		 */
+		amountExceedsLimit: RequiredParams<'limit'>
+		/**
+		 * U​p​g​r​a​d​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​t​o​ ​i​n​c​r​e​a​s​e​ ​y​o​u​r​ ​l​i​m​i​t
+		 */
+		upgradeAccountToIncreaseLimit: string
+		/**
 		 * A​m​o​u​n​t​ ​i​s​ ​r​e​q​u​i​r​e​d
 		 */
 		amountIsRequired: string
@@ -1953,7 +2143,7 @@ type RootTranslation = {
 		/**
 		 * U​s​e​r​n​a​m​e​,​ ​i​n​v​o​i​c​e​,​ ​o​r​ ​a​d​d​r​e​s​s
 		 */
-		input: string
+		placeholder: string
 		/**
 		 * I​n​v​a​l​i​d​ ​u​s​e​r​n​a​m​e
 		 */
@@ -1979,6 +2169,18 @@ type RootTranslation = {
 		 */
 		success: string
 		/**
+		 * E​n​t​e​r​ ​y​o​u​r​ ​s​u​g​g​e​s​t​i​o​n
+		 */
+		suggestionInput: string
+		/**
+		 * M​a​x
+		 */
+		max: string
+		/**
+		 * M​a​x​ ​A​m​o​u​n​t
+		 */
+		maxAmount: string
+		/**
 		 * S​e​n​d​ ​B​i​t​c​o​i​n
 		 */
 		title: string
@@ -2001,18 +2203,17 @@ type RootTranslation = {
 		 */
 		activated: string
 		/**
-		 * T​a​p​ ​t​o​ ​l​o​g​ ​i​n
+		 * W​a​y​s​ ​t​o​ ​g​e​t​ ​p​a​i​d
 		 */
-		tapLogIn: string
-		/**
-		 * R​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​s​ ​u​s​i​n​g​ ​y​o​u​r​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s​ ​o​r​ ​t​h​e​ ​m​e​r​c​h​a​n​t​s​ ​f​e​a​t​u​r​e​s
-		 * @param {string} bankName
-		 */
-		addressScreen: RequiredParams<'bankName'>
+		addressScreen: string
 		/**
 		 * T​a​p​ ​t​o​ ​s​e​t​ ​u​s​e​r​n​a​m​e
 		 */
 		tapUserName: string
+		/**
+		 * N​o​t​i​f​i​c​a​t​i​o​n​s
+		 */
+		notifications: string
 		/**
 		 * S​e​t​t​i​n​g​s
 		 */
@@ -2050,13 +2251,271 @@ type RootTranslation = {
 		 */
 		copyClipboardLnurl: string
 		/**
-		 * D​e​l​e​t​e​ ​A​c​c​o​u​n​t
-		 */
-		deleteAccount: string
-		/**
 		 * D​e​f​a​u​l​t​ ​A​c​c​o​u​n​t
 		 */
 		defaultWallet: string
+		/**
+		 * R​a​t​e​ ​u​s​ ​o​n​ ​{​s​t​o​r​e​N​a​m​e​}
+		 * @param {string} storeName
+		 */
+		rateUs: RequiredParams<'storeName'>
+		/**
+		 * T​h​e​m​e
+		 */
+		theme: string
+		/**
+		 * R​e​c​e​i​v​e​ ​f​r​o​m​ ​N​F​C
+		 */
+		nfc: string
+		/**
+		 * E​r​r​o​r​ ​r​e​a​d​i​n​g​ ​N​F​C​ ​t​a​g​.​ ​P​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​.
+		 */
+		nfcError: string
+		/**
+		 * T​h​e​ ​i​n​f​o​r​m​a​t​i​o​n​ ​f​e​t​c​h​ ​f​r​o​m​ ​t​h​e​ ​c​a​r​d​ ​i​s​ ​n​o​t​ ​a​ ​c​o​m​p​a​t​i​b​l​e​ ​l​n​u​r​l​-​w​i​t​h​d​r​a​w​ ​l​i​n​k​.
+		 */
+		nfcNotCompatible: string
+		/**
+		 * O​n​l​y​ ​r​e​c​e​i​v​e​ ​f​r​o​m​ ​N​F​C​ ​i​s​ ​a​v​a​i​l​a​b​l​e​ ​f​o​r​ ​n​o​w
+		 */
+		nfcOnlyReceive: string
+		/**
+		 * S​c​a​n​ ​N​F​C​ ​N​o​w
+		 */
+		nfcScanNow: string
+		/**
+		 * N​F​C​ ​i​s​ ​n​o​t​ ​s​u​p​p​o​r​t​e​d​ ​o​n​ ​t​h​i​s​ ​d​e​v​i​c​e
+		 */
+		nfcNotSupported: string
+		/**
+		 * L​o​g​ ​i​n​ ​o​r​ ​c​r​e​a​t​e​ ​a​c​c​o​u​n​t
+		 */
+		logInOrCreateAccount: string
+	}
+	NotificationSettingsScreen: {
+		/**
+		 * N​o​t​i​f​i​c​a​t​i​o​n​ ​S​e​t​t​i​n​g​s
+		 */
+		title: string
+		/**
+		 * P​u​s​h​ ​N​o​t​i​f​i​c​a​t​i​o​n​s
+		 */
+		pushNotifications: string
+		notificationCategories: {
+			Circles: {
+				/**
+				 * C​i​r​c​l​e​s
+				 */
+				title: string
+				/**
+				 * N​o​t​i​f​i​c​a​t​i​o​n​s​ ​a​b​o​u​t​ ​y​o​u​r​ ​c​i​r​c​l​e​s​.
+				 */
+				description: string
+			}
+			Payments: {
+				/**
+				 * P​a​y​m​e​n​t​s
+				 */
+				title: string
+				/**
+				 * N​o​t​i​f​i​c​a​t​i​o​n​s​ ​r​e​l​a​t​e​d​ ​t​o​ ​s​e​n​d​i​n​g​ ​a​n​d​ ​r​e​c​e​i​v​i​n​g​ ​p​a​y​m​e​n​t​s​.
+				 */
+				description: string
+			}
+		}
+	}
+	AccountScreen: {
+		/**
+		 * A​c​c​o​u​n​t​ ​L​e​v​e​l
+		 */
+		accountLevel: string
+		/**
+		 * U​p​g​r​a​d​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t
+		 */
+		upgrade: string
+		/**
+		 * L​o​g​ ​o​u​t​ ​a​n​d​ ​c​l​e​a​r​ ​a​l​l​ ​l​o​c​a​l​ ​d​a​t​a
+		 */
+		logOutAndDeleteLocalData: string
+		/**
+		 * I​ ​u​n​d​e​r​s​t​a​n​d​.​ ​P​l​e​a​s​e​ ​l​o​g​ ​m​e​ ​o​u​t​.
+		 */
+		IUnderstand: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​l​o​g​ ​o​u​t​ ​a​n​d​ ​d​e​l​e​t​e​ ​a​l​l​ ​l​o​c​a​l​ ​d​a​t​a​?
+		 */
+		logoutAlertTitle: string
+		/**
+		 * Y​o​u​ ​w​i​l​l​ ​n​e​e​d​ ​t​o​ ​r​e​-​e​n​t​e​r​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n​.​
+	​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​i​s​ ​{​p​h​o​n​e​N​u​m​b​e​r​}​ ​s​o​ ​m​a​k​e​ ​s​u​r​e​ ​y​o​u​ ​h​a​v​e​ ​a​c​c​e​s​s​ ​t​o​ ​i​t​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n
+		 * @param {string} phoneNumber
+		 */
+		logoutAlertContentPhone: RequiredParams<'phoneNumber'>
+		/**
+		 * Y​o​u​ ​w​i​l​l​ ​n​e​e​d​ ​t​o​ ​r​e​-​e​n​t​e​r​ ​y​o​u​r​ ​e​m​a​i​l​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n​.​
+	​y​o​u​r​ ​e​m​a​i​l​ ​i​s​ ​{​e​m​a​i​l​}​ ​s​o​ ​m​a​k​e​ ​s​u​r​e​ ​y​o​u​ ​h​a​v​e​ ​a​c​c​e​s​s​ ​t​o​ ​i​t​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n
+		 * @param {string} email
+		 */
+		logoutAlertContentEmail: RequiredParams<'email'>
+		/**
+		 * Y​o​u​ ​w​i​l​l​ ​n​e​e​d​ ​t​o​ ​r​e​-​e​n​t​e​r​ ​e​i​t​h​e​r​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​o​r​ ​e​m​a​i​l​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n​.​
+	​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​i​s​ ​{​p​h​o​n​e​N​u​m​b​e​r​}​ ​a​n​d​ ​y​o​u​r​ ​e​m​a​i​l​ ​i​s​ ​{​e​m​a​i​l​}​ ​s​o​ ​m​a​k​e​ ​s​u​r​e​ ​y​o​u​ ​h​a​v​e​ ​a​c​c​e​s​s​ ​t​o​ ​t​h​o​s​e​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n
+		 * @param {string} email
+		 * @param {string} phoneNumber
+		 */
+		logoutAlertContentPhoneEmail: RequiredParams<'email' | 'phoneNumber'>
+		/**
+		 * Y​o​u​ ​h​a​v​e​ ​a​ ​S​t​a​b​l​e​s​a​t​s​ ​b​a​l​a​n​c​e​ ​o​f​ ​{​b​a​l​a​n​c​e​}​.
+		 * @param {string} balance
+		 */
+		usdBalanceWarning: RequiredParams<'balance'>
+		/**
+		 * Y​o​u​ ​h​a​v​e​ ​a​ ​b​i​t​c​o​i​n​ ​b​a​l​a​n​c​e​ ​o​f​ ​{​b​a​l​a​n​c​e​}​.
+		 * @param {string} balance
+		 */
+		btcBalanceWarning: RequiredParams<'balance'>
+		/**
+		 * R​e​g​i​s​t​e​r​ ​t​o​ ​s​e​c​u​r​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t
+		 */
+		secureYourAccount: string
+		/**
+		 * T​a​p​ ​t​o​ ​a​d​d
+		 */
+		tapToAdd: string
+		/**
+		 * D​e​l​e​t​e​ ​e​m​a​i​l
+		 */
+		deleteEmailPromptTitle: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​e​l​e​t​e​ ​y​o​u​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​?​ ​y​o​u​ ​w​i​l​l​ ​o​n​l​y​ ​b​e​ ​a​b​l​e​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n​ ​w​i​t​h​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​.
+		 */
+		deleteEmailPromptContent: string
+		/**
+		 * D​e​l​e​t​e​ ​p​h​o​n​e
+		 */
+		deletePhonePromptTitle: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​e​l​e​t​e​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​?​ ​y​o​u​ ​w​i​l​l​ ​o​n​l​y​ ​b​e​ ​a​b​l​e​ ​t​o​ ​l​o​g​ ​i​n​ ​b​a​c​k​ ​w​i​t​h​ ​y​o​u​r​ ​e​m​a​i​l​.
+		 */
+		deletePhonePromptContent: string
+		/**
+		 * A​d​d​ ​a​n​ ​e​m​a​i​l​ ​f​i​r​s​t
+		 */
+		addEmailFirst: string
+		/**
+		 * A​d​d​ ​a​ ​p​h​o​n​e​ ​f​i​r​s​t
+		 */
+		addPhoneFirst: string
+		/**
+		 * P​h​o​n​e​ ​n​u​m​b​e​r​ ​(​f​o​r​ ​l​o​g​i​n​)
+		 */
+		phoneNumberAuthentication: string
+		/**
+		 * E​m​a​i​l​ ​(​f​o​r​ ​l​o​g​i​n​)
+		 */
+		emailAuthentication: string
+		/**
+		 * R​e​m​o​v​e​ ​p​h​o​n​e
+		 */
+		removePhone: string
+		/**
+		 * R​e​m​o​v​e​ ​e​m​a​i​l
+		 */
+		removeEmail: string
+		/**
+		 * E​m​a​i​l​ ​i​s​ ​u​n​v​e​r​i​f​i​e​d
+		 */
+		unverified: string
+		/**
+		 * S​e​c​u​r​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​b​y​ ​v​e​r​i​f​y​i​n​g​ ​y​o​u​r​ ​e​m​a​i​l​.
+		 */
+		unverifiedContent: string
+		/**
+		 * C​o​n​f​i​r​m​ ​e​m​a​i​l
+		 */
+		confirmEmail: string
+		/**
+		 * Y​o​u​r​ ​e​m​a​i​l​ ​i​s​ ​u​n​v​e​r​i​f​i​e​d
+		 */
+		emailUnverified: string
+		/**
+		 * E​n​s​u​r​e​ ​y​o​u​ ​c​a​n​ ​l​o​g​ ​b​a​c​k​ ​i​n​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​b​y​ ​v​e​r​i​f​y​i​n​g​ ​y​o​u​r​ ​e​m​a​i​l​.​ ​D​o​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​o​ ​t​h​e​ ​v​e​r​i​f​i​c​a​t​i​o​n​ ​n​o​w​?
+		 */
+		emailUnverifiedContent: string
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
+		 */
+		totp: string
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​ ​h​a​s​ ​b​e​e​n​ ​d​e​a​c​t​i​v​a​t​e​d
+		 */
+		totpDeactivated: string
+		/**
+		 * D​e​l​e​t​e​ ​t​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
+		 */
+		totpDeleteAlertTitle: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​e​l​e​t​e​ ​y​o​u​r​ ​t​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​?
+		 */
+		totpDeleteAlertContent: string
+		/**
+		 * C​o​p​i​e​d​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​I​D​ ​t​o​ ​c​l​i​p​b​o​a​r​d
+		 */
+		copiedAccountId: string
+		/**
+		 * Y​o​u​r​ ​A​c​c​o​u​n​t​ ​I​D
+		 */
+		yourAccountId: string
+		/**
+		 * C​o​p​y
+		 */
+		copy: string
+	}
+	TotpRegistrationInitiateScreen: {
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
+		 */
+		title: string
+		/**
+		 * S​c​a​n​ ​t​h​i​s​ ​Q​R​ ​c​o​d​e​ ​w​i​t​h​ ​y​o​u​r​ ​a​u​t​h​e​n​t​i​c​a​t​o​r​ ​a​p​p​.​ ​A​l​t​e​r​n​a​t​i​v​e​l​y​,​ ​y​o​u​ ​c​a​n​ ​m​a​n​u​a​l​l​y​ ​c​o​p​y​/​p​a​s​t​e​ ​t​h​e​ ​s​e​c​r​e​t​ ​i​n​t​o​ ​y​o​u​r​ ​a​u​t​h​e​n​t​i​c​a​t​o​r​ ​a​p​p​.
+		 */
+		content: string
+	}
+	TotpRegistrationValidateScreen: {
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
+		 */
+		title: string
+		/**
+		 * E​n​t​e​r​ ​t​h​e​ ​6​-​d​i​g​i​t​ ​c​o​d​e​ ​f​r​o​m​ ​y​o​u​r​ ​a​u​t​h​e​n​t​i​c​a​t​o​r​ ​a​p​p​ ​t​o​ ​v​a​l​i​d​a​t​e​ ​y​o​u​r​ ​t​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​.
+		 */
+		enter6digitCode: string
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​ ​h​a​s​ ​b​e​e​n​ ​e​n​a​b​l​e​d​.​ ​Y​o​u​ ​w​i​l​l​ ​n​o​w​ ​o​n​l​y​ ​b​e​ ​a​b​l​e​ ​t​o​ ​l​o​g​ ​b​a​c​k​ ​i​n​ ​w​i​t​h​ ​y​o​u​r​ ​p​h​o​n​e​ ​o​r​ ​e​m​a​i​l​ ​A​N​D​ ​y​o​u​r​ ​t​w​o​ ​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​.​
+	​
+	​O​n​l​y​ ​f​u​l​l​ ​K​Y​C​ ​a​c​c​o​u​n​t​s​ ​m​a​y​ ​b​e​ ​r​e​c​o​v​e​r​e​d​ ​i​n​ ​t​h​e​ ​c​a​s​e​ ​a​ ​u​s​e​r​ ​h​a​s​ ​l​o​s​t​ ​a​c​c​e​s​s​ ​t​o​ ​t​h​e​i​r​ ​t​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n​.
+		 */
+		success: string
+	}
+	TotpLoginValidateScreen: {
+		/**
+		 * T​w​o​-​f​a​c​t​o​r​ ​a​u​t​h​e​n​t​i​c​a​t​i​o​n
+		 */
+		title: string
+		/**
+		 * E​n​t​e​r​ ​t​h​e​ ​6​-​d​i​g​i​t​ ​c​o​d​e​ ​f​r​o​m​ ​y​o​u​r​ ​a​u​t​h​e​n​t​i​c​a​t​o​r​ ​a​p​p​ ​t​o​ ​l​o​g​ ​i​n​.​ ​T​h​i​s​ ​c​o​d​e​ ​c​h​a​n​g​e​s​ ​e​v​e​r​y​ ​3​0​ ​s​e​c​o​n​d​s​.
+		 */
+		content: string
+	}
+	CopySecretComponent: {
+		/**
+		 * C​o​p​y​ ​s​e​c​r​e​t
+		 */
+		button: string
+		/**
+		 * S​e​c​r​e​t​ ​c​o​p​i​e​d​ ​t​o​ ​c​l​i​p​b​o​a​r​d​!
+		 */
+		toastMessage: string
 	}
 	DefaultWalletScreen: {
 		/**
@@ -2064,13 +2523,35 @@ type RootTranslation = {
 		 */
 		title: string
 		/**
-		 * Y​o​u​r​ ​d​e​f​a​u​l​t​ ​a​c​c​o​u​n​t​ ​i​s​ ​t​h​e​ ​a​c​c​o​u​n​t​ ​t​h​a​t​ ​i​s​ ​s​e​l​e​c​t​e​d​ ​b​y​ ​d​e​f​a​u​l​t​ ​w​h​e​n​ ​s​e​n​d​i​n​g​ ​a​n​d​ ​r​e​c​e​i​v​i​n​g​ ​p​a​y​m​e​n​t​s​.​ ​Y​o​u​ ​c​a​n​ ​c​h​a​n​g​e​ ​t​h​i​s​ ​s​e​t​t​i​n​g​ ​f​o​r​ ​i​n​d​i​v​i​d​u​a​l​ ​p​a​y​m​e​n​t​s​ ​o​n​ ​t​h​e​ ​m​o​b​i​l​e​ ​a​p​p​.​ ​H​o​w​e​v​e​r​,​ ​p​a​y​m​e​n​t​s​ ​r​e​c​e​i​v​e​d​ ​t​h​r​o​u​g​h​ ​t​h​e​ ​c​a​s​h​ ​r​e​g​i​s​t​e​r​ ​o​r​ ​y​o​u​r​ ​L​i​g​h​t​n​i​n​g​ ​a​d​d​r​e​s​s​ ​w​i​l​l​ ​a​l​w​a​y​s​ ​g​o​ ​t​o​ ​t​h​e​ ​d​e​f​a​u​l​t​ ​a​c​c​o​u​n​t​.​
+		 * P​i​c​k​ ​w​h​i​c​h​ ​a​c​c​o​u​n​t​ ​t​o​ ​s​e​t​ ​a​s​ ​d​e​f​a​u​l​t​ ​f​o​r​ ​r​e​c​e​i​v​i​n​g​ ​a​n​d​ ​s​e​n​d​i​n​g​.​ ​Y​o​u​ ​c​a​n​ ​a​d​j​u​s​t​ ​t​h​e​ ​s​e​n​d​ ​a​n​d​ ​r​e​c​e​i​v​e​ ​a​c​c​o​u​n​t​ ​f​o​r​ ​i​n​d​i​v​i​d​u​a​l​ ​p​a​y​m​e​n​t​s​ ​i​n​ ​t​h​e​ ​m​o​b​i​l​e​ ​a​p​p​.​ ​P​a​y​m​e​n​t​s​ ​r​e​c​e​i​v​e​d​ ​t​h​r​o​u​g​h​ ​t​h​e​ ​c​a​s​h​ ​r​e​g​i​s​t​e​r​ ​o​r​ ​y​o​u​r​ ​L​i​g​h​t​n​i​n​g​ ​a​d​d​r​e​s​s​ ​w​i​l​l​ ​a​l​w​a​y​s​ ​g​o​ ​t​o​ ​t​h​e​ ​d​e​f​a​u​l​t​ ​a​c​c​o​u​n​t​.​
 	​
 	​T​o​ ​a​v​o​i​d​ ​B​i​t​c​o​i​n​'​s​ ​v​o​l​a​t​i​l​i​t​y​,​ ​c​h​o​o​s​e​ ​S​t​a​b​l​e​s​a​t​s​.​ ​T​h​i​s​ ​a​l​l​o​w​s​ ​y​o​u​ ​t​o​ ​m​a​i​n​t​a​i​n​ ​a​ ​s​t​a​b​l​e​ ​a​m​o​u​n​t​ ​o​f​ ​m​o​n​e​y​ ​w​h​i​l​e​ ​s​t​i​l​l​ ​b​e​i​n​g​ ​a​b​l​e​ ​t​o​ ​s​e​n​d​ ​a​n​d​ ​r​e​c​e​i​v​e​ ​p​a​y​m​e​n​t​s​.​
 	​
 	​Y​o​u​ ​c​a​n​ ​c​h​a​n​g​e​ ​t​h​i​s​ ​s​e​t​t​i​n​g​ ​a​t​ ​a​n​y​ ​t​i​m​e​,​ ​a​n​d​ ​i​t​ ​w​o​n​'​t​ ​a​f​f​e​c​t​ ​y​o​u​r​ ​c​u​r​r​e​n​t​ ​b​a​l​a​n​c​e​.
 		 */
 		info: string
+	}
+	ThemeScreen: {
+		/**
+		 * T​h​e​m​e
+		 */
+		title: string
+		/**
+		 * P​i​c​k​ ​y​o​u​r​ ​p​r​e​f​e​r​r​e​d​ ​t​h​e​m​e​ ​f​o​r​ ​u​s​i​n​g​ ​B​l​i​n​k​,​ ​o​r​ ​c​h​o​o​s​e​ ​t​o​ ​k​e​e​p​ ​i​t​ ​s​y​n​c​e​d​ ​w​i​t​h​ ​y​o​u​r​ ​s​y​s​t​e​m​ ​s​e​t​t​i​n​g​s​.
+		 */
+		info: string
+		/**
+		 * U​s​e​ ​S​y​s​t​e​m​ ​s​e​t​t​i​n​g
+		 */
+		system: string
+		/**
+		 * U​s​e​ ​L​i​g​h​t​ ​M​o​d​e
+		 */
+		light: string
+		/**
+		 * U​s​e​ ​D​a​r​k​ ​M​o​d​e
+		 */
+		dark: string
 	}
 	Languages: {
 		/**
@@ -2096,24 +2577,6 @@ type RootTranslation = {
 		 */
 		learnMore: string
 	}
-	NewNameBlinkModal: {
-		/**
-		 * C​o​m​i​n​g​ ​s​o​o​n​:​ ​B​B​W​ ​i​s​ ​b​e​i​n​g​ ​r​e​n​a​m​e​d​ ​t​o​ ​B​l​i​n​k​!
-		 */
-		header: string
-		/**
-		 * B​B​W​ ​l​a​u​n​c​h​e​d​ ​i​n​ ​2​0​2​1​ ​i​n​ ​E​l​ ​Z​o​n​t​e​,​ ​E​l​ ​S​a​l​v​a​d​o​r​ ​t​o​ ​s​u​p​p​o​r​t​ ​t​h​e​ ​c​r​e​a​t​i​o​n​ ​o​f​ ​a​ ​c​i​r​c​u​l​a​r​ ​B​i​t​c​o​i​n​ ​e​c​o​n​o​m​y​.​ ​N​o​w​,​ ​i​t​’​s​ ​g​r​o​w​i​n​g​ ​i​n​t​o​ ​t​h​e​ ​e​v​e​r​y​d​a​y​ ​L​i​g​h​t​n​i​n​g​ ​w​a​l​l​e​t​ ​f​o​r​ ​p​e​o​p​l​e​ ​a​r​o​u​n​d​ ​t​h​e​ ​g​l​o​b​e​.​ ​T​h​i​s​ ​y​e​a​r​,​ ​w​e​ ​a​r​e​ ​r​e​n​a​m​i​n​g​ ​t​o​ ​B​l​i​n​k​ ​t​o​ ​b​e​t​t​e​r​ ​s​e​r​v​e​ ​o​u​r​ ​g​r​o​w​i​n​g​ ​c​u​s​t​o​m​e​r​ ​b​a​s​e​.
-		 */
-		body: string
-		/**
-		 * S​o​u​n​d​s​ ​g​o​o​d​!
-		 */
-		ok: string
-		/**
-		 * L​e​a​r​n​ ​m​o​r​e​ ​a​t​ ​b​l​i​n​k​.​s​v
-		 */
-		learnMore: string
-	}
 	SplashScreen: {
 		/**
 		 * Y​o​u​r​ ​a​p​p​ ​i​s​ ​o​u​t​d​a​t​e​d​.​ ​A​n​ ​u​p​d​a​t​e​ ​i​s​ ​n​e​e​d​e​d​ ​b​e​f​o​r​e​ ​t​h​e​ ​a​p​p​ ​c​a​n​ ​b​e​ ​u​s​e​d​.​
@@ -2123,10 +2586,6 @@ type RootTranslation = {
 		update: string
 	}
 	TransactionDetailScreen: {
-		/**
-		 * T​r​a​n​s​a​c​t​i​o​n​ ​D​e​t​a​i​l​s
-		 */
-		detail: string
 		/**
 		 * P​a​i​d​ ​t​o​/​f​r​o​m
 		 */
@@ -2147,6 +2606,10 @@ type RootTranslation = {
 		 * S​e​n​d​i​n​g​ ​A​c​c​o​u​n​t
 		 */
 		sendingAccount: string
+		/**
+		 * Y​o​u​r​ ​t​r​a​n​s​a​c​t​i​o​n​ ​i​s​ ​c​u​r​r​e​n​t​l​y​ ​p​e​n​d​i​n​g​ ​a​n​d​ ​w​i​l​l​ ​b​e​ ​b​r​o​a​d​c​a​s​t​e​d​ ​t​o​ ​t​h​e​ ​B​i​t​c​o​i​n​ ​n​e​t​w​o​r​k​ ​i​n​ ​a​ ​m​o​m​e​n​t​.
+		 */
+		txNotBroadcast: string
 	}
 	TransactionLimitsScreen: {
 		/**
@@ -2186,6 +2649,23 @@ type RootTranslation = {
 		 * U​n​a​b​l​e​ ​t​o​ ​f​e​t​c​h​ ​l​i​m​i​t​s​ ​a​t​ ​t​h​i​s​ ​t​i​m​e
 		 */
 		error: string
+		/**
+		 * H​i​,​ ​I​ ​w​i​l​l​ ​l​i​k​e​ ​t​o​ ​i​n​c​r​e​a​s​e​ ​t​h​e​ ​t​r​a​n​s​a​c​t​i​o​n​ ​l​i​m​i​t​s​ ​o​f​ ​m​y​ ​{​b​a​n​k​N​a​m​e​}​ ​a​c​c​o​u​n​t​.
+		 * @param {string} bankName
+		 */
+		contactUsMessageBody: RequiredParams<'bankName'>
+		/**
+		 * R​e​q​u​e​s​t​ ​T​o​ ​I​n​c​r​e​a​s​e​ ​T​r​a​n​s​a​c​t​i​o​n​ ​L​i​m​i​t​s
+		 */
+		contactUsMessageSubject: string
+		/**
+		 * C​o​n​t​a​c​t​ ​s​u​p​p​o​r​t​ ​t​o​ ​p​e​r​f​o​r​m​ ​m​a​n​u​a​l​ ​K​Y​C​ ​t​o​ ​i​n​c​r​e​a​s​e​ ​y​o​u​r​ ​l​i​m​i​t
+		 */
+		contactSupportToPerformKyc: string
+		/**
+		 * I​n​c​r​e​a​s​e​ ​y​o​u​r​ ​l​i​m​i​t​s
+		 */
+		increaseLimits: string
 	}
 	TransactionScreen: {
 		/**
@@ -2215,55 +2695,73 @@ type RootTranslation = {
 		 */
 		percentageToConvert: string
 	}
-	UsernameScreen: {
+	UpgradeAccountModal: {
 		/**
-		 * a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s​ ​a​r​e​ ​n​e​c​e​s​s​a​r​y
+		 * U​p​g​r​a​d​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t
 		 */
-		'3CharactersMinimum': string
+		title: string
 		/**
-		 * U​s​e​r​n​a​m​e​ ​c​a​n​n​o​t​ ​b​e​ ​l​o​n​g​e​r​ ​t​h​a​n​ ​5​0​ ​c​h​a​r​a​c​t​e​r​s
+		 * B​a​c​k​ ​u​p​ ​y​o​u​r​ ​f​u​n​d​s
 		 */
-		'50CharactersMaximum': string
+		backUpFunds: string
 		/**
-		 * ✅​ ​ ​{​u​s​e​r​n​a​m​e​}​ ​i​s​ ​a​v​a​i​l​a​b​l​e
-		 * @param {string} username
+		 * I​n​c​r​e​a​s​e​ ​y​o​u​r​ ​t​r​a​n​s​a​c​t​i​o​n​ ​l​i​m​i​t​s
 		 */
-		available: RequiredParams<'username'>
+		higherLimits: string
 		/**
-		 * T​h​e​ ​u​s​e​r​n​a​m​e​ ​i​s​ ​p​e​r​m​a​n​e​n​t​ ​a​n​d​ ​c​a​n​ ​n​o​t​ ​b​e​ ​c​h​a​n​g​e​d​ ​l​a​t​e​r
+		 * R​e​c​e​i​v​e​ ​b​i​t​c​o​i​n​ ​o​n​c​h​a​i​n
 		 */
-		confirmSubtext: string
+		receiveOnchain: string
 		/**
-		 * S​e​t​ ​{​u​s​e​r​n​a​m​e​}​ ​a​s​ ​y​o​u​r​ ​u​s​e​r​n​a​m​e​?
-		 * @param {string} username
+		 * Q​u​i​c​k​ ​a​n​d​ ​e​a​s​y​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​v​e​r​i​f​i​c​a​t​i​o​n
 		 */
-		confirmTitle: RequiredParams<'username'>
+		onlyAPhoneNumber: string
 		/**
-		 * C​a​n​n​o​t​ ​s​t​a​r​t​ ​w​i​t​h​ ​l​n​b​c​1​,​ ​b​c​1​,​ ​1​,​ ​o​r​ ​3​ ​a​n​d​ ​c​a​n​n​o​t​ ​b​e​ ​a​ ​B​i​t​c​o​i​n​ ​a​d​d​r​e​s​s​ ​o​r​ ​L​i​g​h​t​n​i​n​g​ ​i​n​v​o​i​c​e
+		 * L​e​t​'​s​ ​g​o​!
 		 */
-		forbiddenStart: string
+		letsGo: string
 		/**
-		 * O​n​l​y​ ​l​o​w​e​r​c​a​s​e​ ​l​e​t​t​e​r​,​ ​n​u​m​b​e​r​ ​a​n​d​ ​u​n​d​e​r​s​c​o​r​e​ ​(​_​)​ ​a​r​e​ ​a​c​c​e​p​t​e​d
+		 * S​t​a​y​ ​i​n​ ​t​r​i​a​l​ ​m​o​d​e
 		 */
-		letterAndNumber: string
+		stayInTrialMode: string
+	}
+	SetAddressModal: {
 		/**
-		 * U​s​e​r​n​a​m​e​ ​m​u​s​t​ ​n​o​t​ ​b​e​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s
+		 * S​e​t​ ​{​b​a​n​k​N​a​m​e​}​ ​a​d​d​r​e​s​s
+		 * @param {string} bankName
 		 */
-		emailAddress: string
+		title: RequiredParams<'bankName'>
+		Errors: {
+			/**
+			 * A​d​d​r​e​s​s​ ​m​u​s​t​ ​b​e​ ​a​t​ ​l​e​a​s​t​ ​3​ ​c​h​a​r​a​c​t​e​r​s​ ​l​o​n​g
+			 */
+			tooShort: string
+			/**
+			 * A​d​d​r​e​s​s​ ​m​u​s​t​ ​b​e​ ​a​t​ ​m​o​s​t​ ​5​0​ ​c​h​a​r​a​c​t​e​r​s​ ​l​o​n​g
+			 */
+			tooLong: string
+			/**
+			 * A​d​d​r​e​s​s​ ​c​a​n​ ​o​n​l​y​ ​c​o​n​t​a​i​n​ ​l​e​t​t​e​r​s​,​ ​n​u​m​b​e​r​s​,​ ​a​n​d​ ​u​n​d​e​r​s​c​o​r​e​s
+			 */
+			invalidCharacter: string
+			/**
+			 * S​o​r​r​y​,​ ​t​h​i​s​ ​a​d​d​r​e​s​s​ ​i​s​ ​a​l​r​e​a​d​y​ ​t​a​k​e​n
+			 */
+			addressUnavailable: string
+			/**
+			 * A​n​ ​u​n​k​n​o​w​n​ ​e​r​r​o​r​ ​o​c​c​u​r​r​e​d​,​ ​p​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r
+			 */
+			unknownError: string
+		}
 		/**
-		 * ❌​ ​ ​{​u​s​e​r​n​a​m​e​}​ ​i​s​ ​n​o​t​ ​a​v​a​i​l​a​b​l​e
-		 * @param {string} username
+		 * R​e​c​e​i​v​e​ ​m​o​n​e​y​ ​f​r​o​m​ ​o​t​h​e​r​ ​l​i​g​h​t​n​i​n​g​ ​w​a​l​l​e​t​s​ ​a​n​d​ ​{​b​a​n​k​N​a​m​e​}​ ​u​s​e​r​s​ ​w​i​t​h​ ​t​h​i​s​ ​a​d​d​r​e​s​s​.
+		 * @param {string} bankName
 		 */
-		notAvailable: RequiredParams<'username'>
+		receiveMoney: RequiredParams<'bankName'>
 		/**
-		 * {​u​s​e​r​n​a​m​e​}​ ​i​s​ ​n​o​w​ ​y​o​u​r​ ​u​s​e​r​n​a​m​e​!
-		 * @param {string} username
+		 * I​t​ ​c​a​n​'​t​ ​b​e​ ​c​h​a​n​g​e​d​ ​l​a​t​e​r​.
 		 */
-		success: RequiredParams<'username'>
-		/**
-		 * W​h​a​t​ ​u​s​e​r​n​a​m​e​ ​d​o​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​u​s​e​?
-		 */
-		usernameToUse: string
+		itCannotBeChanged: string
 	}
 	WelcomeFirstScreen: {
 		/**
@@ -2287,7 +2785,11 @@ type RootTranslation = {
 		 */
 		learnToEarn: string
 	}
-	PhoneInputScreen: {
+	PhoneLoginInitiateScreen: {
+		/**
+		 * A​c​c​o​u​n​t​ ​s​e​t​ ​u​p
+		 */
+		title: string
 		/**
 		 * E​n​t​e​r​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​,​ ​a​n​d​ ​w​e​'​l​l​ ​t​e​x​t​ ​y​o​u​ ​a​n​ ​a​c​c​e​s​s​ ​c​o​d​e​.
 		 */
@@ -2300,6 +2802,18 @@ type RootTranslation = {
 		 * S​o​m​e​t​h​i​n​g​ ​w​e​n​t​ ​w​r​o​n​g​ ​v​e​r​i​f​y​i​n​g​ ​y​o​u​ ​a​r​e​ ​h​u​m​a​n​,​ ​p​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r​.
 		 */
 		errorRequestingCaptcha: string
+		/**
+		 * S​o​m​e​t​h​i​n​g​ ​w​e​n​t​ ​w​r​o​n​g​ ​r​e​q​u​e​s​t​i​n​g​ ​t​h​e​ ​p​h​o​n​e​ ​c​o​d​e​,​ ​p​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r​.
+		 */
+		errorRequestingCode: string
+		/**
+		 * I​n​v​a​l​i​d​ ​p​h​o​n​e​ ​n​u​m​b​e​r​.​ ​A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​e​n​t​e​r​e​d​ ​t​h​e​ ​r​i​g​h​t​ ​n​u​m​b​e​r​?
+		 */
+		errorInvalidPhoneNumber: string
+		/**
+		 * W​e​ ​a​r​e​ ​u​n​a​b​l​e​ ​t​o​ ​s​u​p​p​o​r​t​ ​c​u​s​t​o​m​e​r​s​ ​i​n​ ​y​o​u​r​ ​c​o​u​n​t​r​y​.
+		 */
+		errorUnsupportedCountry: string
 		/**
 		 * P​h​o​n​e​ ​N​u​m​b​e​r
 		 */
@@ -2317,21 +2831,25 @@ type RootTranslation = {
 		 */
 		whatsapp: string
 	}
-	PhoneValidationScreen: {
+	PhoneLoginValidationScreen: {
 		/**
 		 * E​r​r​o​r​ ​l​o​g​g​i​n​g​ ​i​n​.​ ​D​i​d​ ​y​o​u​ ​u​s​e​ ​t​h​e​ ​r​i​g​h​t​ ​c​o​d​e​?
 		 */
 		errorLoggingIn: string
+		/**
+		 * T​o​o​ ​m​a​n​y​ ​a​t​t​e​m​p​t​s​.​ ​P​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r​.
+		 */
+		errorTooManyAttempts: string
+		/**
+		 * T​h​i​s​ ​p​h​o​n​e​ ​a​c​c​o​u​n​t​ ​a​l​r​e​a​d​y​ ​e​x​i​s​t​s​.​ ​P​l​e​a​s​e​ ​l​o​g​ ​o​u​t​ ​o​f​ ​y​o​u​r​ ​t​r​i​a​l​ ​a​c​c​o​u​n​t​ ​a​n​d​ ​t​h​e​n​ ​l​o​g​ ​i​n​ ​w​i​t​h​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​.
+		 */
+		errorCannotUpgradeToExistingAccount: string
 		/**
 		 * T​o​ ​c​o​n​f​i​r​m​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​,​ ​e​n​t​e​r​ ​t​h​e​ ​c​o​d​e​ ​w​e​ ​j​u​s​t​ ​s​e​n​t​ ​y​o​u​ ​b​y​ ​{​c​h​a​n​n​e​l​}​ ​o​n​ ​{​p​h​o​n​e​N​u​m​b​e​r​}
 		 * @param {string} channel
 		 * @param {string} phoneNumber
 		 */
 		header: RequiredParams<'channel' | 'phoneNumber'>
-		/**
-		 * T​h​e​ ​c​o​d​e​ ​n​e​e​d​s​ ​t​o​ ​h​a​v​e​ ​6​ ​d​i​g​i​t​s
-		 */
-		need6Digits: string
 		/**
 		 * 6​ ​D​i​g​i​t​ ​C​o​d​e
 		 */
@@ -2345,13 +2863,129 @@ type RootTranslation = {
 		 */
 		tryAgain: string
 		/**
-		 * Y​o​u​ ​u​s​e​d​ ​{​c​h​a​n​n​e​l​}​ ​t​o​ ​r​e​c​e​i​v​e​ ​t​h​e​ ​c​o​d​e​.​
-	​
-	​Y​o​u​ ​c​a​n​ ​t​r​y​ ​r​e​c​e​i​v​i​n​g​ ​v​i​a​ ​{​o​t​h​e​r​}​ ​i​n​s​t​e​a​d
+		 * Y​o​u​ ​s​e​l​e​c​t​e​d​ ​t​o​ ​r​e​c​e​i​v​e​ ​t​h​e​ ​c​o​d​e​ ​v​i​a​ ​{​c​h​a​n​n​e​l​}​.​ ​Y​o​u​ ​c​a​n​ ​t​r​y​ ​r​e​c​e​i​v​i​n​g​ ​v​i​a​ ​{​o​t​h​e​r​}​ ​i​n​s​t​e​a​d
 		 * @param {string} channel
 		 * @param {string} other
 		 */
 		sendViaOtherChannel: RequiredParams<'channel' | 'other'>
+	}
+	PhoneRegistrationInitiateScreen: {
+		/**
+		 * P​h​o​n​e​ ​s​e​t​ ​u​p
+		 */
+		title: string
+		/**
+		 * E​n​t​e​r​ ​y​o​u​r​ ​p​h​o​n​e​ ​n​u​m​b​e​r​,​ ​a​n​d​ ​w​e​'​l​l​ ​t​e​x​t​ ​y​o​u​ ​a​n​ ​a​c​c​e​s​s​ ​c​o​d​e​.
+		 */
+		header: string
+		/**
+		 * V​e​r​i​f​y​ ​y​o​u​ ​a​r​e​ ​h​u​m​a​n
+		 */
+		headerVerify: string
+		/**
+		 * S​o​m​e​t​h​i​n​g​ ​w​e​n​t​ ​w​r​o​n​g​ ​r​e​q​u​e​s​t​i​n​g​ ​t​h​e​ ​p​h​o​n​e​ ​c​o​d​e​,​ ​p​l​e​a​s​e​ ​t​r​y​ ​a​g​a​i​n​ ​l​a​t​e​r​.
+		 */
+		errorRequestingCode: string
+		/**
+		 * I​n​v​a​l​i​d​ ​p​h​o​n​e​ ​n​u​m​b​e​r​.​ ​A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​e​n​t​e​r​e​d​ ​t​h​e​ ​r​i​g​h​t​ ​n​u​m​b​e​r​?
+		 */
+		errorInvalidPhoneNumber: string
+		/**
+		 * W​e​ ​a​r​e​ ​u​n​a​b​l​e​ ​t​o​ ​s​u​p​p​o​r​t​ ​c​u​s​t​o​m​e​r​s​ ​i​n​ ​y​o​u​r​ ​c​o​u​n​t​r​y​.
+		 */
+		errorUnsupportedCountry: string
+		/**
+		 * P​h​o​n​e​ ​N​u​m​b​e​r
+		 */
+		placeholder: string
+		/**
+		 * C​l​i​c​k​ ​t​o​ ​V​e​r​i​f​y
+		 */
+		verify: string
+		/**
+		 * S​e​n​d​ ​v​i​a​ ​S​M​S
+		 */
+		sms: string
+		/**
+		 * S​e​n​d​ ​v​i​a​ ​W​h​a​t​s​A​p​p
+		 */
+		whatsapp: string
+	}
+	PhoneRegistrationValidateScreen: {
+		/**
+		 * P​h​o​n​e​ ​n​u​m​b​e​r​ ​c​o​n​f​i​r​m​e​d
+		 */
+		successTitle: string
+	}
+	EmailRegistrationInitiateScreen: {
+		/**
+		 * A​d​d​ ​y​o​u​r​ ​e​m​a​i​l
+		 */
+		title: string
+		/**
+		 * E​n​t​e​r​ ​y​o​u​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​,​ ​a​n​d​ ​w​e​'​l​l​ ​s​e​n​d​ ​y​o​u​ ​a​n​ ​a​c​c​e​s​s​ ​c​o​d​e​.
+		 */
+		header: string
+		/**
+		 * I​n​v​a​l​i​d​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.​ ​A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​e​n​t​e​r​e​d​ ​t​h​e​ ​r​i​g​h​t​ ​e​m​a​i​l​?
+		 */
+		invalidEmail: string
+		/**
+		 * S​e​n​d​ ​c​o​d​e
+		 */
+		send: string
+		/**
+		 * M​i​s​s​i​n​g​ ​e​m​a​i​l​ ​r​e​g​i​s​t​r​a​t​i​o​n​ ​i​d
+		 */
+		missingEmailRegistrationId: string
+		/**
+		 * h​a​l​@​f​i​n​n​e​y​.​o​r​g
+		 */
+		placeholder: string
+	}
+	EmailRegistrationValidateScreen: {
+		/**
+		 * T​o​ ​c​o​n​f​i​r​m​ ​y​o​u​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​,​ ​e​n​t​e​r​ ​t​h​e​ ​c​o​d​e​ ​w​e​ ​j​u​s​t​ ​s​e​n​t​ ​y​o​u​ ​o​n​ ​{​e​m​a​i​l​}
+		 * @param {string} email
+		 */
+		header: RequiredParams<'email'>
+		/**
+		 * E​m​a​i​l​ ​{​e​m​a​i​l​}​ ​c​o​n​f​i​r​m​e​d​ ​s​u​c​c​e​s​s​f​u​l​l​y
+		 * @param {string} email
+		 */
+		success: RequiredParams<'email'>
+	}
+	EmailLoginInitiateScreen: {
+		/**
+		 * L​o​g​i​n​ ​v​i​a​ ​e​m​a​i​l
+		 */
+		title: string
+		/**
+		 * E​n​t​e​r​ ​y​o​u​r​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​,​ ​a​n​d​ ​w​e​'​l​l​ ​s​e​n​d​ ​y​o​u​ ​a​n​ ​a​c​c​e​s​s​ ​c​o​d​e​.
+		 */
+		header: string
+		/**
+		 * I​n​v​a​l​i​d​ ​e​m​a​i​l​ ​a​d​d​r​e​s​s​.​ ​A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​e​n​t​e​r​e​d​ ​t​h​e​ ​r​i​g​h​t​ ​e​m​a​i​l​?
+		 */
+		invalidEmail: string
+		/**
+		 * S​e​n​d​ ​c​o​d​e
+		 */
+		send: string
+	}
+	EmailLoginValidateScreen: {
+		/**
+		 * I​f​ ​t​h​e​r​e​ ​i​s​ ​a​n​ ​a​c​c​o​u​n​t​ ​a​t​t​a​c​h​e​d​ ​t​o​ ​{​e​m​a​i​l​}​,​ ​y​o​u​ ​s​h​o​u​l​d​ ​h​a​v​e​ ​r​e​c​e​i​v​e​d​ ​6​ ​d​i​g​i​t​s​ ​c​o​d​e​ ​t​o​ ​e​n​t​e​r​ ​b​e​l​o​w​.​
+	​
+	​I​f​ ​y​o​u​ ​a​r​e​ ​n​o​t​ ​r​e​c​e​i​v​i​n​g​ ​a​n​y​t​h​i​n​g​,​ ​i​t​'​s​ ​p​r​o​b​a​b​l​y​ ​e​i​t​h​e​r​ ​b​e​c​a​u​s​e​ ​t​h​i​s​ ​i​s​ ​n​o​t​ ​t​h​e​ ​r​i​g​h​t​ ​e​m​a​i​l​,​ ​t​h​e​ ​e​m​a​i​l​ ​i​s​ ​i​n​ ​y​o​u​r​ ​s​p​a​m​ ​f​o​l​d​e​r​.
+		 * @param {string} email
+		 */
+		header: RequiredParams<'email'>
+		/**
+		 * E​m​a​i​l​ ​{​e​m​a​i​l​}​ ​c​o​n​f​i​r​m​e​d​ ​s​u​c​c​e​s​s​f​u​l​l​y
+		 * @param {string} email
+		 */
+		success: RequiredParams<'email'>
 	}
 	common: {
 		/**
@@ -2429,9 +3063,17 @@ type RootTranslation = {
 		 */
 		convert: string
 		/**
+		 * C​o​d​e​ ​C​o​n​f​i​r​m​a​t​i​o​n
+		 */
+		codeConfirmation: string
+		/**
 		 * C​u​r​r​e​n​c​y
 		 */
 		currency: string
+		/**
+		 * C​u​r​r​e​n​c​y​ ​i​s​s​u​e​.​ ​R​e​f​r​e​s​h​ ​n​e​e​d​e​d
+		 */
+		currencySyncIssue: string
 		/**
 		 * E​x​p​o​r​t​ ​t​r​a​n​s​a​c​t​i​o​n​s​ ​a​s​ ​C​S​V
 		 */
@@ -2521,7 +3163,11 @@ type RootTranslation = {
 		 */
 		minutes: string
 		/**
-		 * V​a​l​i​d​a​t​e​ ​y​o​u​r​ ​p​h​o​n​e​ ​t​o​ ​o​p​e​n​ ​y​o​u​r​ ​w​a​l​l​e​t
+		 * M​i​s​s​i​n​g​ ​a​u​t​h​ ​t​o​k​e​n
+		 */
+		errorAuthToken: string
+		/**
+		 * L​o​g​ ​i​n​ ​o​r​ ​c​r​e​a​t​e​ ​a​n​ ​a​c​c​o​u​n​t​ ​t​o​ ​a​c​c​e​s​s​ ​y​o​u​r​ ​w​a​l​l​e​t
 		 */
 		needWallet: string
 		/**
@@ -2545,9 +3191,17 @@ type RootTranslation = {
 		 */
 		ok: string
 		/**
+		 * o​r
+		 */
+		or: string
+		/**
 		 * O​p​e​n​ ​W​a​l​l​e​t
 		 */
 		openWallet: string
+		/**
+		 * P​h​o​n​e
+		 */
+		phone: string
 		/**
 		 * P​h​o​n​e​ ​N​u​m​b​e​r
 		 */
@@ -2601,9 +3255,17 @@ type RootTranslation = {
 		 */
 		soon: string
 		/**
+		 * S​u​b​m​i​t
+		 */
+		submit: string
+		/**
 		 * S​u​c​c​e​s​s​!
 		 */
 		success: string
+		/**
+		 * S​t​a​b​l​e​s​a​t​s​ ​U​S​D
+		 */
+		stablesatsUsd: string
 		/**
 		 * T​o
 		 */
@@ -2641,6 +3303,10 @@ type RootTranslation = {
 		 */
 		usernameRequired: string
 		/**
+		 * B​a​c​k​u​p​/​u​p​g​r​a​d​e​ ​a​c​c​o​u​n​t
+		 */
+		backupAccount: string
+		/**
 		 * V​i​e​w​ ​t​r​a​n​s​a​c​t​i​o​n
 		 */
 		viewTransaction: string
@@ -2668,6 +3334,14 @@ type RootTranslation = {
 		 * P​r​e​v​i​o​u​s​ ​m​o​n​t​h​s
 		 */
 		prevMonths: string
+		/**
+		 * T​h​e​r​e​ ​w​a​s​ ​a​ ​p​r​o​b​l​e​m​ ​w​i​t​h​ ​y​o​u​r​ ​r​e​q​u​e​s​t​.​ ​P​l​e​a​s​e​ ​r​e​t​r​y​ ​i​n​ ​o​n​e​ ​m​i​n​u​t​e​.​ ​I​f​ ​t​h​e​ ​p​r​o​b​l​e​m​ ​p​e​r​s​i​s​t​,​ ​w​e​ ​r​e​c​o​m​m​e​n​d​ ​t​h​a​t​ ​y​o​u​ ​l​o​g​ ​o​u​t​ ​a​n​d​ ​l​o​g​ ​b​a​c​k​ ​i​n​.​ ​Y​o​u​ ​c​a​n​ ​l​o​g​ ​o​u​t​ ​b​y​ ​g​o​i​n​g​ ​i​n​t​o​ ​S​e​t​t​i​n​g​s​ ​>​ ​A​c​c​o​u​n​t​ ​>​ ​L​o​g​ ​o​u​t
+		 */
+		problemMaybeReauth: string
+		/**
+		 * W​a​r​n​i​n​g
+		 */
+		warning: string
 	}
 	errors: {
 		/**
@@ -2723,6 +3397,10 @@ type RootTranslation = {
 		 * S​h​o​w​ ​E​r​r​o​r
 		 */
 		showError: string
+		/**
+		 * C​l​e​a​r​ ​A​p​p​ ​D​a​t​a​ ​a​n​d​ ​L​o​g​o​u​t
+		 */
+		clearAppData: string
 	}
 	notifications: {
 		payment: {
@@ -2739,9 +3417,13 @@ type RootTranslation = {
 	}
 	support: {
 		/**
-		 * N​e​e​d​ ​h​e​l​p​?​ ​ ​C​o​n​t​a​c​t​ ​u​s​.
+		 * N​e​e​d​ ​h​e​l​p​?​ ​C​o​n​t​a​c​t​ ​u​s​.
 		 */
 		contactUs: string
+		/**
+		 * J​o​i​n​ ​t​h​e​ ​c​o​m​m​u​n​i​t​y
+		 */
+		joinTheCommunity: string
 		/**
 		 * W​h​a​t​s​A​p​p
 		 */
@@ -2751,9 +3433,29 @@ type RootTranslation = {
 		 */
 		email: string
 		/**
-		 * T​e​l​e​g​r​a​m​ ​(​c​o​m​m​u​n​i​t​y​)
+		 * F​A​Q
+		 */
+		faq: string
+		/**
+		 * E​n​j​o​y​i​n​g​ ​t​h​e​ ​a​p​p​?
+		 */
+		enjoyingApp: string
+		/**
+		 * S​t​a​t​u​s​ ​P​a​g​e
+		 */
+		statusPage: string
+		/**
+		 * T​e​l​e​g​r​a​m
 		 */
 		telegram: string
+		/**
+		 * M​a​t​t​e​r​m​o​s​t
+		 */
+		mattermost: string
+		/**
+		 * T​h​a​n​k​ ​y​o​u​ ​f​o​r​ ​t​h​e​ ​f​e​e​d​b​a​c​k​,​ ​w​o​u​l​d​ ​y​o​u​ ​l​i​k​e​ ​t​o​ ​s​u​g​g​e​s​t​ ​a​n​ ​i​m​p​r​o​v​e​m​e​n​t​?
+		 */
+		thankYouText: string
 		/**
 		 * {​b​a​n​k​N​a​m​e​}​ ​-​ ​S​u​p​p​o​r​t
 		 * @param {string} bankName
@@ -2767,19 +3469,55 @@ type RootTranslation = {
 		 */
 		defaultSupportMessage: RequiredParams<'bankName' | 'os' | 'version'>
 		/**
-		 * H​e​l​l​o​.​ ​P​l​e​a​s​e​ ​d​e​l​e​t​e​ ​m​y​ ​a​c​c​o​u​n​t​.
-		 */
-		deleteAccount: string
-		/**
-		 * A​c​c​o​u​n​t​ ​d​e​l​e​t​i​o​n​ ​r​e​q​u​e​s​t​:​ ​{​p​h​o​n​e​N​u​m​b​e​r​}
-		 * @param {string} phoneNumber
-		 */
-		deleteAccountEmailSubject: RequiredParams<'phoneNumber'>
-		/**
 		 * e​m​a​i​l​ ​{​e​m​a​i​l​}​ ​c​o​p​i​e​d​ ​t​o​ ​c​l​i​p​b​o​a​r​d
 		 * @param {string} email
 		 */
 		emailCopied: RequiredParams<'email'>
+		/**
+		 * D​e​l​e​t​e​ ​a​c​c​o​u​n​t
+		 */
+		deleteAccount: string
+		/**
+		 * d​e​l​e​t​e
+		 */
+		'delete': string
+		/**
+		 * P​l​e​a​s​e​ ​t​y​p​e​ ​"​{​d​e​l​e​t​e​}​"​ ​t​o​ ​c​o​n​f​i​r​m​ ​a​c​c​o​u​n​t​ ​d​e​l​e​t​i​o​n
+		 * @param {string} delete
+		 */
+		typeDelete: RequiredParams<'delete'>
+		/**
+		 * F​i​n​a​l​ ​C​o​n​f​i​r​m​a​t​i​o​n​ ​R​e​q​u​i​r​e​d
+		 */
+		finalConfirmationAccountDeletionTitle: string
+		/**
+		 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​d​e​l​e​t​e​ ​y​o​u​r​ ​a​c​c​o​u​n​t​?​ ​T​h​i​s​ ​a​c​t​i​o​n​ ​i​s​ ​i​r​r​e​v​e​r​s​i​b​l​e​.
+		 */
+		finalConfirmationAccountDeletionMessage: string
+		/**
+		 * D​e​l​e​t​i​n​g​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​w​i​l​l​ ​c​a​u​s​e​ ​y​o​u​ ​t​o​ ​l​o​s​e​ ​a​c​c​e​s​s​ ​t​o​ ​y​o​u​r​ ​c​u​r​r​e​n​t​ ​b​a​l​a​n​c​e​.​ ​A​r​e​ ​y​o​u​ ​s​u​r​e​ ​y​o​u​ ​w​a​n​t​ ​t​o​ ​p​r​o​c​e​e​d​?
+		 */
+		deleteAccountBalanceWarning: string
+		/**
+		 * Y​o​u​r​ ​a​c​c​o​u​n​t​ ​h​a​s​ ​b​e​e​n​ ​w​r​i​t​t​e​n​ ​f​o​r​ ​d​e​l​e​t​i​o​n​.​
+	​
+	​W​h​e​n​ ​t​h​e​ ​p​r​o​b​a​t​i​o​n​ ​p​e​r​i​o​d​ ​r​e​l​a​t​e​d​ ​t​o​ ​r​e​g​u​l​a​t​o​r​y​ ​r​e​q​u​i​r​e​m​e​n​t​ ​i​s​ ​o​v​e​r​,​ ​t​h​e​ ​r​e​m​a​i​n​i​n​g​ ​d​a​t​a​ ​r​e​l​a​t​e​d​ ​t​o​ ​y​o​u​r​ ​a​c​c​o​u​n​t​ ​w​i​l​l​ ​b​e​ ​p​e​r​m​a​n​e​n​t​l​y​ ​d​e​l​e​t​e​d​.
+		 */
+		deleteAccountConfirmation: string
+		/**
+		 * H​e​y​ ​t​h​e​r​e​!​,​ ​p​l​e​a​s​e​ ​d​e​l​e​t​e​ ​m​y​ ​a​c​c​o​u​n​t​.​ ​M​y​ ​p​h​o​n​e​ ​n​u​m​b​e​r​ ​i​s​ ​{​p​h​o​n​e​N​u​m​b​e​r​}​.
+		 * @param {string} phoneNumber
+		 */
+		deleteAccountFromPhone: RequiredParams<'phoneNumber'>
+		/**
+		 * S​o​m​e​t​h​i​n​g​ ​w​e​n​t​ ​w​r​o​n​g​.​ ​C​o​n​t​a​c​t​ ​{​e​m​a​i​l​}​ ​f​o​r​ ​f​u​r​t​h​e​r​ ​a​s​s​i​s​t​a​n​c​e​.
+		 * @param {string} email
+		 */
+		deleteAccountError: RequiredParams<'email'>
+		/**
+		 * B​y​e​!
+		 */
+		bye: string
 	}
 	lnurl: {
 		/**
@@ -2827,7 +3565,7 @@ type RootTranslation = {
 	}
 	AmountInputButton: {
 		/**
-		 * T​a​p​ ​t​o​ ​s​e​t​ ​a​m​o​u​n​t
+		 * S​e​t​ ​a​m​o​u​n​t
 		 */
 		tapToSetAmount: string
 	}
@@ -2855,14 +3593,231 @@ type RootTranslation = {
 		 */
 		contactSupport: string
 	}
+	Circles: {
+		/**
+		 * M​y​ ​C​i​r​c​l​e​s
+		 */
+		title: string
+		/**
+		 * B​l​i​n​k​ ​C​i​r​c​l​e​s
+		 */
+		titleBlinkCircles: string
+		/**
+		 * F​e​t​c​h​i​n​g​ ​l​a​t​e​s​t​ ​c​i​r​c​l​e​s
+		 */
+		fetchingLatestCircles: string
+		/**
+		 * c​i​r​c​l​e​s
+		 */
+		circles: string
+		/**
+		 * W​e​l​c​o​m​e​ ​s​o​m​e​o​n​e​ ​t​o​ ​B​l​i​n​k​ ​b​y​ ​s​e​n​d​i​n​g​ ​t​h​e​m​ ​t​h​e​i​r​ ​f​i​r​s​t​ ​s​a​t​s​!​ ​Y​o​u​r​ ​c​i​r​c​l​e​s​ ​w​i​l​l​ ​g​r​o​w​ ​w​i​t​h​ ​e​a​c​h​ ​w​e​l​c​o​m​e​.
+		 */
+		circlesExplainer: string
+		/**
+		 * V​i​e​w​ ​M​y​ ​C​i​r​c​l​e​s
+		 */
+		viewMyCircles: string
+		/**
+		 * I​n​t​r​o​d​u​c​i​n​g​ ​C​i​r​c​l​e​s
+		 */
+		introducingCircles: string
+		/**
+		 * C​o​p​i​e​d​ ​I​n​v​i​t​e​ ​L​i​n​k
+		 */
+		copiedInviteLink: string
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​f​r​i​e​n​d​ ​t​o​ ​B​l​i​n​k
+		 */
+		inviteFriendToBlink: string
+		/**
+		 * S​h​a​r​e​ ​y​o​u​r​ ​c​i​r​c​l​e​s
+		 */
+		shareCircles: string
+		/**
+		 * S​h​a​r​e
+		 */
+		share: string
+		circlesGrowingSatsExplainer: {
+			/**
+			 * Y​o​u​r
+			 */
+			your: string
+			/**
+			 * g​r​o​w​ ​w​h​e​n​ ​y​o​u​ ​s​e​n​d​ ​a​ ​n​e​w​ ​B​l​i​n​k​ ​u​s​e​r​ ​t​h​e​i​r​ ​f​i​r​s​t​ ​s​a​t​s​!
+			 */
+			grow: string
+		}
+		/**
+		 * Y​o​u​r​ ​c​i​r​c​l​e​s​ ​g​r​o​w​ ​a​s​ ​y​o​u​ ​w​e​l​c​o​m​e​ ​p​e​o​p​l​e​ ​t​o​ ​B​l​i​n​k​ ​–​ ​k​e​e​p​ ​g​o​i​n​g​!
+		 */
+		circlesGrowingKeepGoing: string
+		/**
+		 * p​o​i​n​t​s
+		 */
+		points: string
+		/**
+		 * Y​o​u​r​ ​i​n​n​e​r​ ​c​i​r​c​l​e​ ​g​r​o​w​s​ ​w​h​e​n​ ​y​o​u​ ​s​e​n​d​ ​a​ ​B​l​i​n​k​ ​u​s​e​r​ ​t​h​e​i​r​ ​f​i​r​s​t​ ​s​a​t​s​!
+		 */
+		innerCircleGrow: string
+		/**
+		 * C​a​l​c​u​l​a​t​i​n​g​ ​y​o​u​r​ ​c​i​r​c​l​e​s​.​.​.
+		 */
+		calculatingYourCircles: string
+		/**
+		 * Y​o​u​'​r​e​ ​d​r​i​v​i​n​g​ ​B​i​t​c​o​i​n​ ​a​d​o​p​t​i​o​n​ ​w​i​t​h​ ​B​l​i​n​k​,​ ​k​e​e​p​ ​i​t​ ​u​p​!
+		 */
+		innerCircleExplainer: string
+		/**
+		 * I​'​m​ ​d​r​i​v​i​n​g​ ​B​i​t​c​o​i​n​ ​a​d​o​p​t​i​o​n​ ​w​i​t​h​ ​B​l​i​n​k​!
+		 */
+		innerCircleExplainerCard: string
+		/**
+		 * I​n​n​e​r​ ​C​i​r​c​l​e
+		 */
+		innerCircle: string
+		/**
+		 * p​e​o​p​l​e​ ​w​e​l​c​o​m​e​d​ ​b​y​ ​y​o​u
+		 */
+		peopleYouWelcomed: string
+		/**
+		 * p​e​o​p​l​e​ ​
+	​I​ ​w​e​l​c​o​m​e​d
+		 */
+		peopleIWelcomed: string
+		/**
+		 * t​h​i​s​ ​m​o​n​t​h
+		 */
+		thisMonth: string
+		/**
+		 * O​u​t​e​r​ ​C​i​r​c​l​e
+		 */
+		outerCircle: string
+		/**
+		 * p​e​o​p​l​e​ ​w​e​l​c​o​m​e​d​ ​b​y​ ​y​o​u​r​ ​c​i​r​c​l​e
+		 */
+		peopleWelcomedByYourCircle: string
+		/**
+		 * p​e​o​p​l​e​ ​w​e​l​c​o​m​e​d​ ​b​y​ ​m​y​ ​c​i​r​c​l​e
+		 */
+		peopleWelcomedByMyCircle: string
+		/**
+		 * Y​o​u​r​ ​S​p​h​e​r​e
+		 */
+		yourSphere: string
+		/**
+		 * M​y​ ​S​p​h​e​r​e
+		 */
+		mySphere: string
+		/**
+		 * Y​o​u​'​r​e​ ​#​{​t​h​i​s​M​o​n​t​h​R​a​n​k​}​ ​t​h​i​s​ ​m​o​n​t​h​ ​a​n​d​ ​#​{​a​l​l​T​i​m​e​R​a​n​k​}​ ​a​l​l​ ​t​i​m​e​!
+		 * @param {number} allTimeRank
+		 * @param {number} thisMonthRank
+		 */
+		yourRankMessage: RequiredParams<'allTimeRank' | 'thisMonthRank'>
+		/**
+		 * #​{​t​h​i​s​M​o​n​t​h​R​a​n​k​}​ ​t​h​i​s​ ​m​o​n​t​h​ ​a​n​d​ ​#​{​a​l​l​T​i​m​e​R​a​n​k​}​ ​a​l​l​ ​t​i​m​e​!
+		 * @param {number} allTimeRank
+		 * @param {number} thisMonthRank
+		 */
+		rankMessage: RequiredParams<'allTimeRank' | 'thisMonthRank'>
+		/**
+		 * I​n​v​i​t​e​ ​a​ ​f​r​i​e​n​d
+		 */
+		inviteFriends: string
+		/**
+		 * B​u​i​l​d​ ​y​o​u​r​ ​c​i​r​c​l​e​s
+		 */
+		buildYourCircle: string
+		/**
+		 * M​y​ ​B​l​i​n​k​ ​C​i​r​c​l​e​s
+		 */
+		myBlinkCircles: string
+		/**
+		 * {​u​s​e​r​n​a​m​e​}​'​s
+		 * @param {string} username
+		 */
+		someones: RequiredParams<'username'>
+		/**
+		 * B​i​t​c​o​i​n​ ​a​d​o​p​t​i​o​n​ ​i​s​ ​a​ ​g​r​o​u​p​ ​e​f​f​o​r​t​.​
+	​I​n​v​i​t​e​ ​a​ ​f​r​i​e​n​d​ ​a​n​d​ ​s​e​n​d​ ​t​h​e​m​ ​s​a​t​s​ ​t​o​ ​s​t​a​r​t​ ​b​u​i​l​d​i​n​g​ ​y​o​u​r​ ​c​i​r​c​l​e​s​.
+		 */
+		groupEffort: string
+		/**
+		 * I​'​m​ ​d​r​i​v​i​n​g​ ​B​i​t​c​o​i​n​ ​a​d​o​p​t​i​o​n​ ​u​s​i​n​g​ ​B​l​i​n​k​.
+		 */
+		drivingAdoption: string
+		septChallenge: {
+			/**
+			 * S​e​p​t​e​m​b​e​r​ ​C​h​a​l​l​e​n​g​e​!
+			 */
+			title: string
+			/**
+			 * I​n​n​e​r​ ​C​i​r​c​l​e​ ​{​i​n​n​e​r​C​i​r​c​l​e​}​/​2​1​ ​-​ ​E​a​r​n​ ​$​2​1​
+		​T​o​p​ ​3​ ​-​ ​W​i​n​ ​t​i​c​k​e​t​s​ ​t​o​ ​A​d​o​p​t​i​n​g​ ​B​i​t​c​o​i​n​!
+			 * @param {number} innerCircle
+			 */
+			description: RequiredParams<'innerCircle'>
+			/**
+			 * G​r​o​w​ ​y​o​u​r​ ​i​n​n​e​r​ ​c​i​r​c​l​e​ ​b​y​ ​2​1​ ​p​e​o​p​l​e​ ​i​n​ ​S​e​p​t​e​m​b​e​r​ ​a​n​d​ ​s​h​a​r​e​ ​o​n​ ​s​o​c​i​a​l​ ​w​i​t​h​ ​#​b​l​i​n​k​c​i​r​c​l​e​s​ ​t​o​ ​g​e​t​ ​$​2​1​ ​t​o​ ​y​o​u​r​ ​S​t​a​b​l​e​s​a​t​s​ ​a​c​c​o​u​n​t​.​ ​T​o​p​ ​3​ ​w​i​n​ ​t​i​c​k​e​t​s​ ​t​o​ ​A​d​o​p​t​i​n​g​ ​B​i​t​c​o​i​n​!
+			 */
+			details: string
+			/**
+			 * p​e​o​p​l​e​ ​w​e​l​c​o​m​e​d​ ​s​o​ ​f​a​r
+			 */
+			peopleWelcomedSoFar: string
+			/**
+			 * y​o​u​r​ ​r​a​n​k
+			 */
+			yourRank: string
+			/**
+			 * R​e​m​i​n​d​e​r​:​ ​Y​o​u​r​ ​i​n​n​e​r​ ​c​i​r​c​l​e​ ​g​r​o​w​s​ ​w​h​e​n​ ​y​o​u​ ​s​e​n​d​ ​a​ ​n​e​w​ ​B​l​i​n​k​ ​u​s​e​r​ ​t​h​e​i​r​ ​f​i​r​s​t​ ​s​a​t​s
+			 */
+			reminder: string
+			/**
+			 * F​u​l​l​ ​d​e​t​a​i​l​s​ ​a​t
+			 */
+			fullDetails: string
+		}
+		octoberChallenge: {
+			/**
+			 * O​c​t​o​b​e​r​ ​C​h​a​l​l​e​n​g​e​!
+			 */
+			title: string
+			/**
+			 * S​h​a​r​e​ ​y​o​u​r​ ​#​b​l​i​n​k​c​i​r​c​l​e​s​ ​f​o​r​ ​a​ ​c​h​a​n​c​e​ ​t​o​ ​w​i​n​ ​1​,​0​0​0​,​0​0​0​ ​s​a​t​s​!
+			 */
+			description: string
+			/**
+			 * W​e​'​r​e​ ​g​i​v​i​n​g​ ​a​w​a​y​ ​1​,​0​0​0​,​0​0​0​ ​s​a​t​s​!​
+		​
+		​ ​S​h​a​r​e​ ​y​o​u​r​ ​C​i​r​c​l​e​s​ ​o​n​ ​s​o​c​i​a​l​ ​w​i​t​h​ ​t​a​g​ ​`​#​b​l​i​n​k​c​i​r​c​l​e​s​`​ ​t​o​ ​e​n​t​e​r​!​ ​T​h​e​ ​w​i​n​n​e​r​ ​w​i​l​l​ ​b​e​ ​c​h​o​s​e​n​ ​a​t​ ​r​a​n​d​o​m​ ​o​n​ ​O​c​t​o​b​e​r​ ​3​1​s​t​.​
+		​
+		​ ​Y​o​u​ ​m​u​s​t​ ​h​a​v​e​ ​a​t​ ​l​e​a​s​t​ ​o​n​e​ ​p​e​r​s​o​n​ ​i​n​ ​y​o​u​r​ ​I​n​n​e​r​ ​C​i​r​c​l​e​ ​t​o​ ​e​n​t​e​r​!
+			 */
+			details: string
+			/**
+			 * C​o​n​n​e​c​t​ ​o​n​ ​s​o​c​i​a​l​:​ 
+			 */
+			connectOnSocial: string
+			/**
+			 * F​u​l​l​ ​d​e​t​a​i​l​s​ ​a​t​ 
+			 */
+			fullDetails: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
 	GaloyAddressScreen: {
 		/**
-		 * Set your {bankName} address
+		 * Receive payment by using:
 		 */
-		buttonTitle: (arg: { bankName: string }) => LocalizedString
+		title: () => LocalizedString
+		/**
+		 * Set your address
+		 */
+		buttonTitle: () => LocalizedString
 		/**
 		 * Your {bankName} address
 		 */
@@ -2884,7 +3839,7 @@ export type TranslationFunctions = {
 		 */
 		merchantTitle: () => LocalizedString
 		/**
-		 * Your Cash Register
+		 * Your Lightning Cash Register
 		 */
 		yourCashRegister: () => LocalizedString
 		/**
@@ -2900,13 +3855,17 @@ export type TranslationFunctions = {
 		 */
 		copiedPaycodeToClipboard: () => LocalizedString
 		/**
-		 * Copied Cash Register to clipboard
+		 * Copied Cash Register Link to clipboard
 		 */
-		copiedCashRegisterToClipboard: () => LocalizedString
+		copiedCashRegisterLinkToClipboard: () => LocalizedString
 		/**
-		 * How to use your {bankName} address
+		 * How to use it?
 		 */
-		howToUseYourAddress: (arg: { bankName: string }) => LocalizedString
+		howToUseIt: () => LocalizedString
+		/**
+		 * How to use a Lightning address
+		 */
+		howToUseYourAddress: () => LocalizedString
 		/**
 		 * How to use your Paycode
 		 */
@@ -2916,25 +3875,45 @@ export type TranslationFunctions = {
 		 */
 		howToUseYourCashRegister: () => LocalizedString
 		/**
-		 * Your {bankName} address is your own Lightning address. It’s like an email address, but for your Bitcoin.
-
-	To receive payments, share your full address to someone using a wallet supporting the Lightning address.
-
-	These wallets support it:
+		 * Share with someone that has a compatible wallet, such as:
 		 */
-		howToUseYourAddressExplainer: (arg: { bankName: string }) => LocalizedString
+		howToUseYourAddressExplainer: () => LocalizedString
 		/**
-		 * You can print your Paycode (which is an amountless invoice) and display it in your business to receive payments. Individuals can pay you by scanning it with a Lightning-enabled wallet.
+		 * You can print your Paycode (technically, this is an lnurl-pay address) and display it in your business to receive payments. Individuals can pay you by scanning it with a Lightning-enabled wallet.
 
-	However, be aware that some wallets can’t scan an amountless invoice such as:
+	However, be aware that some wallets can’t scan a Paycode such as:
 		 */
 		howToUseYourPaycodeExplainer: () => LocalizedString
 		/**
-		 * Your Cash Register let your employees collect payments without needing to give them access to your wallet.
+		 * Allow people to collect payments via the Cash Register link, without accessing your wallet.
 
-	Share your link. They can pin it to their homescreen and generate Lightning invoices on your behalf. The payments collected using the Cash Register will be sent directly to your {bankName}.
+	They can create invoices and payments will be sent directly to your {bankName} Wallet.
 		 */
 		howToUseYourCashRegisterExplainer: (arg: { bankName: string }) => LocalizedString
+	}
+	SetAccountModal: {
+		/**
+		 * Set default account
+		 */
+		title: () => LocalizedString
+		/**
+		 * This account will be initially selected for sending and receiving payments. It can be changed at any time.
+		 */
+		description: () => LocalizedString
+		/**
+		 * Choose this to maintain a stable USD value.
+		 */
+		stablesatsTag: () => LocalizedString
+		/**
+		 * Choose this to be on a Bitcoin standard.
+		 */
+		bitcoinTag: () => LocalizedString
+	}
+	NoteInput: {
+		/**
+		 * Add note
+		 */
+		addNote: () => LocalizedString
 	}
 	AuthenticationScreen: {
 		/**
@@ -2962,17 +3941,15 @@ export type TranslationFunctions = {
 		 */
 		usePin: () => LocalizedString
 	}
-	BalanceHeader: {
+	PeopleScreen: {
 		/**
-		 * Current Balance
+		 * People
 		 */
-		currentBalance: () => LocalizedString
+		title: () => LocalizedString
 		/**
-		 * Tap to reveal your balance
+		 * Copy
 		 */
-		hiddenBalanceToolTip: () => LocalizedString
-	}
-	ContactsScreen: {
+		copy: () => LocalizedString
 		/**
 		 * No Contacts Found
 		 */
@@ -2986,9 +3963,17 @@ export type TranslationFunctions = {
 		 */
 		noMatchingContacts: () => LocalizedString
 		/**
-		 * Contacts
+		 * All Contacts
 		 */
-		title: () => LocalizedString
+		allContacts: () => LocalizedString
+		/**
+		 * View all contacts
+		 */
+		viewAllContacts: () => LocalizedString
+		/**
+		 * Frequent Contacts
+		 */
+		frequentContacts: () => LocalizedString
 	}
 	ContactDetailsScreen: {
 		/**
@@ -4179,16 +5164,74 @@ export type TranslationFunctions = {
 		 * You Earned
 		 */
 		youEarned: () => LocalizedString
+		/**
+		 * Need to upgrade your account
+		 */
+		registerTitle: () => LocalizedString
+		/**
+		 * Register with your phone number to receive sats
+		 */
+		registerContent: () => LocalizedString
 	}
 	GetStartedScreen: {
 		/**
-		 * Get Started
+		 * Log in / create account
 		 */
-		getStarted: () => LocalizedString
+		logInCreateAccount: () => LocalizedString
+		/**
+		 * Create new account
+		 */
+		createAccount: () => LocalizedString
+		/**
+		 * Explore wallet
+		 */
+		exploreWallet: () => LocalizedString
+		/**
+		 * Log back in with
+		 */
+		logBackInWith: () => LocalizedString
 		/**
 		 * Wallet powered by Galoy
 		 */
 		headline: () => LocalizedString
+		/**
+		 * Start with a trial account
+		 */
+		startTrialAccount: () => LocalizedString
+		/**
+		 * Start with trial account
+		 */
+		startWithTrialAccount: () => LocalizedString
+		/**
+		 * Register phone account
+		 */
+		registerPhoneAccount: () => LocalizedString
+		/**
+		 * Trial account creation failed
+		 */
+		trialAccountCreationFailed: () => LocalizedString
+		/**
+		 * Unfortunately, we were unable to create your trial account. Try again later or create an account with a phone number.
+		 */
+		trialAccountCreationFailedMessage: () => LocalizedString
+		/**
+		 * Trial account has limits
+		 */
+		trialAccountHasLimits: () => LocalizedString
+		trialAccountLimits: {
+			/**
+			 * No backup option
+			 */
+			noBackup: () => LocalizedString
+			/**
+			 * Reduced daily sending limit
+			 */
+			sendingLimit: () => LocalizedString
+			/**
+			 * No receiving bitcoin onchain
+			 */
+			noOnchain: () => LocalizedString
+		}
 	}
 	MapScreen: {
 		/**
@@ -4234,6 +5277,10 @@ export type TranslationFunctions = {
 		 */
 		title: () => LocalizedString
 		/**
+		 * Scan
+		 */
+		scan: () => LocalizedString
+		/**
 		 * An update is available.
 	Tap to update now
 		 */
@@ -4242,6 +5289,10 @@ export type TranslationFunctions = {
 		 * We use the Lightning Network.
 		 */
 		useLightning: () => LocalizedString
+		/**
+		 * My Accounts
+		 */
+		myAccounts: () => LocalizedString
 	}
 	PinScreen: {
 		/**
@@ -4318,6 +5369,10 @@ export type TranslationFunctions = {
 		 * last five years
 		 */
 		lastFiveYears: () => LocalizedString
+		/**
+		 * Buy and sell bitcoin
+		 */
+		buyAndSell: () => LocalizedString
 	}
 	PrimaryScreen: {
 		/**
@@ -4325,7 +5380,7 @@ export type TranslationFunctions = {
 		 */
 		title: () => LocalizedString
 	}
-	ReceiveWrapperScreen: {
+	ReceiveScreen: {
 		/**
 		 * Do you want to activate notifications to be notified when the payment has arrived?
 		 */
@@ -4338,6 +5393,10 @@ export type TranslationFunctions = {
 		 * Bitcoin address has been copied in the clipboard
 		 */
 		copyClipboardBitcoin: () => LocalizedString
+		/**
+		 * Paycode/LNURL has been copied in the clipboard
+		 */
+		copyClipboardPaycode: () => LocalizedString
 		/**
 		 * This invoice has been paid
 		 */
@@ -4363,11 +5422,11 @@ export type TranslationFunctions = {
 		 */
 		error: () => LocalizedString
 		/**
-		 * Copy Invoice
+		 * Copy
 		 */
 		copyInvoice: () => LocalizedString
 		/**
-		 * Share Invoice
+		 * Share
 		 */
 		shareInvoice: () => LocalizedString
 		/**
@@ -4422,6 +5481,80 @@ export type TranslationFunctions = {
 		 * Invoice Amount
 		 */
 		invoiceAmount: () => LocalizedString
+		/**
+		 * {minBankFee} sats fees for onchain payment below {minBankFeeThreshold} sats
+		 */
+		fees: (arg: { minBankFee: string, minBankFeeThreshold: string }) => LocalizedString
+		/**
+		 * Regenerate Invoice
+		 */
+		regenerateInvoiceButtonTitle: () => LocalizedString
+		/**
+		 * Set Username
+		 */
+		setUsernameButtonTitle: () => LocalizedString
+		/**
+		 * Invoice has expired
+		 */
+		invoiceHasExpired: () => LocalizedString
+		/**
+		 * Set your username to accept via Paycode QR (LNURL) and Lightning Address
+		 */
+		setUsernameToAcceptViaPaycode: () => LocalizedString
+		/**
+		 * Single Use
+		 */
+		singleUse: () => LocalizedString
+		/**
+		 * Expired Invoice
+		 */
+		invoiceExpired: () => LocalizedString
+		invoiceValidity: {
+			/**
+			 * Valid for 1 day
+			 */
+			validFor1Day: () => LocalizedString
+			/**
+			 * Valid for next {duration}
+			 */
+			validForNext: (arg: { duration: string }) => LocalizedString
+			/**
+			 * Valid before {time}
+			 */
+			validBefore: (arg: { time: string }) => LocalizedString
+			/**
+			 * Expires in {duration}
+			 */
+			expiresIn: (arg: { duration: string }) => LocalizedString
+			/**
+			 * Expires now
+			 */
+			expiresNow: () => LocalizedString
+		}
+		/**
+		 * Invoice has been paid
+		 */
+		invoiceHasBeenPaid: () => LocalizedString
+		/**
+		 * Bitcoin Onchain Address
+		 */
+		btcOnChainAddress: () => LocalizedString
+		/**
+		 * Receive via Lightning
+		 */
+		receiveViaInvoice: () => LocalizedString
+		/**
+		 * Receive via Paycode
+		 */
+		receiveViaPaycode: () => LocalizedString
+		/**
+		 * Receive via Onchain
+		 */
+		receiveViaOnchain: () => LocalizedString
+		/**
+		 * Paycode / LNURL
+		 */
+		payCodeOrLNURL: () => LocalizedString
 	}
 	RedeemBitcoinScreen: {
 		/**
@@ -4498,16 +5631,16 @@ export type TranslationFunctions = {
 	 is not currently supported
 		 */
 		invalidContentLnurl: (arg: { found: string }) => LocalizedString
+		/**
+		 * We don't have permissions to access the image library.  Please check app settings for your platform.
+		 */
+		imageLibraryPermissionsNotGranted: () => LocalizedString
 	}
 	SecurityScreen: {
 		/**
 		 * Unlock with fingerprint or facial recognition.
 		 */
 		biometricDescription: () => LocalizedString
-		/**
-		 * Enable biometric authentication
-		 */
-		biometricSubtitle: () => LocalizedString
 		/**
 		 * Biometric
 		 */
@@ -4525,21 +5658,13 @@ export type TranslationFunctions = {
 		 */
 		hideBalanceDescription: () => LocalizedString
 		/**
-		 * Hide balance
-		 */
-		hideBalanceSubtitle: () => LocalizedString
-		/**
-		 * Balance
+		 * Hide Balance
 		 */
 		hideBalanceTitle: () => LocalizedString
 		/**
 		 * PIN is used as the backup authentication method for biometric authentication.
 		 */
 		pinDescription: () => LocalizedString
-		/**
-		 * Enable PIN
-		 */
-		pinSubtitle: () => LocalizedString
 		/**
 		 * PIN Code
 		 */
@@ -4672,9 +5797,9 @@ export type TranslationFunctions = {
 		newBankAddressUsername: (arg: { bankName: string, lnAddress: string }) => LocalizedString
 		confirmModal: {
 			/**
-			 * You've never sent money to "{lnAddress}" before.
+			 * You've never sent money to this address
 			 */
-			title: (arg: { lnAddress: string }) => LocalizedString
+			title: () => LocalizedString
 			/**
 			 * Please make sure the recipient gave you a {bankName} address,
 			 */
@@ -4717,6 +5842,14 @@ export type TranslationFunctions = {
 		 */
 		amountExceed: (arg: { balance: string }) => LocalizedString
 		/**
+		 * Amount exceeds your remaining daily limit of {limit}
+		 */
+		amountExceedsLimit: (arg: { limit: string }) => LocalizedString
+		/**
+		 * Upgrade your account to increase your limit
+		 */
+		upgradeAccountToIncreaseLimit: () => LocalizedString
+		/**
 		 * Amount is required
 		 */
 		amountIsRequired: () => LocalizedString
@@ -4743,7 +5876,7 @@ export type TranslationFunctions = {
 		/**
 		 * Username, invoice, or address
 		 */
-		input: () => LocalizedString
+		placeholder: () => LocalizedString
 		/**
 		 * Invalid username
 		 */
@@ -4769,6 +5902,18 @@ export type TranslationFunctions = {
 		 */
 		success: () => LocalizedString
 		/**
+		 * Enter your suggestion
+		 */
+		suggestionInput: () => LocalizedString
+		/**
+		 * Max
+		 */
+		max: () => LocalizedString
+		/**
+		 * Max Amount
+		 */
+		maxAmount: () => LocalizedString
+		/**
 		 * Send Bitcoin
 		 */
 		title: () => LocalizedString
@@ -4791,17 +5936,17 @@ export type TranslationFunctions = {
 		 */
 		activated: () => LocalizedString
 		/**
-		 * Tap to log in
+		 * Ways to get paid
 		 */
-		tapLogIn: () => LocalizedString
-		/**
-		 * Receive payments using your {bankName} address or the merchants features
-		 */
-		addressScreen: (arg: { bankName: string }) => LocalizedString
+		addressScreen: () => LocalizedString
 		/**
 		 * Tap to set username
 		 */
 		tapUserName: () => LocalizedString
+		/**
+		 * Notifications
+		 */
+		notifications: () => LocalizedString
 		/**
 		 * Settings
 		 */
@@ -4839,13 +5984,264 @@ export type TranslationFunctions = {
 		 */
 		copyClipboardLnurl: () => LocalizedString
 		/**
-		 * Delete Account
-		 */
-		deleteAccount: () => LocalizedString
-		/**
 		 * Default Account
 		 */
 		defaultWallet: () => LocalizedString
+		/**
+		 * Rate us on {storeName}
+		 */
+		rateUs: (arg: { storeName: string }) => LocalizedString
+		/**
+		 * Theme
+		 */
+		theme: () => LocalizedString
+		/**
+		 * Receive from NFC
+		 */
+		nfc: () => LocalizedString
+		/**
+		 * Error reading NFC tag. Please try again.
+		 */
+		nfcError: () => LocalizedString
+		/**
+		 * The information fetch from the card is not a compatible lnurl-withdraw link.
+		 */
+		nfcNotCompatible: () => LocalizedString
+		/**
+		 * Only receive from NFC is available for now
+		 */
+		nfcOnlyReceive: () => LocalizedString
+		/**
+		 * Scan NFC Now
+		 */
+		nfcScanNow: () => LocalizedString
+		/**
+		 * NFC is not supported on this device
+		 */
+		nfcNotSupported: () => LocalizedString
+		/**
+		 * Log in or create account
+		 */
+		logInOrCreateAccount: () => LocalizedString
+	}
+	NotificationSettingsScreen: {
+		/**
+		 * Notification Settings
+		 */
+		title: () => LocalizedString
+		/**
+		 * Push Notifications
+		 */
+		pushNotifications: () => LocalizedString
+		notificationCategories: {
+			Circles: {
+				/**
+				 * Circles
+				 */
+				title: () => LocalizedString
+				/**
+				 * Notifications about your circles.
+				 */
+				description: () => LocalizedString
+			}
+			Payments: {
+				/**
+				 * Payments
+				 */
+				title: () => LocalizedString
+				/**
+				 * Notifications related to sending and receiving payments.
+				 */
+				description: () => LocalizedString
+			}
+		}
+	}
+	AccountScreen: {
+		/**
+		 * Account Level
+		 */
+		accountLevel: () => LocalizedString
+		/**
+		 * Upgrade your account
+		 */
+		upgrade: () => LocalizedString
+		/**
+		 * Log out and clear all local data
+		 */
+		logOutAndDeleteLocalData: () => LocalizedString
+		/**
+		 * I understand. Please log me out.
+		 */
+		IUnderstand: () => LocalizedString
+		/**
+		 * Are you sure you want to log out and delete all local data?
+		 */
+		logoutAlertTitle: () => LocalizedString
+		/**
+		 * You will need to re-enter your phone number to log back in.
+	your phone number is {phoneNumber} so make sure you have access to it to log back in
+		 */
+		logoutAlertContentPhone: (arg: { phoneNumber: string }) => LocalizedString
+		/**
+		 * You will need to re-enter your email to log back in.
+	your email is {email} so make sure you have access to it to log back in
+		 */
+		logoutAlertContentEmail: (arg: { email: string }) => LocalizedString
+		/**
+		 * You will need to re-enter either your phone number or email to log back in.
+	your phone number is {phoneNumber} and your email is {email} so make sure you have access to those to log back in
+		 */
+		logoutAlertContentPhoneEmail: (arg: { email: string, phoneNumber: string }) => LocalizedString
+		/**
+		 * You have a Stablesats balance of {balance}.
+		 */
+		usdBalanceWarning: (arg: { balance: string }) => LocalizedString
+		/**
+		 * You have a bitcoin balance of {balance}.
+		 */
+		btcBalanceWarning: (arg: { balance: string }) => LocalizedString
+		/**
+		 * Register to secure your account
+		 */
+		secureYourAccount: () => LocalizedString
+		/**
+		 * Tap to add
+		 */
+		tapToAdd: () => LocalizedString
+		/**
+		 * Delete email
+		 */
+		deleteEmailPromptTitle: () => LocalizedString
+		/**
+		 * Are you sure you want to delete your email address? you will only be able to log back in with your phone number.
+		 */
+		deleteEmailPromptContent: () => LocalizedString
+		/**
+		 * Delete phone
+		 */
+		deletePhonePromptTitle: () => LocalizedString
+		/**
+		 * Are you sure you want to delete your phone number? you will only be able to log in back with your email.
+		 */
+		deletePhonePromptContent: () => LocalizedString
+		/**
+		 * Add an email first
+		 */
+		addEmailFirst: () => LocalizedString
+		/**
+		 * Add a phone first
+		 */
+		addPhoneFirst: () => LocalizedString
+		/**
+		 * Phone number (for login)
+		 */
+		phoneNumberAuthentication: () => LocalizedString
+		/**
+		 * Email (for login)
+		 */
+		emailAuthentication: () => LocalizedString
+		/**
+		 * Remove phone
+		 */
+		removePhone: () => LocalizedString
+		/**
+		 * Remove email
+		 */
+		removeEmail: () => LocalizedString
+		/**
+		 * Email is unverified
+		 */
+		unverified: () => LocalizedString
+		/**
+		 * Secure your account by verifying your email.
+		 */
+		unverifiedContent: () => LocalizedString
+		/**
+		 * Confirm email
+		 */
+		confirmEmail: () => LocalizedString
+		/**
+		 * Your email is unverified
+		 */
+		emailUnverified: () => LocalizedString
+		/**
+		 * Ensure you can log back into your account by verifying your email. Do you want to do the verification now?
+		 */
+		emailUnverifiedContent: () => LocalizedString
+		/**
+		 * Two-factor authentication
+		 */
+		totp: () => LocalizedString
+		/**
+		 * Two-factor authentication has been deactivated
+		 */
+		totpDeactivated: () => LocalizedString
+		/**
+		 * Delete two-factor authentication
+		 */
+		totpDeleteAlertTitle: () => LocalizedString
+		/**
+		 * Are you sure you want to delete your two-factor authentication?
+		 */
+		totpDeleteAlertContent: () => LocalizedString
+		/**
+		 * Copied your account ID to clipboard
+		 */
+		copiedAccountId: () => LocalizedString
+		/**
+		 * Your Account ID
+		 */
+		yourAccountId: () => LocalizedString
+		/**
+		 * Copy
+		 */
+		copy: () => LocalizedString
+	}
+	TotpRegistrationInitiateScreen: {
+		/**
+		 * Two-factor authentication
+		 */
+		title: () => LocalizedString
+		/**
+		 * Scan this QR code with your authenticator app. Alternatively, you can manually copy/paste the secret into your authenticator app.
+		 */
+		content: () => LocalizedString
+	}
+	TotpRegistrationValidateScreen: {
+		/**
+		 * Two-factor authentication
+		 */
+		title: () => LocalizedString
+		/**
+		 * Enter the 6-digit code from your authenticator app to validate your two-factor authentication.
+		 */
+		enter6digitCode: () => LocalizedString
+		/**
+		 * Two-factor authentication has been enabled. You will now only be able to log back in with your phone or email AND your two factor authentication.
+
+	Only full KYC accounts may be recovered in the case a user has lost access to their two-factor authentication.
+		 */
+		success: () => LocalizedString
+	}
+	TotpLoginValidateScreen: {
+		/**
+		 * Two-factor authentication
+		 */
+		title: () => LocalizedString
+		/**
+		 * Enter the 6-digit code from your authenticator app to log in. This code changes every 30 seconds.
+		 */
+		content: () => LocalizedString
+	}
+	CopySecretComponent: {
+		/**
+		 * Copy secret
+		 */
+		button: () => LocalizedString
+		/**
+		 * Secret copied to clipboard!
+		 */
+		toastMessage: () => LocalizedString
 	}
 	DefaultWalletScreen: {
 		/**
@@ -4853,13 +6249,35 @@ export type TranslationFunctions = {
 		 */
 		title: () => LocalizedString
 		/**
-		 * Your default account is the account that is selected by default when sending and receiving payments. You can change this setting for individual payments on the mobile app. However, payments received through the cash register or your Lightning address will always go to the default account.
+		 * Pick which account to set as default for receiving and sending. You can adjust the send and receive account for individual payments in the mobile app. Payments received through the cash register or your Lightning address will always go to the default account.
 
 	To avoid Bitcoin's volatility, choose Stablesats. This allows you to maintain a stable amount of money while still being able to send and receive payments.
 
 	You can change this setting at any time, and it won't affect your current balance.
 		 */
 		info: () => LocalizedString
+	}
+	ThemeScreen: {
+		/**
+		 * Theme
+		 */
+		title: () => LocalizedString
+		/**
+		 * Pick your preferred theme for using Blink, or choose to keep it synced with your system settings.
+		 */
+		info: () => LocalizedString
+		/**
+		 * Use System setting
+		 */
+		system: () => LocalizedString
+		/**
+		 * Use Light Mode
+		 */
+		light: () => LocalizedString
+		/**
+		 * Use Dark Mode
+		 */
+		dark: () => LocalizedString
 	}
 	Languages: {
 		/**
@@ -4885,24 +6303,6 @@ export type TranslationFunctions = {
 		 */
 		learnMore: () => LocalizedString
 	}
-	NewNameBlinkModal: {
-		/**
-		 * Coming soon: BBW is being renamed to Blink!
-		 */
-		header: () => LocalizedString
-		/**
-		 * BBW launched in 2021 in El Zonte, El Salvador to support the creation of a circular Bitcoin economy. Now, it’s growing into the everyday Lightning wallet for people around the globe. This year, we are renaming to Blink to better serve our growing customer base.
-		 */
-		body: () => LocalizedString
-		/**
-		 * Sounds good!
-		 */
-		ok: () => LocalizedString
-		/**
-		 * Learn more at blink.sv
-		 */
-		learnMore: () => LocalizedString
-	}
 	SplashScreen: {
 		/**
 		 * Your app is outdated. An update is needed before the app can be used.
@@ -4912,10 +6312,6 @@ export type TranslationFunctions = {
 		update: () => LocalizedString
 	}
 	TransactionDetailScreen: {
-		/**
-		 * Transaction Details
-		 */
-		detail: () => LocalizedString
 		/**
 		 * Paid to/from
 		 */
@@ -4936,6 +6332,10 @@ export type TranslationFunctions = {
 		 * Sending Account
 		 */
 		sendingAccount: () => LocalizedString
+		/**
+		 * Your transaction is currently pending and will be broadcasted to the Bitcoin network in a moment.
+		 */
+		txNotBroadcast: () => LocalizedString
 	}
 	TransactionLimitsScreen: {
 		/**
@@ -4974,6 +6374,22 @@ export type TranslationFunctions = {
 		 * Unable to fetch limits at this time
 		 */
 		error: () => LocalizedString
+		/**
+		 * Hi, I will like to increase the transaction limits of my {bankName} account.
+		 */
+		contactUsMessageBody: (arg: { bankName: string }) => LocalizedString
+		/**
+		 * Request To Increase Transaction Limits
+		 */
+		contactUsMessageSubject: () => LocalizedString
+		/**
+		 * Contact support to perform manual KYC to increase your limit
+		 */
+		contactSupportToPerformKyc: () => LocalizedString
+		/**
+		 * Increase your limits
+		 */
+		increaseLimits: () => LocalizedString
 	}
 	TransactionScreen: {
 		/**
@@ -5003,51 +6419,71 @@ export type TranslationFunctions = {
 		 */
 		percentageToConvert: () => LocalizedString
 	}
-	UsernameScreen: {
+	UpgradeAccountModal: {
 		/**
-		 * at least 3 characters are necessary
+		 * Upgrade your account
 		 */
-		'3CharactersMinimum': () => LocalizedString
+		title: () => LocalizedString
 		/**
-		 * Username cannot be longer than 50 characters
+		 * Back up your funds
 		 */
-		'50CharactersMaximum': () => LocalizedString
+		backUpFunds: () => LocalizedString
 		/**
-		 * ✅  {username} is available
+		 * Increase your transaction limits
 		 */
-		available: (arg: { username: string }) => LocalizedString
+		higherLimits: () => LocalizedString
 		/**
-		 * The username is permanent and can not be changed later
+		 * Receive bitcoin onchain
 		 */
-		confirmSubtext: () => LocalizedString
+		receiveOnchain: () => LocalizedString
 		/**
-		 * Set {username} as your username?
+		 * Quick and easy phone number verification
 		 */
-		confirmTitle: (arg: { username: string }) => LocalizedString
+		onlyAPhoneNumber: () => LocalizedString
 		/**
-		 * Cannot start with lnbc1, bc1, 1, or 3 and cannot be a Bitcoin address or Lightning invoice
+		 * Let's go!
 		 */
-		forbiddenStart: () => LocalizedString
+		letsGo: () => LocalizedString
 		/**
-		 * Only lowercase letter, number and underscore (_) are accepted
+		 * Stay in trial mode
 		 */
-		letterAndNumber: () => LocalizedString
+		stayInTrialMode: () => LocalizedString
+	}
+	SetAddressModal: {
 		/**
-		 * Username must not be email address
+		 * Set {bankName} address
 		 */
-		emailAddress: () => LocalizedString
+		title: (arg: { bankName: string }) => LocalizedString
+		Errors: {
+			/**
+			 * Address must be at least 3 characters long
+			 */
+			tooShort: () => LocalizedString
+			/**
+			 * Address must be at most 50 characters long
+			 */
+			tooLong: () => LocalizedString
+			/**
+			 * Address can only contain letters, numbers, and underscores
+			 */
+			invalidCharacter: () => LocalizedString
+			/**
+			 * Sorry, this address is already taken
+			 */
+			addressUnavailable: () => LocalizedString
+			/**
+			 * An unknown error occurred, please try again later
+			 */
+			unknownError: () => LocalizedString
+		}
 		/**
-		 * ❌  {username} is not available
+		 * Receive money from other lightning wallets and {bankName} users with this address.
 		 */
-		notAvailable: (arg: { username: string }) => LocalizedString
+		receiveMoney: (arg: { bankName: string }) => LocalizedString
 		/**
-		 * {username} is now your username!
+		 * It can't be changed later.
 		 */
-		success: (arg: { username: string }) => LocalizedString
-		/**
-		 * What username do you want to use?
-		 */
-		usernameToUse: () => LocalizedString
+		itCannotBeChanged: () => LocalizedString
 	}
 	WelcomeFirstScreen: {
 		/**
@@ -5071,7 +6507,11 @@ export type TranslationFunctions = {
 		 */
 		learnToEarn: () => LocalizedString
 	}
-	PhoneInputScreen: {
+	PhoneLoginInitiateScreen: {
+		/**
+		 * Account set up
+		 */
+		title: () => LocalizedString
 		/**
 		 * Enter your phone number, and we'll text you an access code.
 		 */
@@ -5084,6 +6524,18 @@ export type TranslationFunctions = {
 		 * Something went wrong verifying you are human, please try again later.
 		 */
 		errorRequestingCaptcha: () => LocalizedString
+		/**
+		 * Something went wrong requesting the phone code, please try again later.
+		 */
+		errorRequestingCode: () => LocalizedString
+		/**
+		 * Invalid phone number. Are you sure you entered the right number?
+		 */
+		errorInvalidPhoneNumber: () => LocalizedString
+		/**
+		 * We are unable to support customers in your country.
+		 */
+		errorUnsupportedCountry: () => LocalizedString
 		/**
 		 * Phone Number
 		 */
@@ -5101,19 +6553,23 @@ export type TranslationFunctions = {
 		 */
 		whatsapp: () => LocalizedString
 	}
-	PhoneValidationScreen: {
+	PhoneLoginValidationScreen: {
 		/**
 		 * Error logging in. Did you use the right code?
 		 */
 		errorLoggingIn: () => LocalizedString
 		/**
+		 * Too many attempts. Please try again later.
+		 */
+		errorTooManyAttempts: () => LocalizedString
+		/**
+		 * This phone account already exists. Please log out of your trial account and then log in with your phone number.
+		 */
+		errorCannotUpgradeToExistingAccount: () => LocalizedString
+		/**
 		 * To confirm your phone number, enter the code we just sent you by {channel} on {phoneNumber}
 		 */
 		header: (arg: { channel: string, phoneNumber: string }) => LocalizedString
-		/**
-		 * The code needs to have 6 digits
-		 */
-		need6Digits: () => LocalizedString
 		/**
 		 * 6 Digit Code
 		 */
@@ -5127,11 +6583,123 @@ export type TranslationFunctions = {
 		 */
 		tryAgain: () => LocalizedString
 		/**
-		 * You used {channel} to receive the code.
-
-	You can try receiving via {other} instead
+		 * You selected to receive the code via {channel}. You can try receiving via {other} instead
 		 */
 		sendViaOtherChannel: (arg: { channel: string, other: string }) => LocalizedString
+	}
+	PhoneRegistrationInitiateScreen: {
+		/**
+		 * Phone set up
+		 */
+		title: () => LocalizedString
+		/**
+		 * Enter your phone number, and we'll text you an access code.
+		 */
+		header: () => LocalizedString
+		/**
+		 * Verify you are human
+		 */
+		headerVerify: () => LocalizedString
+		/**
+		 * Something went wrong requesting the phone code, please try again later.
+		 */
+		errorRequestingCode: () => LocalizedString
+		/**
+		 * Invalid phone number. Are you sure you entered the right number?
+		 */
+		errorInvalidPhoneNumber: () => LocalizedString
+		/**
+		 * We are unable to support customers in your country.
+		 */
+		errorUnsupportedCountry: () => LocalizedString
+		/**
+		 * Phone Number
+		 */
+		placeholder: () => LocalizedString
+		/**
+		 * Click to Verify
+		 */
+		verify: () => LocalizedString
+		/**
+		 * Send via SMS
+		 */
+		sms: () => LocalizedString
+		/**
+		 * Send via WhatsApp
+		 */
+		whatsapp: () => LocalizedString
+	}
+	PhoneRegistrationValidateScreen: {
+		/**
+		 * Phone number confirmed
+		 */
+		successTitle: () => LocalizedString
+	}
+	EmailRegistrationInitiateScreen: {
+		/**
+		 * Add your email
+		 */
+		title: () => LocalizedString
+		/**
+		 * Enter your email address, and we'll send you an access code.
+		 */
+		header: () => LocalizedString
+		/**
+		 * Invalid email address. Are you sure you entered the right email?
+		 */
+		invalidEmail: () => LocalizedString
+		/**
+		 * Send code
+		 */
+		send: () => LocalizedString
+		/**
+		 * Missing email registration id
+		 */
+		missingEmailRegistrationId: () => LocalizedString
+		/**
+		 * hal@finney.org
+		 */
+		placeholder: () => LocalizedString
+	}
+	EmailRegistrationValidateScreen: {
+		/**
+		 * To confirm your email address, enter the code we just sent you on {email}
+		 */
+		header: (arg: { email: string }) => LocalizedString
+		/**
+		 * Email {email} confirmed successfully
+		 */
+		success: (arg: { email: string }) => LocalizedString
+	}
+	EmailLoginInitiateScreen: {
+		/**
+		 * Login via email
+		 */
+		title: () => LocalizedString
+		/**
+		 * Enter your email address, and we'll send you an access code.
+		 */
+		header: () => LocalizedString
+		/**
+		 * Invalid email address. Are you sure you entered the right email?
+		 */
+		invalidEmail: () => LocalizedString
+		/**
+		 * Send code
+		 */
+		send: () => LocalizedString
+	}
+	EmailLoginValidateScreen: {
+		/**
+		 * If there is an account attached to {email}, you should have received 6 digits code to enter below.
+
+	If you are not receiving anything, it's probably either because this is not the right email, the email is in your spam folder.
+		 */
+		header: (arg: { email: string }) => LocalizedString
+		/**
+		 * Email {email} confirmed successfully
+		 */
+		success: (arg: { email: string }) => LocalizedString
 	}
 	common: {
 		/**
@@ -5207,9 +6775,17 @@ export type TranslationFunctions = {
 		 */
 		convert: () => LocalizedString
 		/**
+		 * Code Confirmation
+		 */
+		codeConfirmation: () => LocalizedString
+		/**
 		 * Currency
 		 */
 		currency: () => LocalizedString
+		/**
+		 * Currency issue. Refresh needed
+		 */
+		currencySyncIssue: () => LocalizedString
 		/**
 		 * Export transactions as CSV
 		 */
@@ -5299,7 +6875,11 @@ export type TranslationFunctions = {
 		 */
 		minutes: () => LocalizedString
 		/**
-		 * Validate your phone to open your wallet
+		 * Missing auth token
+		 */
+		errorAuthToken: () => LocalizedString
+		/**
+		 * Log in or create an account to access your wallet
 		 */
 		needWallet: () => LocalizedString
 		/**
@@ -5323,9 +6903,17 @@ export type TranslationFunctions = {
 		 */
 		ok: () => LocalizedString
 		/**
+		 * or
+		 */
+		or: () => LocalizedString
+		/**
 		 * Open Wallet
 		 */
 		openWallet: () => LocalizedString
+		/**
+		 * Phone
+		 */
+		phone: () => LocalizedString
 		/**
 		 * Phone Number
 		 */
@@ -5379,9 +6967,17 @@ export type TranslationFunctions = {
 		 */
 		soon: () => LocalizedString
 		/**
+		 * Submit
+		 */
+		submit: () => LocalizedString
+		/**
 		 * Success!
 		 */
 		success: () => LocalizedString
+		/**
+		 * Stablesats USD
+		 */
+		stablesatsUsd: () => LocalizedString
 		/**
 		 * To
 		 */
@@ -5419,6 +7015,10 @@ export type TranslationFunctions = {
 		 */
 		usernameRequired: () => LocalizedString
 		/**
+		 * Backup/upgrade account
+		 */
+		backupAccount: () => LocalizedString
+		/**
 		 * View transaction
 		 */
 		viewTransaction: () => LocalizedString
@@ -5446,6 +7046,14 @@ export type TranslationFunctions = {
 		 * Previous months
 		 */
 		prevMonths: () => LocalizedString
+		/**
+		 * There was a problem with your request. Please retry in one minute. If the problem persist, we recommend that you log out and log back in. You can log out by going into Settings > Account > Log out
+		 */
+		problemMaybeReauth: () => LocalizedString
+		/**
+		 * Warning
+		 */
+		warning: () => LocalizedString
 	}
 	errors: {
 		/**
@@ -5501,6 +7109,10 @@ export type TranslationFunctions = {
 		 * Show Error
 		 */
 		showError: () => LocalizedString
+		/**
+		 * Clear App Data and Logout
+		 */
+		clearAppData: () => LocalizedString
 	}
 	notifications: {
 		payment: {
@@ -5516,9 +7128,13 @@ export type TranslationFunctions = {
 	}
 	support: {
 		/**
-		 * Need help?  Contact us.
+		 * Need help? Contact us.
 		 */
 		contactUs: () => LocalizedString
+		/**
+		 * Join the community
+		 */
+		joinTheCommunity: () => LocalizedString
 		/**
 		 * WhatsApp
 		 */
@@ -5528,9 +7144,29 @@ export type TranslationFunctions = {
 		 */
 		email: () => LocalizedString
 		/**
-		 * Telegram (community)
+		 * FAQ
+		 */
+		faq: () => LocalizedString
+		/**
+		 * Enjoying the app?
+		 */
+		enjoyingApp: () => LocalizedString
+		/**
+		 * Status Page
+		 */
+		statusPage: () => LocalizedString
+		/**
+		 * Telegram
 		 */
 		telegram: () => LocalizedString
+		/**
+		 * Mattermost
+		 */
+		mattermost: () => LocalizedString
+		/**
+		 * Thank you for the feedback, would you like to suggest an improvement?
+		 */
+		thankYouText: () => LocalizedString
 		/**
 		 * {bankName} - Support
 		 */
@@ -5540,17 +7176,51 @@ export type TranslationFunctions = {
 		 */
 		defaultSupportMessage: (arg: { bankName: string, os: string, version: string }) => LocalizedString
 		/**
-		 * Hello. Please delete my account.
-		 */
-		deleteAccount: () => LocalizedString
-		/**
-		 * Account deletion request: {phoneNumber}
-		 */
-		deleteAccountEmailSubject: (arg: { phoneNumber: string }) => LocalizedString
-		/**
 		 * email {email} copied to clipboard
 		 */
 		emailCopied: (arg: { email: string }) => LocalizedString
+		/**
+		 * Delete account
+		 */
+		deleteAccount: () => LocalizedString
+		/**
+		 * delete
+		 */
+		'delete': () => LocalizedString
+		/**
+		 * Please type "{delete}" to confirm account deletion
+		 */
+		typeDelete: (arg: { delete: string }) => LocalizedString
+		/**
+		 * Final Confirmation Required
+		 */
+		finalConfirmationAccountDeletionTitle: () => LocalizedString
+		/**
+		 * Are you sure you want to delete your account? This action is irreversible.
+		 */
+		finalConfirmationAccountDeletionMessage: () => LocalizedString
+		/**
+		 * Deleting your account will cause you to lose access to your current balance. Are you sure you want to proceed?
+		 */
+		deleteAccountBalanceWarning: () => LocalizedString
+		/**
+		 * Your account has been written for deletion.
+
+	When the probation period related to regulatory requirement is over, the remaining data related to your account will be permanently deleted.
+		 */
+		deleteAccountConfirmation: () => LocalizedString
+		/**
+		 * Hey there!, please delete my account. My phone number is {phoneNumber}.
+		 */
+		deleteAccountFromPhone: (arg: { phoneNumber: string }) => LocalizedString
+		/**
+		 * Something went wrong. Contact {email} for further assistance.
+		 */
+		deleteAccountError: (arg: { email: string }) => LocalizedString
+		/**
+		 * Bye!
+		 */
+		bye: () => LocalizedString
 	}
 	lnurl: {
 		/**
@@ -5596,7 +7266,7 @@ export type TranslationFunctions = {
 	}
 	AmountInputButton: {
 		/**
-		 * Tap to set amount
+		 * Set amount
 		 */
 		tapToSetAmount: () => LocalizedString
 	}
@@ -5621,6 +7291,213 @@ export type TranslationFunctions = {
 		 * Contact Support
 		 */
 		contactSupport: () => LocalizedString
+	}
+	Circles: {
+		/**
+		 * My Circles
+		 */
+		title: () => LocalizedString
+		/**
+		 * Blink Circles
+		 */
+		titleBlinkCircles: () => LocalizedString
+		/**
+		 * Fetching latest circles
+		 */
+		fetchingLatestCircles: () => LocalizedString
+		/**
+		 * circles
+		 */
+		circles: () => LocalizedString
+		/**
+		 * Welcome someone to Blink by sending them their first sats! Your circles will grow with each welcome.
+		 */
+		circlesExplainer: () => LocalizedString
+		/**
+		 * View My Circles
+		 */
+		viewMyCircles: () => LocalizedString
+		/**
+		 * Introducing Circles
+		 */
+		introducingCircles: () => LocalizedString
+		/**
+		 * Copied Invite Link
+		 */
+		copiedInviteLink: () => LocalizedString
+		/**
+		 * Invite a friend to Blink
+		 */
+		inviteFriendToBlink: () => LocalizedString
+		/**
+		 * Share your circles
+		 */
+		shareCircles: () => LocalizedString
+		/**
+		 * Share
+		 */
+		share: () => LocalizedString
+		circlesGrowingSatsExplainer: {
+			/**
+			 * Your
+			 */
+			your: () => LocalizedString
+			/**
+			 * grow when you send a new Blink user their first sats!
+			 */
+			grow: () => LocalizedString
+		}
+		/**
+		 * Your circles grow as you welcome people to Blink – keep going!
+		 */
+		circlesGrowingKeepGoing: () => LocalizedString
+		/**
+		 * points
+		 */
+		points: () => LocalizedString
+		/**
+		 * Your inner circle grows when you send a Blink user their first sats!
+		 */
+		innerCircleGrow: () => LocalizedString
+		/**
+		 * Calculating your circles...
+		 */
+		calculatingYourCircles: () => LocalizedString
+		/**
+		 * You're driving Bitcoin adoption with Blink, keep it up!
+		 */
+		innerCircleExplainer: () => LocalizedString
+		/**
+		 * I'm driving Bitcoin adoption with Blink!
+		 */
+		innerCircleExplainerCard: () => LocalizedString
+		/**
+		 * Inner Circle
+		 */
+		innerCircle: () => LocalizedString
+		/**
+		 * people welcomed by you
+		 */
+		peopleYouWelcomed: () => LocalizedString
+		/**
+		 * people 
+	I welcomed
+		 */
+		peopleIWelcomed: () => LocalizedString
+		/**
+		 * this month
+		 */
+		thisMonth: () => LocalizedString
+		/**
+		 * Outer Circle
+		 */
+		outerCircle: () => LocalizedString
+		/**
+		 * people welcomed by your circle
+		 */
+		peopleWelcomedByYourCircle: () => LocalizedString
+		/**
+		 * people welcomed by my circle
+		 */
+		peopleWelcomedByMyCircle: () => LocalizedString
+		/**
+		 * Your Sphere
+		 */
+		yourSphere: () => LocalizedString
+		/**
+		 * My Sphere
+		 */
+		mySphere: () => LocalizedString
+		/**
+		 * You're #{thisMonthRank} this month and #{allTimeRank} all time!
+		 */
+		yourRankMessage: (arg: { allTimeRank: number, thisMonthRank: number }) => LocalizedString
+		/**
+		 * #{thisMonthRank} this month and #{allTimeRank} all time!
+		 */
+		rankMessage: (arg: { allTimeRank: number, thisMonthRank: number }) => LocalizedString
+		/**
+		 * Invite a friend
+		 */
+		inviteFriends: () => LocalizedString
+		/**
+		 * Build your circles
+		 */
+		buildYourCircle: () => LocalizedString
+		/**
+		 * My Blink Circles
+		 */
+		myBlinkCircles: () => LocalizedString
+		/**
+		 * {username}'s
+		 */
+		someones: (arg: { username: string }) => LocalizedString
+		/**
+		 * Bitcoin adoption is a group effort.
+	Invite a friend and send them sats to start building your circles.
+		 */
+		groupEffort: () => LocalizedString
+		/**
+		 * I'm driving Bitcoin adoption using Blink.
+		 */
+		drivingAdoption: () => LocalizedString
+		septChallenge: {
+			/**
+			 * September Challenge!
+			 */
+			title: () => LocalizedString
+			/**
+			 * Inner Circle {innerCircle}/21 - Earn $21
+		Top 3 - Win tickets to Adopting Bitcoin!
+			 */
+			description: (arg: { innerCircle: number }) => LocalizedString
+			/**
+			 * Grow your inner circle by 21 people in September and share on social with #blinkcircles to get $21 to your Stablesats account. Top 3 win tickets to Adopting Bitcoin!
+			 */
+			details: () => LocalizedString
+			/**
+			 * people welcomed so far
+			 */
+			peopleWelcomedSoFar: () => LocalizedString
+			/**
+			 * your rank
+			 */
+			yourRank: () => LocalizedString
+			/**
+			 * Reminder: Your inner circle grows when you send a new Blink user their first sats
+			 */
+			reminder: () => LocalizedString
+			/**
+			 * Full details at
+			 */
+			fullDetails: () => LocalizedString
+		}
+		octoberChallenge: {
+			/**
+			 * October Challenge!
+			 */
+			title: () => LocalizedString
+			/**
+			 * Share your #blinkcircles for a chance to win 1,000,000 sats!
+			 */
+			description: () => LocalizedString
+			/**
+			 * We're giving away 1,000,000 sats!
+	
+		 Share your Circles on social with tag `#blinkcircles` to enter! The winner will be chosen at random on October 31st.
+	
+		 You must have at least one person in your Inner Circle to enter!
+			 */
+			details: () => LocalizedString
+			/**
+			 * Connect on social: 
+			 */
+			connectOnSocial: () => LocalizedString
+			/**
+			 * Full details at 
+			 */
+			fullDetails: () => LocalizedString
+		}
 	}
 }
 

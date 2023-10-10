@@ -7,13 +7,15 @@ import {
   useLnNoAmountInvoicePaymentSendMutation,
   useLnNoAmountUsdInvoicePaymentSendMutation,
   useOnChainPaymentSendMutation,
+  useOnChainPaymentSendAllMutation,
   useOnChainUsdPaymentSendAsBtcDenominatedMutation,
   useOnChainUsdPaymentSendMutation,
 } from "@app/graphql/generated"
-import { useMemo } from "react"
-import { SendPayment } from "./payment-details/index.types"
+import { useMemo, useState } from "react"
+import { SendPaymentMutation } from "./payment-details/index.types"
 import { gql } from "@apollo/client"
 import { getErrorMessages } from "@app/graphql/utils"
+import { v4 as uuidv4 } from "uuid"
 
 type UseSendPaymentResult = {
   loading: boolean
@@ -24,6 +26,7 @@ type UseSendPaymentResult = {
       }>)
     | undefined
     | null
+  hasAttemptedSend: boolean
 }
 
 gql`
@@ -81,6 +84,15 @@ gql`
     }
   }
 
+  mutation onChainPaymentSendAll($input: OnChainPaymentSendAllInput!) {
+    onChainPaymentSendAll(input: $input) {
+      errors {
+        message
+      }
+      status
+    }
+  }
+
   mutation onChainUsdPaymentSend($input: OnChainUsdPaymentSendInput!) {
     onChainUsdPaymentSend(input: $input) {
       errors {
@@ -102,38 +114,56 @@ gql`
   }
 `
 
+const useGetUuid = () => {
+  const randomUuid = useMemo(() => {
+    const randomBytes = Array.from({ length: 16 }, () => Math.floor(Math.random() * 256))
+    return uuidv4({ random: randomBytes })
+  }, [])
+  return randomUuid
+}
+
 export const useSendPayment = (
-  sendPaymentFn?: SendPayment | null,
+  sendPaymentMutation?: SendPaymentMutation | null,
 ): UseSendPaymentResult => {
+  const idempotencyKey = useGetUuid()
+
+  const options = {
+    refetchQueries: [HomeAuthedDocument],
+    context: { headers: { "X-Idempotency-Key": idempotencyKey } },
+  }
+
   const [intraLedgerPaymentSend, { loading: intraLedgerPaymentSendLoading }] =
-    useIntraLedgerPaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useIntraLedgerPaymentSendMutation(options)
 
   const [intraLedgerUsdPaymentSend, { loading: intraLedgerUsdPaymentSendLoading }] =
-    useIntraLedgerUsdPaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useIntraLedgerUsdPaymentSendMutation(options)
 
   const [lnInvoicePaymentSend, { loading: lnInvoicePaymentSendLoading }] =
-    useLnInvoicePaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useLnInvoicePaymentSendMutation(options)
 
   const [lnNoAmountInvoicePaymentSend, { loading: lnNoAmountInvoicePaymentSendLoading }] =
-    useLnNoAmountInvoicePaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useLnNoAmountInvoicePaymentSendMutation(options)
 
   const [
     lnNoAmountUsdInvoicePaymentSend,
     { loading: lnNoAmountUsdInvoicePaymentSendLoading },
-  ] = useLnNoAmountUsdInvoicePaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+  ] = useLnNoAmountUsdInvoicePaymentSendMutation(options)
 
   const [onChainPaymentSend, { loading: onChainPaymentSendLoading }] =
-    useOnChainPaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useOnChainPaymentSendMutation(options)
+
+  const [onChainPaymentSendAll, { loading: onChainPaymentSendAllLoading }] =
+    useOnChainPaymentSendAllMutation(options)
 
   const [onChainUsdPaymentSend, { loading: onChainUsdPaymentSendLoading }] =
-    useOnChainUsdPaymentSendMutation({ refetchQueries: [HomeAuthedDocument] })
+    useOnChainUsdPaymentSendMutation(options)
 
   const [
     onChainUsdPaymentSendAsBtcDenominated,
     { loading: onChainUsdPaymentSendAsBtcDenominatedLoading },
-  ] = useOnChainUsdPaymentSendAsBtcDenominatedMutation({
-    refetchQueries: [HomeAuthedDocument],
-  })
+  ] = useOnChainUsdPaymentSendAsBtcDenominatedMutation(options)
+
+  const [hasAttemptedSend, setHasAttemptedSend] = useState(false)
 
   const loading =
     intraLedgerPaymentSendLoading ||
@@ -142,43 +172,51 @@ export const useSendPayment = (
     lnNoAmountInvoicePaymentSendLoading ||
     lnNoAmountUsdInvoicePaymentSendLoading ||
     onChainPaymentSendLoading ||
+    onChainPaymentSendAllLoading ||
     onChainUsdPaymentSendLoading ||
     onChainUsdPaymentSendAsBtcDenominatedLoading
 
   const sendPayment = useMemo(() => {
-    return (
-      sendPaymentFn &&
-      (async () => {
-        const { status, errors } = await sendPaymentFn({
-          intraLedgerPaymentSend,
-          intraLedgerUsdPaymentSend,
-          lnInvoicePaymentSend,
-          lnNoAmountInvoicePaymentSend,
-          lnNoAmountUsdInvoicePaymentSend,
-          onChainPaymentSend,
-          onChainUsdPaymentSend,
-          onChainUsdPaymentSendAsBtcDenominated,
-        })
-        let errorsMessage = undefined
-        if (errors) {
-          errorsMessage = getErrorMessages(errors)
+    return sendPaymentMutation && !hasAttemptedSend
+      ? async () => {
+          setHasAttemptedSend(true)
+          const { status, errors } = await sendPaymentMutation({
+            intraLedgerPaymentSend,
+            intraLedgerUsdPaymentSend,
+            lnInvoicePaymentSend,
+            lnNoAmountInvoicePaymentSend,
+            lnNoAmountUsdInvoicePaymentSend,
+            onChainPaymentSend,
+            onChainPaymentSendAll,
+            onChainUsdPaymentSend,
+            onChainUsdPaymentSendAsBtcDenominated,
+          })
+          let errorsMessage = undefined
+          if (errors) {
+            errorsMessage = getErrorMessages(errors)
+          }
+          if (status === PaymentSendResult.Failure) {
+            setHasAttemptedSend(false)
+          }
+          return { status, errorsMessage }
         }
-        return { status, errorsMessage }
-      })
-    )
+      : undefined
   }, [
-    sendPaymentFn,
+    hasAttemptedSend,
+    sendPaymentMutation,
     intraLedgerPaymentSend,
     intraLedgerUsdPaymentSend,
     lnInvoicePaymentSend,
     lnNoAmountInvoicePaymentSend,
     lnNoAmountUsdInvoicePaymentSend,
     onChainPaymentSend,
+    onChainPaymentSendAll,
     onChainUsdPaymentSend,
     onChainUsdPaymentSendAsBtcDenominated,
   ])
 
   return {
+    hasAttemptedSend,
     loading,
     sendPayment,
   }
